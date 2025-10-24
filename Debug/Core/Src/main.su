@@ -1,0 +1,7 @@
+../Drivers/CMSIS/Include/core_cm4.h:2064:26:ITM_SendChar	16	static,ignoring_inline_asm
+../Core/Src/main.c:60:20:DWT_CycleCounterInit	4	static
+../Core/Src/main.c:77:5:main	64	static,ignoring_inline_asm
+../Core/Src/main.c:167:6:SystemClock_Config	88	static
+../Core/Src/main.c:209:13:MX_GPIO_Init	32	static
+../Core/Src/main.c:235:5:_write	32	static
+../Core/Src/main.c:248:6:Error_Handler	4	static,ignoring_inline_asm
