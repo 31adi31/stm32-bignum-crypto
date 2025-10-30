@@ -136,7 +136,8 @@ int main(void)
 	  __DSB(); __ISB();
 	  start = DWT->CYCCNT;
 	  for (uint32_t i = 0; i < N; ++i) {
-	      acc ^= (a * b);       // multiply result stays in a register
+		  acc^= (a % b);
+	      //acc ^= (a * b);       // multiply result stays in a register
 	      a += 17u; b += 23u;
 	  }
 	  uint32_t mul_cycles = DWT->CYCCNT - start;
