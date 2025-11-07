@@ -1,0 +1,44 @@
+Avg. Cycle CNT Tracker
+
+Mult(non optimized): 
+
+For n = 10000: 3.00 cycles/op (with=3009790, base=2708802, N=100000)
+
+
+For n = 100000: mul only = 3.00 cycles/op (with=30097826, base=27088051, N=1000000)
+
+
+Mult(optimized to -02): 
+
+For n = 10000: 
+ 4.00 cycles/op (with=170293, base=130238, N=10000)
+
+For n = 100000
+4.00 cycles/op (with=1703030, base=1302389, N=100000)
+
+
+Mult(optimized to -03): 
+For n = 10000: 4.00 cycles/op (with=170293, base=130238, N=10000)
+
+For n = 100000: 4.00 cycles/op (with=1703030, base=1302389, N=100000)
+
+
+
+
+Modular Reduction: 
+For n = 10000: 10.22 cycles/op (with=3730849, base=2708803, N=100000)
+
+For n = 100000: 9.50 cycles/op (with=36591008, base=27088051, N=1000000)
+
+
+Modular Reduction(optimized to -02): 
+
+For n = 10000: 10.01 cycles/op (with=230425, base=130238, N=10000)
+
+For n = 100000: 9.20 cycles/op (with=2222482, base=1302390, N=100000)
+
+Modular Reduction(optimized to -03): 
+
+For n = 10000: 10.01 cycles/op (with=230425, base=130238, N=10000)
+
+For n = 100000: 9.20 cycles/op (with=2222465, base=1302389, N=100000)
