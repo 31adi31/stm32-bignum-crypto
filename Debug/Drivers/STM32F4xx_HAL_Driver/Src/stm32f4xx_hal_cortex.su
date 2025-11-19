@@ -17,5 +17,5 @@
 ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c:454:6:HAL_NVIC_ClearPendingIRQ	0	static
 ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c:471:10:HAL_NVIC_GetActive	0	static
 ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c:488:6:HAL_SYSTICK_CLKSourceConfig	0	static
-../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c:515:13:HAL_SYSTICK_Callback	0	static
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c:515:28:HAL_SYSTICK_Callback	0	static
 ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c:506:6:HAL_SYSTICK_IRQHandler	8	static
