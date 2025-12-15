@@ -20244,9 +20244,53 @@ _putchar_unlocked(int _c)
 # 22 "../Core/Src/main.c" 2
 # 1 "../Drivers/CMSIS/Include/core_cm4.h" 1
 # 23 "../Core/Src/main.c" 2
-# 51 "../Core/Src/main.c"
+# 1 "../Core/Inc/bigint.h" 1
 
-# 51 "../Core/Src/main.c"
+#define BIGINT_H 
+
+
+# 1 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/lib/gcc/arm-none-eabi/13.3.1/include/stddef.h" 1 3 4
+# 6 "../Core/Inc/bigint.h" 2
+
+
+
+
+
+
+# 11 "../Core/Inc/bigint.h"
+typedef struct {
+    size_t n_limbs;
+    uint32_t limbs[];
+} bigint;
+
+
+bigint *bigint_alloc(size_t n_limbs);
+void bigint_free(bigint *x);
+
+
+
+
+void bigint_trim(bigint *x);
+
+
+bigint *bigint_from_hex(const char *hex_str, size_t n_limbs);
+void bigint_to_hex(const bigint *x, char *hex_output, size_t output_size);
+
+
+bigint *bigint_add(const bigint *a, const bigint *b);
+
+bigint *bigint_sub(const bigint *a, const bigint *b);
+bigint *bigint_mul(const bigint *a, const bigint *b);
+
+
+int bigint_cmp(const bigint *a, const bigint *b);
+bigint *bigint_shl1(const bigint *a);
+bigint *bigint_shr1(const bigint *a);
+
+
+bigint *bigint_mod(const bigint *a, const bigint *b);
+# 24 "../Core/Src/main.c" 2
+# 53 "../Core/Src/main.c"
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 
@@ -20261,82 +20305,155 @@ static inline void DWT_CycleCounterInit(void) {
   ((DWT_Type *) (0xE0001000UL) )->CYCCNT = 0;
   ((DWT_Type *) (0xE0001000UL) )->CTRL |= (0x1UL );
 }
-# 77 "../Core/Src/main.c"
+# 80 "../Core/Src/main.c"
 int main(void)
 {
-# 90 "../Core/Src/main.c"
+# 93 "../Core/Src/main.c"
   HAL_Init();
 
   ((CoreDebug_Type *) (0xE000EDF0UL))->DEMCR |= (1UL << 24U);
   ((ITM_Type *) (0xE0000000UL) )->TCR = (1UL );
   ((ITM_Type *) (0xE0000000UL) )->TER = 1;
   setvbuf(
-# 95 "../Core/Src/main.c" 3
+# 98 "../Core/Src/main.c" 3
          ((_impure_ptr)->_stdout)
-# 95 "../Core/Src/main.c"
+# 98 "../Core/Src/main.c"
                , 
-# 95 "../Core/Src/main.c" 3 4
+# 98 "../Core/Src/main.c" 3 4
                  ((void *)0)
-# 95 "../Core/Src/main.c"
+# 98 "../Core/Src/main.c"
                      , 
-# 95 "../Core/Src/main.c" 3
+# 98 "../Core/Src/main.c" 3
                        2
-# 95 "../Core/Src/main.c"
+# 98 "../Core/Src/main.c"
                              , 0);
   SystemClock_Config();
-# 109 "../Core/Src/main.c"
+# 112 "../Core/Src/main.c"
   MX_GPIO_Init();
   DWT_CycleCounterInit();
 
 
 
 
-  static volatile uint32_t bench_sink;
+
+  const char *hex_str =
+      "30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47";
+
+  bigint *A = bigint_from_hex(hex_str, 8);
+  bigint *B = bigint_from_hex(hex_str, 8);
+
+
+
+
+  char out_hex[140];
+
+  if (!A || !B) {
+    printf("Bigint alloc failed\r\n");
+    Error_Handler();
+  }
+
+
+  bigint *s = bigint_add(A, B);
+  if (s) {
+    bigint_to_hex(s, out_hex, sizeof out_hex);
+    printf("A+B = %s\r\n", out_hex);
+    bigint_free(s);
+  }
+
+  static volatile uint32_t bench_sink = 0;
   while (1)
   {
-   const uint32_t N = 100000;
-   volatile uint32_t a, b;
-   uint32_t acc;
+      const uint32_t N = 500;
 
+      __DSB(); __ISB();
+      uint32_t start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
+      for (uint32_t i = 0; i < N; i++) {
+          bigint *t = bigint_alloc(9);
+          if (t) {
+              bench_sink ^= t->limbs[0];
+              bigint_free(t);
+          }
+      }
+      uint32_t alloc_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
+      __DSB(); __ISB();
 
-   a = 123456789u; b = 98765u; acc = 0;
-   __DSB(); __ISB();
-   uint32_t start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
-   for (uint32_t i = 0; i < N; ++i) {
+      printf("alloc+free: %lu cycles/op\r\n",
+             (unsigned long)(alloc_cycles / N));
 
-       acc ^= a;
-       a += 17u; b += 23u;
-   }
-   uint32_t base_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
-   __DSB(); __ISB();
+      __DSB(); __ISB();
+      start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
+      for (uint32_t i = 0; i < N; i++) {
+       bigint *r = bigint_add(A, B);
+       if (r) {
+           bench_sink ^= r->limbs[0];
+           bigint_free(r);
+       }
+      }
+      uint32_t add_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
+      __DSB(); __ISB();
 
-
-   a = 123456789u; b = 98765u; acc = 0;
-   __DSB(); __ISB();
-   start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
-   for (uint32_t i = 0; i < N; ++i) {
-    acc^= (a % b);
-
-       a += 17u; b += 23u;
-   }
-   uint32_t mul_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
-   __DSB(); __ISB();
-
-   bench_sink ^= acc;
-
-   uint32_t delta = mul_cycles - base_cycles;
-   uint32_t cpo_x100 = (delta * 100u) / N;
-   printf("mul only = %lu.%02lu cycles/op (with=%lu, base=%lu, N=%lu)\r\n",
-          cpo_x100/100, cpo_x100%100,
-          (unsigned long)mul_cycles, (unsigned long)base_cycles, (unsigned long)N);
-   HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000UL + 0x00020000UL) + 0x0000UL)), ((uint16_t)0x0020));
-
-   HAL_Delay(500);
+      printf("bigint_add: %lu cycles/op\r\n",
+             (unsigned long)(add_cycles / N));
 
 
 
+      __DSB(); __ISB();
+      start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
+      for (uint32_t i = 0; i < N; i++) {
+       bigint *r = bigint_sub(A, B);
+       if (r) {
+           bench_sink ^= r->limbs[0];
+           bigint_free(r);
+       }
+      }
+      uint32_t sub_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
+      __DSB(); __ISB();
 
+      printf("bigint_sub: %lu cycles/op\r\n",
+             (unsigned long)(sub_cycles / N));
+
+
+
+      __DSB(); __ISB();
+      start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
+      for (uint32_t i = 0; i < N; i++) {
+       bigint *r = bigint_mul(A, B);
+       if (r) {
+           bench_sink ^= r->limbs[0];
+           bigint_free(r);
+       }
+      }
+      uint32_t mul_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
+      __DSB(); __ISB();
+
+      printf("bigint_mul: %lu cycles/op\r\n",
+             (unsigned long)(mul_cycles / N));
+
+
+
+      const uint32_t Nmod = 50;
+
+      __DSB(); __ISB();
+      start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
+      for (uint32_t i = 0; i < Nmod; i++) {
+       bigint *r = bigint_mod(A, B);
+       if (r) {
+           bench_sink ^= r->limbs[0];
+           bigint_free(r);
+       }
+      }
+      uint32_t mod_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
+      __DSB(); __ISB();
+
+      printf("bigint_mod: %lu cycles/op\r\n",
+             (unsigned long)(mod_cycles / Nmod));
+
+
+
+      HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000UL + 0x00020000UL) + 0x0000UL)), ((uint16_t)0x0020));
+      HAL_Delay(500);
   }
+
 
 }
 

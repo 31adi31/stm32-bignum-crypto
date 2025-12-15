@@ -1,0 +1,12 @@
+../Core/Src/bigint.c:42:9:bigint_alloc	2
+../Core/Src/bigint.c:51:6:bigint_free	2
+../Core/Src/bigint.c:58:6:bigint_trim	5
+../Core/Src/bigint.c:69:9:bigint_from_hex	14
+../Core/Src/bigint.c:102:6:bigint_to_hex	23
+../Core/Src/bigint.c:171:5:bigint_cmp	19
+../Core/Src/bigint.c:198:9:bigint_add	11
+../Core/Src/bigint.c:224:9:bigint_sub	11
+../Core/Src/bigint.c:248:9:bigint_mul	12
+../Core/Src/bigint.c:283:9:bigint_shl1	8
+../Core/Src/bigint.c:302:9:bigint_shr1	8
+../Core/Src/bigint.c:325:9:bigint_mod	34

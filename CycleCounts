@@ -1,0 +1,67 @@
+Avg. Cycle CNT Tracker
+
+Mult(non optimized): 
+
+For n = 10000: 3.00 cycles/op (with=3009790, base=2708802, N=100000)
+
+
+For n = 100000: mul only = 3.00 cycles/op (with=30097826, base=27088051, N=1000000)
+
+
+Mult(optimized to -02): 
+
+For n = 10000: 
+ 4.00 cycles/op (with=170293, base=130238, N=10000)
+
+For n = 100000
+4.00 cycles/op (with=1703030, base=1302389, N=100000)
+
+
+Mult(optimized to -03): 
+For n = 10000: 4.00 cycles/op (with=170293, base=130238, N=10000)
+
+For n = 100000: 4.00 cycles/op (with=1703030, base=1302389, N=100000)
+
+
+
+
+Modular Reduction: 
+For n = 10000: 10.22 cycles/op (with=3730849, base=2708803, N=100000)
+
+For n = 100000: 9.50 cycles/op (with=36591008, base=27088051, N=1000000)
+
+
+Modular Reduction(optimized to -02): 
+
+For n = 10000: 10.01 cycles/op (with=230425, base=130238, N=10000)
+
+For n = 100000: 9.20 cycles/op (with=2222482, base=1302390, N=100000)
+
+Modular Reduction(optimized to -03): 
+
+For n = 10000: 10.01 cycles/op (with=230425, base=130238, N=10000)
+
+For n = 100000: 9.20 cycles/op (with=2222465, base=1302389, N=100000)
+
+
+
+Big INT Cycle Count: 
+
+This current logic considers continously allocing and freeing memoery
+Prime hex val(for both A and B): 30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
+
+Mem Allocation: 
+
+alloc+free: 462 cycles/op
+
+Addition(A+B):
+bigint_add: 687 cycles/op
+
+Subtraction(A-B):
+bigint_sub: 839 cycles/op
+
+Multiplication(A*B):
+bigint_mul: 1826 cycles/op
+
+Mod Prime(A%B):
+bigint_mod: 3749 cycles/op

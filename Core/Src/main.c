@@ -20,6 +20,8 @@
 #include "main.h"
 #include <stdio.h>
 #include "core_cm4.h"   // for ITM_SendChar
+#include "bigint.h"
+
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -62,6 +64,7 @@ static inline void DWT_CycleCounterInit(void) {
   DWT->CYCCNT = 0;                                 // reset counter
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;             // start CYCCNT
 }
+
 /* USER CODE END 0 */
 
 
@@ -112,52 +115,125 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  static volatile uint32_t bench_sink;
+  // Allocate test operands ONCE (outside the loop)
+  const char *hex_str =
+      "30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47";
+
+  bigint *A = bigint_from_hex(hex_str, 8);
+  bigint *B = bigint_from_hex(hex_str, 8);
+
+  // For subtraction/mod, it’s nice to guarantee A >= B and B != 0.
+  // Here A==B, so A>=B holds. But mod with B==A is fine; B!=0 is true.
+
+  char out_hex[140];
+
+  if (!A || !B) {
+    printf("Bigint alloc failed\r\n");
+    Error_Handler(); // never returns
+  }
+
+  // Quick sanity print once:
+  bigint *s = bigint_add(A, B);
+  if (s) {
+    bigint_to_hex(s, out_hex, sizeof out_hex);
+    printf("A+B = %s\r\n", out_hex);
+    bigint_free(s);
+  }
+
+  static volatile uint32_t bench_sink = 0;
   while (1)
   {
-	  const uint32_t N = 100000;
-	  volatile uint32_t a, b;   // keep these volatile to vary operands
-	  uint32_t acc;             // non-volatile; stays in a register
+      const uint32_t N = 500;
+      // ---------- ALLOC + FREE BASELINE ----------
+      __DSB(); __ISB();
+      uint32_t start = DWT->CYCCNT;
+      for (uint32_t i = 0; i < N; i++) {
+          bigint *t = bigint_alloc(9);   // same size as add result
+          if (t) {
+              bench_sink ^= t->limbs[0];
+              bigint_free(t);
+          }
+      }
+      uint32_t alloc_cycles = DWT->CYCCNT - start;
+      __DSB(); __ISB();
 
-	  // ----- baseline (no multiply) -----
-	  a = 123456789u; b = 98765u; acc = 0;
-	  __DSB(); __ISB();
-	  uint32_t start = DWT->CYCCNT;
-	  for (uint32_t i = 0; i < N; ++i) {
-	      // dummy dependency so loop shape matches the mul loop
-	      acc ^= a;             // cheap register op; cancels in subtraction poorly? kept same both loops
-	      a += 17u; b += 23u;
-	  }
-	  uint32_t base_cycles = DWT->CYCCNT - start;
-	  __DSB(); __ISB();
+      printf("alloc+free: %lu cycles/op\r\n",
+             (unsigned long)(alloc_cycles / N));
+      // ---------- ADD ----------
+      __DSB(); __ISB();
+      start = DWT->CYCCNT;
+      for (uint32_t i = 0; i < N; i++) {
+    	  bigint *r = bigint_add(A, B);
+    	  if (r) {
+    	      bench_sink ^= r->limbs[0];
+    	      bigint_free(r);
+    	  }
+      }
+      uint32_t add_cycles = DWT->CYCCNT - start;
+      __DSB(); __ISB();
 
-	  // ----- with multiply -----
-	  a = 123456789u; b = 98765u; acc = 0;
-	  __DSB(); __ISB();
-	  start = DWT->CYCCNT;
-	  for (uint32_t i = 0; i < N; ++i) {
-		  acc^= (a % b);
-	      //acc ^= (a * b);       // multiply result stays in a register
-	      a += 17u; b += 23u;
-	  }
-	  uint32_t mul_cycles = DWT->CYCCNT - start;
-	  __DSB(); __ISB();
-
-	  bench_sink ^= acc;        // consume to prevent optimization
-
-	  uint32_t delta = mul_cycles - base_cycles;
-	  uint32_t cpo_x100 = (delta * 100u) / N;
-	  printf("mul only = %lu.%02lu cycles/op (with=%lu, base=%lu, N=%lu)\r\n",
-	         cpo_x100/100, cpo_x100%100,
-	         (unsigned long)mul_cycles, (unsigned long)base_cycles, (unsigned long)N);
-	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // toggle the LED
-	  //printf("LED blinking\r\n");
-	  HAL_Delay(500);
-    /* USER CODE END WHILE */
+      printf("bigint_add: %lu cycles/op\r\n",
+             (unsigned long)(add_cycles / N));
 
 
-    /* USER CODE BEGIN 3 */
+      // ---------- SUB ----------
+      __DSB(); __ISB();
+      start = DWT->CYCCNT;
+      for (uint32_t i = 0; i < N; i++) {
+    	  bigint *r = bigint_sub(A, B);
+    	  if (r) {
+    	      bench_sink ^= r->limbs[0];
+    	      bigint_free(r);
+    	  }
+      }
+      uint32_t sub_cycles = DWT->CYCCNT - start;
+      __DSB(); __ISB();
+
+      printf("bigint_sub: %lu cycles/op\r\n",
+             (unsigned long)(sub_cycles / N));
+
+
+      // ---------- MUL ----------
+      __DSB(); __ISB();
+      start = DWT->CYCCNT;
+      for (uint32_t i = 0; i < N; i++) {
+    	  bigint *r = bigint_mul(A, B);
+    	  if (r) {
+    	      bench_sink ^= r->limbs[0];
+    	      bigint_free(r);
+    	  }
+      }
+      uint32_t mul_cycles = DWT->CYCCNT - start;
+      __DSB(); __ISB();
+
+      printf("bigint_mul: %lu cycles/op\r\n",
+             (unsigned long)(mul_cycles / N));
+
+
+      // ---------- MOD ----------
+      const uint32_t Nmod = 50;   // mod is expensive
+
+      __DSB(); __ISB();
+      start = DWT->CYCCNT;
+      for (uint32_t i = 0; i < Nmod; i++) {
+    	  bigint *r = bigint_mod(A, B);
+    	  if (r) {
+    	      bench_sink ^= r->limbs[0];
+    	      bigint_free(r);
+    	  }
+      }
+      uint32_t mod_cycles = DWT->CYCCNT - start;
+      __DSB(); __ISB();
+
+      printf("bigint_mod: %lu cycles/op\r\n",
+             (unsigned long)(mod_cycles / Nmod));
+
+
+      // ---------- SANITY / LIVENESS ----------
+      HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // LED heartbeat
+      HAL_Delay(500);
   }
+
   /* USER CODE END 3 */
 }
 
