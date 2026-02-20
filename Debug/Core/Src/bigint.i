@@ -1647,35 +1647,55 @@ typedef struct {
 # 11 "../Core/Inc/bigint.h"
 typedef struct {
     size_t n_limbs;
+    size_t capacity;
     uint32_t limbs[];
 } bigint;
 
 
-bigint *bigint_alloc(size_t n_limbs);
+bigint *bigint_alloc(size_t capacity_limbs);
 void bigint_free(bigint *x);
 
 
+void bigint_set_zero(bigint *x);
+
+
+int bigint_copy(bigint *dst, const bigint *src);
 
 
 void bigint_trim(bigint *x);
 
 
-bigint *bigint_from_hex(const char *hex_str, size_t n_limbs);
+
+int bigint_from_hex(bigint *out, const char *hex_str);
+
+
 void bigint_to_hex(const bigint *x, char *hex_output, size_t output_size);
 
 
-bigint *bigint_add(const bigint *a, const bigint *b);
-
-bigint *bigint_sub(const bigint *a, const bigint *b);
-bigint *bigint_mul(const bigint *a, const bigint *b);
-
-
+int bigint_is_zero(const bigint *x);
 int bigint_cmp(const bigint *a, const bigint *b);
-bigint *bigint_shl1(const bigint *a);
-bigint *bigint_shr1(const bigint *a);
 
 
-bigint *bigint_mod(const bigint *a, const bigint *b);
+
+int bigint_add(bigint *res, const bigint *a, const bigint *b);
+
+
+int bigint_sub(bigint *res, const bigint *a, const bigint *b);
+
+
+int bigint_mul(bigint *res, const bigint *a, const bigint *b);
+
+
+int bigint_shl1(bigint *x);
+int bigint_shr1(bigint *x);
+
+
+
+
+
+
+
+int bigint_mod(bigint *res, const bigint *a, const bigint *b, bigint *tmp);
 # 2 "../Core/Src/bigint.c" 2
 # 1 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/string.h" 1 3
 
@@ -3001,604 +3021,6 @@ char *strsignal (int __signo);
 
 
 # 3 "../Core/Src/bigint.c" 2
-# 1 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 1 3
-# 27 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-#define _STDIO_H_ 
-
-
-
-#define _FSTDIO 
-
-#define __need_size_t 
-#define __need_NULL 
-
-# 1 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/lib/gcc/arm-none-eabi/13.3.1/include/stddef.h" 1 3 4
-# 158 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/lib/gcc/arm-none-eabi/13.3.1/include/stddef.h" 3 4
-#undef __need_ptrdiff_t
-# 237 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/lib/gcc/arm-none-eabi/13.3.1/include/stddef.h" 3 4
-#undef __need_size_t
-# 349 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/lib/gcc/arm-none-eabi/13.3.1/include/stddef.h" 3 4
-#undef __need_wchar_t
-# 399 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/lib/gcc/arm-none-eabi/13.3.1/include/stddef.h" 3 4
-#undef NULL
-
-
-
-
-#define NULL ((void *)0)
-
-
-
-
-
-#undef __need_NULL
-
-
-
-
-#undef offsetof
-#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
-# 37 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 2 3
-
-
-#define __need___va_list 
-# 1 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/lib/gcc/arm-none-eabi/13.3.1/include/stdarg.h" 1 3 4
-# 34 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/lib/gcc/arm-none-eabi/13.3.1/include/stdarg.h" 3 4
-#undef __need___va_list
-
-
-
-
-#define __GNUC_VA_LIST 
-typedef __builtin_va_list __gnuc_va_list;
-# 41 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 2 3
-
-
-
-
-
-typedef __gnuc_va_list va_list;
-#define _VA_LIST_DEFINED 
-# 63 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-
-
-
-typedef __FILE FILE;
-#define __FILE_defined 
-
-
-typedef _fpos_t fpos_t;
-
-
-
-
-
-typedef __off_t off_t;
-#define _OFF_T_DECLARED 
-
-
-
-typedef _ssize_t ssize_t;
-#define _SSIZE_T_DECLARED 
-
-
-# 1 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/sys/stdio.h" 1 3
-
-#define _NEWLIB_STDIO_H 
-# 13 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/sys/stdio.h" 3
-#define _flockfile(fp) (((fp)->_flags & __SSTR) ? 0 : __lock_acquire_recursive((fp)->_lock))
-
-
-
-
-
-
-
-#define _funlockfile(fp) (((fp)->_flags & __SSTR) ? 0 : __lock_release_recursive((fp)->_lock))
-# 86 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 2 3
-
-#define __SLBF 0x0001
-#define __SNBF 0x0002
-#define __SRD 0x0004
-#define __SWR 0x0008
-
-#define __SRW 0x0010
-#define __SEOF 0x0020
-#define __SERR 0x0040
-#define __SMBF 0x0080
-#define __SAPP 0x0100
-#define __SSTR 0x0200
-#define __SOPT 0x0400
-#define __SNPT 0x0800
-#define __SOFF 0x1000
-#define __SORD 0x2000
-
-
-
-#define __SL64 0x8000
-
-
-#define __SNLK 0x0001
-#define __SWID 0x2000
-# 120 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-#define _IOFBF 0
-#define _IOLBF 1
-#define _IONBF 2
-
-#define EOF (-1)
-
-
-
-
-#define BUFSIZ 1024
-
-
-
-
-
-#define FOPEN_MAX 20
-
-
-
-
-
-#define FILENAME_MAX 1024
-
-
-
-
-
-#define L_tmpnam FILENAME_MAX
-
-
-
-#define P_tmpdir "/tmp"
-
-
-
-#define SEEK_SET 0
-
-
-#define SEEK_CUR 1
-
-
-#define SEEK_END 2
-
-
-#define TMP_MAX 26
-
-#define stdin _REENT_STDIN(_REENT)
-#define stdout _REENT_STDOUT(_REENT)
-#define stderr _REENT_STDERR(_REENT)
-
-#define _stdin_r(x) _REENT_STDIN(x)
-#define _stdout_r(x) _REENT_STDOUT(x)
-#define _stderr_r(x) _REENT_STDERR(x)
-
-
-
-
-
-
-
-#define __VALIST __gnuc_va_list
-
-
-
-
-
-
-char * ctermid (char *);
-
-
-
-
-FILE * tmpfile (void);
-char * tmpnam (char *);
-
-char * tempnam (const char *, const char *) __attribute__((__malloc__)) __attribute__((__warn_unused_result__));
-
-int fclose (FILE *);
-int fflush (FILE *);
-FILE * freopen (const char *restrict, const char *restrict, FILE *restrict);
-void setbuf (FILE *restrict, char *restrict);
-int setvbuf (FILE *restrict, char *restrict, int, size_t);
-int fprintf (FILE *restrict, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 2, 3)));
-int fscanf (FILE *restrict, const char *restrict, ...)
-               __attribute__ ((__format__ (__scanf__, 2, 3)));
-int printf (const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 1, 2)));
-int scanf (const char *restrict, ...)
-               __attribute__ ((__format__ (__scanf__, 1, 2)));
-int sscanf (const char *restrict, const char *restrict, ...)
-               __attribute__ ((__format__ (__scanf__, 2, 3)));
-int vfprintf (FILE *restrict, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 2, 0)));
-int vprintf (const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 1, 0)));
-int vsprintf (char *restrict, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 2, 0)));
-int fgetc (FILE *);
-char * fgets (char *restrict, int, FILE *restrict);
-int fputc (int, FILE *);
-int fputs (const char *restrict, FILE *restrict);
-int getc (FILE *);
-int getchar (void);
-char * gets (char *);
-int putc (int, FILE *);
-int putchar (int);
-int puts (const char *);
-int ungetc (int, FILE *);
-size_t fread (void *restrict, size_t _size, size_t _n, FILE *restrict);
-size_t fwrite (const void *restrict , size_t _size, size_t _n, FILE *);
-
-
-
-int fgetpos (FILE *restrict, fpos_t *restrict);
-
-int fseek (FILE *, long, int);
-
-
-
-int fsetpos (FILE *, const fpos_t *);
-
-long ftell ( FILE *);
-void rewind (FILE *);
-void clearerr (FILE *);
-int feof (FILE *);
-int ferror (FILE *);
-void perror (const char *);
-
-FILE * fopen (const char *restrict _name, const char *restrict _type);
-int sprintf (char *restrict, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 2, 3)));
-int remove (const char *);
-int rename (const char *, const char *);
-# 263 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-int fseeko (FILE *, off_t, int);
-off_t ftello (FILE *);
-
-
-
-
-
-
-
-int snprintf (char *restrict, size_t, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-int vsnprintf (char *restrict, size_t, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-int vfscanf (FILE *restrict, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 2, 0)));
-int vscanf (const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 1, 0)));
-int vsscanf (const char *restrict, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 2, 0)));
-# 290 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-int asiprintf (char **, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 2, 3)));
-char * asniprintf (char *, size_t *, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-char * asnprintf (char *restrict, size_t *restrict, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-
-int diprintf (int, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 2, 3)));
-
-int fiprintf (FILE *, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 2, 3)));
-int fiscanf (FILE *, const char *, ...)
-               __attribute__ ((__format__ (__scanf__, 2, 3)));
-int iprintf (const char *, ...)
-               __attribute__ ((__format__ (__printf__, 1, 2)));
-int iscanf (const char *, ...)
-               __attribute__ ((__format__ (__scanf__, 1, 2)));
-int siprintf (char *, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 2, 3)));
-int siscanf (const char *, const char *, ...)
-               __attribute__ ((__format__ (__scanf__, 2, 3)));
-int sniprintf (char *, size_t, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-int vasiprintf (char **, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 2, 0)));
-char * vasniprintf (char *, size_t *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-char * vasnprintf (char *, size_t *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-int vdiprintf (int, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 2, 0)));
-int vfiprintf (FILE *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 2, 0)));
-int vfiscanf (FILE *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 2, 0)));
-int viprintf (const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 1, 0)));
-int viscanf (const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 1, 0)));
-int vsiprintf (char *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 2, 0)));
-int vsiscanf (const char *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 2, 0)));
-int vsniprintf (char *, size_t, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-# 345 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-FILE * fdopen (int, const char *);
-
-int fileno (FILE *);
-
-
-int pclose (FILE *);
-FILE * popen (const char *, const char *);
-
-
-
-void setbuffer (FILE *, char *, int);
-int setlinebuf (FILE *);
-
-
-
-int getw (FILE *);
-int putw (int, FILE *);
-
-
-int getc_unlocked (FILE *);
-int getchar_unlocked (void);
-void flockfile (FILE *);
-int ftrylockfile (FILE *);
-void funlockfile (FILE *);
-int putc_unlocked (int, FILE *);
-int putchar_unlocked (int);
-# 380 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-int dprintf (int, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 2, 3)));
-
-FILE * fmemopen (void *restrict, size_t, const char *restrict);
-
-
-FILE * open_memstream (char **, size_t *);
-int vdprintf (int, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 2, 0)));
-
-
-
-int renameat (int, const char *, int, const char *);
-# 402 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-int _asiprintf_r (struct _reent *, char **, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-char * _asniprintf_r (struct _reent *, char *, size_t *, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 4, 5)));
-char * _asnprintf_r (struct _reent *, char *restrict, size_t *restrict, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 4, 5)));
-int _asprintf_r (struct _reent *, char **restrict, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-int _diprintf_r (struct _reent *, int, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-int _dprintf_r (struct _reent *, int, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-int _fclose_r (struct _reent *, FILE *);
-int _fcloseall_r (struct _reent *);
-FILE * _fdopen_r (struct _reent *, int, const char *);
-int _fflush_r (struct _reent *, FILE *);
-int _fgetc_r (struct _reent *, FILE *);
-int _fgetc_unlocked_r (struct _reent *, FILE *);
-char * _fgets_r (struct _reent *, char *restrict, int, FILE *restrict);
-char * _fgets_unlocked_r (struct _reent *, char *restrict, int, FILE *restrict);
-
-
-
-
-int _fgetpos_r (struct _reent *, FILE *, fpos_t *);
-int _fsetpos_r (struct _reent *, FILE *, const fpos_t *);
-
-int _fiprintf_r (struct _reent *, FILE *, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-int _fiscanf_r (struct _reent *, FILE *, const char *, ...)
-               __attribute__ ((__format__ (__scanf__, 3, 4)));
-FILE * _fmemopen_r (struct _reent *, void *restrict, size_t, const char *restrict);
-FILE * _fopen_r (struct _reent *, const char *restrict, const char *restrict);
-FILE * _freopen_r (struct _reent *, const char *restrict, const char *restrict, FILE *restrict);
-int _fprintf_r (struct _reent *, FILE *restrict, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-int _fpurge_r (struct _reent *, FILE *);
-int _fputc_r (struct _reent *, int, FILE *);
-int _fputc_unlocked_r (struct _reent *, int, FILE *);
-int _fputs_r (struct _reent *, const char *restrict, FILE *restrict);
-int _fputs_unlocked_r (struct _reent *, const char *restrict, FILE *restrict);
-size_t _fread_r (struct _reent *, void *restrict, size_t _size, size_t _n, FILE *restrict);
-size_t _fread_unlocked_r (struct _reent *, void *restrict, size_t _size, size_t _n, FILE *restrict);
-int _fscanf_r (struct _reent *, FILE *restrict, const char *restrict, ...)
-               __attribute__ ((__format__ (__scanf__, 3, 4)));
-int _fseek_r (struct _reent *, FILE *, long, int);
-int _fseeko_r (struct _reent *, FILE *, _off_t, int);
-long _ftell_r (struct _reent *, FILE *);
-_off_t _ftello_r (struct _reent *, FILE *);
-void _rewind_r (struct _reent *, FILE *);
-size_t _fwrite_r (struct _reent *, const void *restrict, size_t _size, size_t _n, FILE *restrict);
-size_t _fwrite_unlocked_r (struct _reent *, const void *restrict, size_t _size, size_t _n, FILE *restrict);
-int _getc_r (struct _reent *, FILE *);
-int _getc_unlocked_r (struct _reent *, FILE *);
-int _getchar_r (struct _reent *);
-int _getchar_unlocked_r (struct _reent *);
-char * _gets_r (struct _reent *, char *);
-int _iprintf_r (struct _reent *, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 2, 3)));
-int _iscanf_r (struct _reent *, const char *, ...)
-               __attribute__ ((__format__ (__scanf__, 2, 3)));
-FILE * _open_memstream_r (struct _reent *, char **, size_t *);
-void _perror_r (struct _reent *, const char *);
-int _printf_r (struct _reent *, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 2, 3)));
-int _putc_r (struct _reent *, int, FILE *);
-int _putc_unlocked_r (struct _reent *, int, FILE *);
-int _putchar_unlocked_r (struct _reent *, int);
-int _putchar_r (struct _reent *, int);
-int _puts_r (struct _reent *, const char *);
-int _remove_r (struct _reent *, const char *);
-int _rename_r (struct _reent *,
-      const char *_old, const char *_new);
-int _scanf_r (struct _reent *, const char *restrict, ...)
-               __attribute__ ((__format__ (__scanf__, 2, 3)));
-int _siprintf_r (struct _reent *, char *, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-int _siscanf_r (struct _reent *, const char *, const char *, ...)
-               __attribute__ ((__format__ (__scanf__, 3, 4)));
-int _sniprintf_r (struct _reent *, char *, size_t, const char *, ...)
-               __attribute__ ((__format__ (__printf__, 4, 5)));
-int _snprintf_r (struct _reent *, char *restrict, size_t, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 4, 5)));
-int _sprintf_r (struct _reent *, char *restrict, const char *restrict, ...)
-               __attribute__ ((__format__ (__printf__, 3, 4)));
-int _sscanf_r (struct _reent *, const char *restrict, const char *restrict, ...)
-               __attribute__ ((__format__ (__scanf__, 3, 4)));
-char * _tempnam_r (struct _reent *, const char *, const char *);
-FILE * _tmpfile_r (struct _reent *);
-char * _tmpnam_r (struct _reent *, char *);
-int _ungetc_r (struct _reent *, int, FILE *);
-int _vasiprintf_r (struct _reent *, char **, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-char * _vasniprintf_r (struct _reent*, char *, size_t *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 4, 0)));
-char * _vasnprintf_r (struct _reent*, char *, size_t *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 4, 0)));
-int _vasprintf_r (struct _reent *, char **, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-int _vdiprintf_r (struct _reent *, int, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-int _vdprintf_r (struct _reent *, int, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-int _vfiprintf_r (struct _reent *, FILE *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-int _vfiscanf_r (struct _reent *, FILE *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 3, 0)));
-int _vfprintf_r (struct _reent *, FILE *restrict, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-int _vfscanf_r (struct _reent *, FILE *restrict, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 3, 0)));
-int _viprintf_r (struct _reent *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 2, 0)));
-int _viscanf_r (struct _reent *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 2, 0)));
-int _vprintf_r (struct _reent *, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 2, 0)));
-int _vscanf_r (struct _reent *, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 2, 0)));
-int _vsiprintf_r (struct _reent *, char *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-int _vsiscanf_r (struct _reent *, const char *, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 3, 0)));
-int _vsniprintf_r (struct _reent *, char *, size_t, const char *, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 4, 0)));
-int _vsnprintf_r (struct _reent *, char *restrict, size_t, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 4, 0)));
-int _vsprintf_r (struct _reent *, char *restrict, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__printf__, 3, 0)));
-int _vsscanf_r (struct _reent *, const char *restrict, const char *restrict, __gnuc_va_list)
-               __attribute__ ((__format__ (__scanf__, 3, 0)));
-
-
-
-int fpurge (FILE *);
-ssize_t __getdelim (char **, size_t *, int, FILE *);
-ssize_t __getline (char **, size_t *, FILE *);
-
-
-void clearerr_unlocked (FILE *);
-int feof_unlocked (FILE *);
-int ferror_unlocked (FILE *);
-int fileno_unlocked (FILE *);
-int fflush_unlocked (FILE *);
-int fgetc_unlocked (FILE *);
-int fputc_unlocked (int, FILE *);
-size_t fread_unlocked (void *restrict, size_t _size, size_t _n, FILE *restrict);
-size_t fwrite_unlocked (const void *restrict , size_t _size, size_t _n, FILE *);
-# 583 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-int __srget_r (struct _reent *, FILE *);
-int __swbuf_r (struct _reent *, int, FILE *);
-# 607 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-FILE *funopen (const void *__cookie,
-  int (*__readfn)(void *__cookie, char *__buf,
-    int __n),
-  int (*__writefn)(void *__cookie, const char *__buf,
-     int __n),
-  fpos_t (*__seekfn)(void *__cookie, fpos_t __off, int __whence),
-  int (*__closefn)(void *__cookie));
-FILE *_funopen_r (struct _reent *, const void *__cookie,
-  int (*__readfn)(void *__cookie, char *__buf,
-    int __n),
-  int (*__writefn)(void *__cookie, const char *__buf,
-     int __n),
-  fpos_t (*__seekfn)(void *__cookie, fpos_t __off, int __whence),
-  int (*__closefn)(void *__cookie));
-
-
-#define fropen(__cookie,__fn) funopen(__cookie, __fn, NULL, NULL, NULL)
-#define fwopen(__cookie,__fn) funopen(__cookie, NULL, __fn, NULL, NULL)
-# 658 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-#define __sgetc_raw_r(__ptr,__f) (--(__f)->_r < 0 ? __srget_r(__ptr, __f) : (int)(*(__f)->_p++))
-# 687 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-#define __sgetc_r(__ptr,__p) __sgetc_raw_r(__ptr, __p)
-
-
-
-static __inline__ int __sputc_r(struct _reent *_ptr, int _c, FILE *_p) {
-
-
-
-
- if (--_p->_w >= 0 || (_p->_w >= _p->_lbfsize && (char)_c != '\n'))
-  return (*_p->_p++ = _c);
- else
-  return (__swbuf_r(_ptr, _c, _p));
-}
-# 723 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-#define __sfeof(p) ((int)(((p)->_flags & __SEOF) != 0))
-#define __sferror(p) ((int)(((p)->_flags & __SERR) != 0))
-#define __sclearerr(p) ((void)((p)->_flags &= ~(__SERR|__SEOF)))
-#define __sfileno(p) ((p)->_file)
-# 745 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-static __inline int
-_getchar_unlocked(void)
-{
- struct _reent *_ptr;
-
- _ptr = _impure_ptr;
- return ((--(((_ptr)->_stdin))->_r < 0 ? __srget_r(_ptr, ((_ptr)->_stdin)) : (int)(*(((_ptr)->_stdin))->_p++)));
-}
-
-static __inline int
-_putchar_unlocked(int _c)
-{
- struct _reent *_ptr;
-
- _ptr = _impure_ptr;
- return (__sputc_r(_ptr, _c, ((_ptr)->_stdout)));
-}
-# 771 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-#define getchar_unlocked() _getchar_unlocked()
-#define putchar_unlocked(_c) _putchar_unlocked(_c)
-
-
-
-
-
-#define fast_putc(x,p) (--(p)->_w < 0 ? __swbuf_r(_REENT, (int)(x), p) == EOF : (*(p)->_p = (x), (p)->_p++, 0))
-
-
-
-
-
-
-
-#define L_ctermid 16
-# 801 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
-
-# 4 "../Core/Src/bigint.c" 2
-
-
-
-
-
 # 1 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdlib.h" 1 3
 
 
@@ -3938,7 +3360,10 @@ _Noreturn void
 
 
 
-# 10 "../Core/Src/bigint.c" 2
+# 4 "../Core/Src/bigint.c" 2
+
+
+
 
 
 #define BIGINT_MALLOC malloc
@@ -3952,45 +3377,21 @@ _Noreturn void
 
 
 
-# 22 "../Core/Src/bigint.c"
-static bigint *bigint_clone(const bigint *x) {
+
+# 20 "../Core/Src/bigint.c"
+bigint *bigint_alloc(size_t capacity_limbs) {
+    if (capacity_limbs == 0) capacity_limbs = 1;
+
+    bigint *x = (bigint *)malloc(sizeof(bigint) + capacity_limbs * sizeof(uint32_t));
     if (!x) return 
-# 23 "../Core/Src/bigint.c" 3 4
+# 24 "../Core/Src/bigint.c" 3 4
                   ((void *)0)
-# 23 "../Core/Src/bigint.c"
+# 24 "../Core/Src/bigint.c"
                       ;
-    bigint *r = bigint_alloc(x->n_limbs);
-    if (!r) return 
-# 25 "../Core/Src/bigint.c" 3 4
-                  ((void *)0)
-# 25 "../Core/Src/bigint.c"
-                      ;
-    memcpy(r->limbs, x->limbs, x->n_limbs * sizeof(uint32_t));
-    return r;
-}
 
-static int bigint_is_zero(const bigint *x) {
-    if (!x) return 1;
-    for (size_t i = 0; i < x->n_limbs; i++) {
-        if (x->limbs[i] != 0) return 0;
-    }
-    return 1;
-}
-
-
-
-
-
-bigint *bigint_alloc(size_t n_limbs) {
-    if (n_limbs == 0) n_limbs = 1;
-    bigint *x = (bigint *)malloc(sizeof(bigint) + n_limbs * sizeof(uint32_t));
-    if (!x) return 
-# 45 "../Core/Src/bigint.c" 3 4
-                  ((void *)0)
-# 45 "../Core/Src/bigint.c"
-                      ;
-    x->n_limbs = n_limbs;
-    memset(x->limbs, 0, n_limbs * sizeof(uint32_t));
+    x->capacity = capacity_limbs;
+    x->n_limbs = 1;
+    memset(x->limbs, 0, capacity_limbs * sizeof(uint32_t));
     return x;
 }
 
@@ -3998,8 +3399,22 @@ void bigint_free(bigint *x) {
     if (x) free(x);
 }
 
+void bigint_set_zero(bigint *x) {
+    if (!x) return;
+    memset(x->limbs, 0, x->capacity * sizeof(uint32_t));
+    x->n_limbs = 1;
+}
+
+int bigint_copy(bigint *dst, const bigint *src) {
+    if (!dst || !src) return -1;
+    if (dst->capacity < src->n_limbs) return -1;
 
 
+    memset(dst->limbs, 0, dst->capacity * sizeof(uint32_t));
+    memcpy(dst->limbs, src->limbs, src->n_limbs * sizeof(uint32_t));
+    dst->n_limbs = src->n_limbs;
+    return 0;
+}
 
 void bigint_trim(bigint *x) {
     if (!x) return;
@@ -4012,45 +3427,77 @@ void bigint_trim(bigint *x) {
 
 
 
-bigint *bigint_from_hex(const char *hex_str, size_t n_limbs) {
-    if (!hex_str) return 
-# 70 "../Core/Src/bigint.c" 3 4
-                        ((void *)0)
-# 70 "../Core/Src/bigint.c"
-                            ;
+int bigint_is_zero(const bigint *x) {
+    if (!x) return 1;
+    for (size_t i = 0; i < x->n_limbs; i++) {
+        if (x->limbs[i] != 0) return 0;
+    }
+    return 1;
+}
 
-    bigint *x = bigint_alloc(n_limbs);
-    if (!x) return 
-# 73 "../Core/Src/bigint.c" 3 4
-                  ((void *)0)
-# 73 "../Core/Src/bigint.c"
-                      ;
+int bigint_cmp(const bigint *a, const bigint *b) {
+    if (!a && !b) return 0;
+    if (!a) return bigint_is_zero(b) ? 0 : -1;
+    if (!b) return bigint_is_zero(a) ? 0 : +1;
+
+
+    size_t na = a->n_limbs;
+    size_t nb = b->n_limbs;
+
+    while (na > 1 && a->limbs[na - 1] == 0) na--;
+    while (nb > 1 && b->limbs[nb - 1] == 0) nb--;
+
+    if (na < nb) return -1;
+    if (na > nb) return +1;
+
+    for (size_t i = na; i > 0; i--) {
+        uint32_t av = a->limbs[i - 1];
+        uint32_t bv = b->limbs[i - 1];
+        if (av < bv) return -1;
+        if (av > bv) return +1;
+    }
+    return 0;
+}
+
+
+
+
+
+static int hexval(char c) {
+    if (c >= '0' && c <= '9') return (int)(c - '0');
+    if (c >= 'a' && c <= 'f') return 10 + (int)(c - 'a');
+    if (c >= 'A' && c <= 'F') return 10 + (int)(c - 'A');
+    return -1;
+}
+
+int bigint_from_hex(bigint *out, const char *hex_str) {
+    if (!out || !hex_str) return -1;
+
+    bigint_set_zero(out);
 
     size_t len = strlen(hex_str);
-    size_t limbIdx = 0;
+    size_t limb_idx = 0;
 
-    for (long i = (long)len - 1; i >= 0 && limbIdx < x->n_limbs; i -= 8) {
+
+    for (long i = (long)len - 1; i >= 0; i -= 8) {
+        if (limb_idx >= out->capacity) return -1;
+
         uint32_t acc = 0;
         long start = i - 7;
         if (start < 0) start = 0;
 
         for (long j = start; j <= i; j++) {
-            char c = hex_str[j];
-            uint32_t d;
-
-            if (c >= '0' && c <= '9') d = (uint32_t)(c - '0');
-            else if (c >= 'a' && c <= 'f') d = 10u + (uint32_t)(c - 'a');
-            else if (c >= 'A' && c <= 'F') d = 10u + (uint32_t)(c - 'A');
-            else continue;
-
-            acc = (acc << 4) | d;
+            int d = hexval(hex_str[j]);
+            if (d < 0) continue;
+            acc = (acc << 4) | (uint32_t)d;
         }
 
-        x->limbs[limbIdx++] = acc;
+        out->limbs[limb_idx++] = acc;
     }
 
-    bigint_trim(x);
-    return x;
+    out->n_limbs = (limb_idx == 0) ? 1 : limb_idx;
+    bigint_trim(out);
+    return 0;
 }
 
 void bigint_to_hex(const bigint *x, char *hex_output, size_t output_size) {
@@ -4072,7 +3519,6 @@ void bigint_to_hex(const bigint *x, char *hex_output, size_t output_size) {
     while (ms >= 0 && x->limbs[ms] == 0) ms--;
 
     if (ms < 0) {
-
         if (output_size >= 2) {
             hex_output[0] = '0';
             hex_output[1] = '\0';
@@ -4083,7 +3529,6 @@ void bigint_to_hex(const bigint *x, char *hex_output, size_t output_size) {
     }
 
     size_t pos = 0;
-
 
 #define PUTCH(ch) do { if (pos + 1 < output_size) { hex_output[pos++] = (ch); } } while (0)
 
@@ -4111,9 +3556,7 @@ void bigint_to_hex(const bigint *x, char *hex_output, size_t output_size) {
     }
 
 
-    if (output_size > 0) {
-        hex_output[(pos < output_size) ? pos : (output_size - 1)] = '\0';
-    }
+    hex_output[(pos < output_size) ? pos : (output_size - 1)] = '\0';
 
 #undef PUTCH
 }
@@ -4122,50 +3565,14 @@ void bigint_to_hex(const bigint *x, char *hex_output, size_t output_size) {
 
 
 
-int bigint_cmp(const bigint *a, const bigint *b) {
-    if (!a && !b) return 0;
-    if (!a) return bigint_is_zero(b) ? 0 : -1;
-    if (!b) return bigint_is_zero(a) ? 0 : +1;
-
-    size_t na = a->n_limbs;
-    size_t nb = b->n_limbs;
-
-    while (na > 1 && a->limbs[na - 1] == 0) na--;
-    while (nb > 1 && b->limbs[nb - 1] == 0) nb--;
-
-    if (na < nb) return -1;
-    if (na > nb) return +1;
-
-    for (size_t i = na; i > 0; i--) {
-        uint32_t av = a->limbs[i - 1];
-        uint32_t bv = b->limbs[i - 1];
-        if (av < bv) return -1;
-        if (av > bv) return +1;
-    }
-    return 0;
-}
-
-
-
-
-
-bigint *bigint_add(const bigint *a, const bigint *b) {
-    if (!a || !b) return 
-# 199 "../Core/Src/bigint.c" 3 4
-                        ((void *)0)
-# 199 "../Core/Src/bigint.c"
-                            ;
+int bigint_add(bigint *res, const bigint *a, const bigint *b) {
+    if (!res || !a || !b) return -1;
 
     size_t na = a->n_limbs;
     size_t nb = b->n_limbs;
     size_t n = (na > nb) ? na : nb;
 
-    bigint *r = bigint_alloc(n + 1);
-    if (!r) return 
-# 206 "../Core/Src/bigint.c" 3 4
-                  ((void *)0)
-# 206 "../Core/Src/bigint.c"
-                      ;
+    if (res->capacity < n + 1) return -1;
 
     uint64_t carry = 0;
     for (size_t i = 0; i < n; i++) {
@@ -4173,236 +3580,167 @@ bigint *bigint_add(const bigint *a, const bigint *b) {
         uint64_t bv = (i < nb) ? (uint64_t)b->limbs[i] : 0;
 
         uint64_t sum = av + bv + carry;
-        r->limbs[i] = (uint32_t)(sum & 0xFFFFFFFFu);
+        res->limbs[i] = (uint32_t)sum;
         carry = sum >> 32;
     }
-    r->limbs[n] = (uint32_t)carry;
 
-    bigint_trim(r);
-    return r;
+    res->limbs[n] = (uint32_t)carry;
+    res->n_limbs = n + (carry ? 1 : 0);
+
+
+    for (size_t i = res->n_limbs; i < res->capacity; i++) res->limbs[i] = 0;
+
+    return 0;
 }
 
-
-bigint *bigint_sub(const bigint *a, const bigint *b) {
-    if (!a || !b) return 
-# 225 "../Core/Src/bigint.c" 3 4
-                        ((void *)0)
-# 225 "../Core/Src/bigint.c"
-                            ;
-    if (bigint_cmp(a, b) < 0) return 
-# 226 "../Core/Src/bigint.c" 3 4
-                                    ((void *)0)
-# 226 "../Core/Src/bigint.c"
-                                        ;
-
-    size_t n = a->n_limbs;
-    bigint *r = bigint_alloc(n);
-    if (!r) return 
-# 230 "../Core/Src/bigint.c" 3 4
-                  ((void *)0)
-# 230 "../Core/Src/bigint.c"
-                      ;
+int bigint_sub(bigint *res, const bigint *a, const bigint *b) {
+    if (!res || !a || !b) return -1;
+    if (bigint_cmp(a, b) < 0) return -1;
+    if (res->capacity < a->n_limbs) return -1;
 
     uint64_t borrow = 0;
+    size_t n = a->n_limbs;
+
     for (size_t i = 0; i < n; i++) {
         uint64_t av = (uint64_t)a->limbs[i];
         uint64_t bv = (i < b->n_limbs) ? (uint64_t)b->limbs[i] : 0;
 
         uint64_t needed = bv + borrow;
-        uint64_t diff = av - bv - borrow;
+        uint64_t diff = av - needed;
 
         borrow = (av < needed) ? 1 : 0;
-        r->limbs[i] = (uint32_t)(diff & 0xFFFFFFFFu);
+        res->limbs[i] = (uint32_t)diff;
     }
 
-    bigint_trim(r);
-    return r;
+    res->n_limbs = n;
+    bigint_trim(res);
+
+    for (size_t i = res->n_limbs; i < res->capacity; i++) res->limbs[i] = 0;
+
+    return 0;
 }
 
-bigint *bigint_mul(const bigint *a, const bigint *b) {
-    if (!a || !b) return 
-# 249 "../Core/Src/bigint.c" 3 4
-                        ((void *)0)
-# 249 "../Core/Src/bigint.c"
-                            ;
+int bigint_mul(bigint *res, const bigint *a, const bigint *b) {
+    if (!res || !a || !b) return -1;
+
+
+    if (res == a || res == b) return -1;
 
     size_t na = a->n_limbs;
     size_t nb = b->n_limbs;
 
-    bigint *r = bigint_alloc(na + nb);
-    if (!r) return 
-# 255 "../Core/Src/bigint.c" 3 4
-                  ((void *)0)
-# 255 "../Core/Src/bigint.c"
-                      ;
+    if (res->capacity < na + nb) return -1;
+
+    memset(res->limbs, 0, res->capacity * sizeof(uint32_t));
 
     for (size_t i = 0; i < na; i++) {
-        uint64_t av = (uint64_t)a->limbs[i];
         uint64_t carry = 0;
+        uint64_t av = (uint64_t)a->limbs[i];
 
         for (size_t j = 0; j < nb; j++) {
             size_t k = i + j;
 
-            uint64_t bv = (uint64_t)b->limbs[j];
-            uint64_t cur = (uint64_t)r->limbs[k];
-            uint64_t prod = av * bv + cur + carry;
+            uint64_t cur = (uint64_t)res->limbs[k];
+            uint64_t prod = av * (uint64_t)b->limbs[j] + cur + carry;
 
-            r->limbs[k] = (uint32_t)(prod & 0xFFFFFFFFu);
+            res->limbs[k] = (uint32_t)prod;
             carry = prod >> 32;
         }
 
-        r->limbs[i + nb] = (uint32_t)carry;
+        res->limbs[i + nb] = (uint32_t)carry;
     }
 
-    bigint_trim(r);
-    return r;
+    res->n_limbs = na + nb;
+    bigint_trim(res);
+
+    return 0;
 }
 
 
 
 
 
-bigint *bigint_shl1(const bigint *a) {
-    if (!a) return 
-# 284 "../Core/Src/bigint.c" 3 4
-                  ((void *)0)
-# 284 "../Core/Src/bigint.c"
-                      ;
-
-    size_t n = a->n_limbs;
-    bigint *r = bigint_alloc(n + 1);
-    if (!r) return 
-# 288 "../Core/Src/bigint.c" 3 4
-                  ((void *)0)
-# 288 "../Core/Src/bigint.c"
-                      ;
+int bigint_shl1(bigint *x) {
+    if (!x) return -1;
 
     uint32_t carry = 0;
-    for (size_t i = 0; i < n; i++) {
-        uint64_t v = ((uint64_t)a->limbs[i] << 1) | carry;
-        r->limbs[i] = (uint32_t)(v & 0xFFFFFFFFu);
+    for (size_t i = 0; i < x->n_limbs; i++) {
+        uint64_t v = ((uint64_t)x->limbs[i] << 1) | (uint64_t)carry;
+        x->limbs[i] = (uint32_t)v;
         carry = (uint32_t)(v >> 32);
     }
-    r->limbs[n] = carry;
 
-    bigint_trim(r);
-    return r;
+    if (carry) {
+        if (x->n_limbs >= x->capacity) return -1;
+        x->limbs[x->n_limbs++] = carry;
+    }
+
+    return 0;
 }
 
-bigint *bigint_shr1(const bigint *a) {
-    if (!a) return 
-# 303 "../Core/Src/bigint.c" 3 4
-                  ((void *)0)
-# 303 "../Core/Src/bigint.c"
-                      ;
-
-    size_t n = a->n_limbs;
-    bigint *r = bigint_alloc(n);
-    if (!r) return 
-# 307 "../Core/Src/bigint.c" 3 4
-                  ((void *)0)
-# 307 "../Core/Src/bigint.c"
-                      ;
+int bigint_shr1(bigint *x) {
+    if (!x) return -1;
 
     uint32_t carry = 0;
-    for (size_t j = n; j > 0; j--) {
+    for (size_t j = x->n_limbs; j > 0; j--) {
         size_t i = j - 1;
-        uint32_t limb = a->limbs[i];
-        r->limbs[i] = (limb >> 1) | carry;
-        carry = limb << 31;
+        uint32_t limb = x->limbs[i];
+        uint32_t new_carry = limb << 31;
+        x->limbs[i] = (limb >> 1) | carry;
+        carry = new_carry;
     }
 
-    bigint_trim(r);
-    return r;
+    bigint_trim(x);
+    return 0;
 }
 
 
 
 
 
-bigint *bigint_mod(const bigint *a, const bigint *b) {
-    if (!a || !b) return 
-# 326 "../Core/Src/bigint.c" 3 4
-                        ((void *)0)
-# 326 "../Core/Src/bigint.c"
-                            ;
-    if (bigint_is_zero(b)) return 
-# 327 "../Core/Src/bigint.c" 3 4
-                                 ((void *)0)
-# 327 "../Core/Src/bigint.c"
-                                     ;
 
-    bigint *rem = bigint_clone(a);
-    bigint *t = bigint_clone(b);
-    if (!rem || !t) {
-        bigint_free(rem);
-        bigint_free(t);
-        return 
-# 334 "../Core/Src/bigint.c" 3 4
-              ((void *)0)
-# 334 "../Core/Src/bigint.c"
-                  ;
+int bigint_mod(bigint *res, const bigint *a, const bigint *b, bigint *tmp) {
+    if (!res || !a || !b || !tmp) return -1;
+    if (bigint_is_zero(b)) return -1;
+    if (res == tmp) return -1;
+
+
+    if (tmp->capacity < res->capacity) return -1;
+
+
+    if (bigint_copy(res, a) != 0) return -1;
+    bigint_trim(res);
+
+
+    if (bigint_copy(tmp, b) != 0) return -1;
+    bigint_trim(tmp);
+
+    if (bigint_cmp(res, tmp) < 0) {
+        return 0;
     }
 
-    bigint_trim(rem);
-    bigint_trim(t);
-
-    if (bigint_cmp(rem, t) < 0) {
-        bigint_free(t);
-        return rem;
-    }
 
     size_t k = 0;
-    while (bigint_cmp(t, rem) <= 0) {
-        bigint *t2 = bigint_shl1(t);
-        bigint_free(t);
-        t = t2;
-        if (!t) { bigint_free(rem); return 
-# 350 "../Core/Src/bigint.c" 3 4
-                                          ((void *)0)
-# 350 "../Core/Src/bigint.c"
-                                              ; }
+    while (bigint_cmp(tmp, res) <= 0) {
+        if (bigint_shl1(tmp) != 0) return -1;
         k++;
     }
 
 
-    bigint *t2 = bigint_shr1(t);
-    bigint_free(t);
-    t = t2;
-    if (!t) { bigint_free(rem); return 
-# 358 "../Core/Src/bigint.c" 3 4
-                                      ((void *)0)
-# 358 "../Core/Src/bigint.c"
-                                          ; }
+    if (bigint_shr1(tmp) != 0) return -1;
     if (k > 0) k--;
 
     while (1) {
-        if (bigint_cmp(rem, t) >= 0) {
-            bigint *tmp = bigint_sub(rem, t);
-            if (!tmp) { bigint_free(rem); bigint_free(t); return 
-# 364 "../Core/Src/bigint.c" 3 4
-                                                                ((void *)0)
-# 364 "../Core/Src/bigint.c"
-                                                                    ; }
-            bigint_free(rem);
-            rem = tmp;
-            bigint_trim(rem);
+        if (bigint_cmp(res, tmp) >= 0) {
+            if (bigint_sub(res, res, tmp) != 0) return -1;
         }
 
         if (k == 0) break;
         k--;
 
-        bigint *t3 = bigint_shr1(t);
-        bigint_free(t);
-        t = t3;
-        if (!t) { bigint_free(rem); return 
-# 376 "../Core/Src/bigint.c" 3 4
-                                          ((void *)0)
-# 376 "../Core/Src/bigint.c"
-                                              ; }
+        if (bigint_shr1(tmp) != 0) return -1;
     }
 
-    bigint_free(t);
-    bigint_trim(rem);
-    return rem;
+    bigint_trim(res);
+    return 0;
 }

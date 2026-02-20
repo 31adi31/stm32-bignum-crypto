@@ -20260,35 +20260,55 @@ _putchar_unlocked(int _c)
 # 11 "../Core/Inc/bigint.h"
 typedef struct {
     size_t n_limbs;
+    size_t capacity;
     uint32_t limbs[];
 } bigint;
 
 
-bigint *bigint_alloc(size_t n_limbs);
+bigint *bigint_alloc(size_t capacity_limbs);
 void bigint_free(bigint *x);
 
 
+void bigint_set_zero(bigint *x);
+
+
+int bigint_copy(bigint *dst, const bigint *src);
 
 
 void bigint_trim(bigint *x);
 
 
-bigint *bigint_from_hex(const char *hex_str, size_t n_limbs);
+
+int bigint_from_hex(bigint *out, const char *hex_str);
+
+
 void bigint_to_hex(const bigint *x, char *hex_output, size_t output_size);
 
 
-bigint *bigint_add(const bigint *a, const bigint *b);
-
-bigint *bigint_sub(const bigint *a, const bigint *b);
-bigint *bigint_mul(const bigint *a, const bigint *b);
-
-
+int bigint_is_zero(const bigint *x);
 int bigint_cmp(const bigint *a, const bigint *b);
-bigint *bigint_shl1(const bigint *a);
-bigint *bigint_shr1(const bigint *a);
 
 
-bigint *bigint_mod(const bigint *a, const bigint *b);
+
+int bigint_add(bigint *res, const bigint *a, const bigint *b);
+
+
+int bigint_sub(bigint *res, const bigint *a, const bigint *b);
+
+
+int bigint_mul(bigint *res, const bigint *a, const bigint *b);
+
+
+int bigint_shl1(bigint *x);
+int bigint_shr1(bigint *x);
+
+
+
+
+
+
+
+int bigint_mod(bigint *res, const bigint *a, const bigint *b, bigint *tmp);
 # 24 "../Core/Src/main.c" 2
 # 53 "../Core/Src/main.c"
 void SystemClock_Config(void);
@@ -20339,56 +20359,43 @@ int main(void)
   const char *hex_str =
       "30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47";
 
-  bigint *A = bigint_from_hex(hex_str, 8);
-  bigint *B = bigint_from_hex(hex_str, 8);
 
-
-
+  bigint *A = bigint_alloc(8);
+  bigint *B = bigint_alloc(8);
+  bigint *R = bigint_alloc(16);
+  bigint *TMP = bigint_alloc(16);
 
   char out_hex[140];
 
-  if (!A || !B) {
+  if (!A || !B || !R || !TMP) {
     printf("Bigint alloc failed\r\n");
     Error_Handler();
   }
 
 
-  bigint *s = bigint_add(A, B);
-  if (s) {
-    bigint_to_hex(s, out_hex, sizeof out_hex);
-    printf("A+B = %s\r\n", out_hex);
-    bigint_free(s);
-  }
+  bigint_from_hex(A, hex_str);
+  bigint_from_hex(B, hex_str);
+
+
+  bigint_add(R, A, B);
+  bigint_to_hex(R, out_hex, sizeof out_hex);
+  printf("A+B = %s\r\n", out_hex);
 
   static volatile uint32_t bench_sink = 0;
+
   while (1)
   {
       const uint32_t N = 500;
 
+
       __DSB(); __ISB();
       uint32_t start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
-      for (uint32_t i = 0; i < N; i++) {
-          bigint *t = bigint_alloc(9);
-          if (t) {
-              bench_sink ^= t->limbs[0];
-              bigint_free(t);
-          }
-      }
-      uint32_t alloc_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
-      __DSB(); __ISB();
 
-      printf("alloc+free: %lu cycles/op\r\n",
-             (unsigned long)(alloc_cycles / N));
-
-      __DSB(); __ISB();
-      start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
       for (uint32_t i = 0; i < N; i++) {
-       bigint *r = bigint_add(A, B);
-       if (r) {
-           bench_sink ^= r->limbs[0];
-           bigint_free(r);
-       }
+          bigint_add(R, A, B);
+          bench_sink ^= R->limbs[0];
       }
+
       uint32_t add_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
       __DSB(); __ISB();
 
@@ -20399,13 +20406,12 @@ int main(void)
 
       __DSB(); __ISB();
       start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
+
       for (uint32_t i = 0; i < N; i++) {
-       bigint *r = bigint_sub(A, B);
-       if (r) {
-           bench_sink ^= r->limbs[0];
-           bigint_free(r);
-       }
+          bigint_sub(R, A, B);
+          bench_sink ^= R->limbs[0];
       }
+
       uint32_t sub_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
       __DSB(); __ISB();
 
@@ -20416,13 +20422,12 @@ int main(void)
 
       __DSB(); __ISB();
       start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
+
       for (uint32_t i = 0; i < N; i++) {
-       bigint *r = bigint_mul(A, B);
-       if (r) {
-           bench_sink ^= r->limbs[0];
-           bigint_free(r);
-       }
+          bigint_mul(R, A, B);
+          bench_sink ^= R->limbs[0];
       }
+
       uint32_t mul_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
       __DSB(); __ISB();
 
@@ -20435,13 +20440,12 @@ int main(void)
 
       __DSB(); __ISB();
       start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
+
       for (uint32_t i = 0; i < Nmod; i++) {
-       bigint *r = bigint_mod(A, B);
-       if (r) {
-           bench_sink ^= r->limbs[0];
-           bigint_free(r);
-       }
+          bigint_mod(R, A, B, TMP);
+          bench_sink ^= R->limbs[0];
       }
+
       uint32_t mod_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
       __DSB(); __ISB();
 
@@ -20453,6 +20457,7 @@ int main(void)
       HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000UL + 0x00020000UL) + 0x0000UL)), ((uint16_t)0x0020));
       HAL_Delay(500);
   }
+
 
 
 }

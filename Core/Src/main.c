@@ -119,56 +119,43 @@ int main(void)
   const char *hex_str =
       "30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47";
 
-  bigint *A = bigint_from_hex(hex_str, 8);
-  bigint *B = bigint_from_hex(hex_str, 8);
-
-  // For subtraction/mod, it’s nice to guarantee A >= B and B != 0.
-  // Here A==B, so A>=B holds. But mod with B==A is fine; B!=0 is true.
+  // Preallocate bigints
+  bigint *A   = bigint_alloc(8);
+  bigint *B   = bigint_alloc(8);
+  bigint *R   = bigint_alloc(16);   // enough for mul
+  bigint *TMP = bigint_alloc(16);   // scratch for mod
 
   char out_hex[140];
 
-  if (!A || !B) {
+  if (!A || !B || !R || !TMP) {
     printf("Bigint alloc failed\r\n");
-    Error_Handler(); // never returns
+    Error_Handler();
   }
 
-  // Quick sanity print once:
-  bigint *s = bigint_add(A, B);
-  if (s) {
-    bigint_to_hex(s, out_hex, sizeof out_hex);
-    printf("A+B = %s\r\n", out_hex);
-    bigint_free(s);
-  }
+  // Load values
+  bigint_from_hex(A, hex_str);
+  bigint_from_hex(B, hex_str);
+
+  // Quick sanity print once (same format as before)
+  bigint_add(R, A, B);
+  bigint_to_hex(R, out_hex, sizeof out_hex);
+  printf("A+B = %s\r\n", out_hex);
 
   static volatile uint32_t bench_sink = 0;
+
   while (1)
   {
       const uint32_t N = 500;
-      // ---------- ALLOC + FREE BASELINE ----------
-      __DSB(); __ISB();
-      uint32_t start = DWT->CYCCNT;
-      for (uint32_t i = 0; i < N; i++) {
-          bigint *t = bigint_alloc(9);   // same size as add result
-          if (t) {
-              bench_sink ^= t->limbs[0];
-              bigint_free(t);
-          }
-      }
-      uint32_t alloc_cycles = DWT->CYCCNT - start;
-      __DSB(); __ISB();
 
-      printf("alloc+free: %lu cycles/op\r\n",
-             (unsigned long)(alloc_cycles / N));
       // ---------- ADD ----------
       __DSB(); __ISB();
-      start = DWT->CYCCNT;
+      uint32_t start = DWT->CYCCNT;
+
       for (uint32_t i = 0; i < N; i++) {
-    	  bigint *r = bigint_add(A, B);
-    	  if (r) {
-    	      bench_sink ^= r->limbs[0];
-    	      bigint_free(r);
-    	  }
+          bigint_add(R, A, B);
+          bench_sink ^= R->limbs[0];
       }
+
       uint32_t add_cycles = DWT->CYCCNT - start;
       __DSB(); __ISB();
 
@@ -179,13 +166,12 @@ int main(void)
       // ---------- SUB ----------
       __DSB(); __ISB();
       start = DWT->CYCCNT;
+
       for (uint32_t i = 0; i < N; i++) {
-    	  bigint *r = bigint_sub(A, B);
-    	  if (r) {
-    	      bench_sink ^= r->limbs[0];
-    	      bigint_free(r);
-    	  }
+          bigint_sub(R, A, B);
+          bench_sink ^= R->limbs[0];
       }
+
       uint32_t sub_cycles = DWT->CYCCNT - start;
       __DSB(); __ISB();
 
@@ -196,13 +182,12 @@ int main(void)
       // ---------- MUL ----------
       __DSB(); __ISB();
       start = DWT->CYCCNT;
+
       for (uint32_t i = 0; i < N; i++) {
-    	  bigint *r = bigint_mul(A, B);
-    	  if (r) {
-    	      bench_sink ^= r->limbs[0];
-    	      bigint_free(r);
-    	  }
+          bigint_mul(R, A, B);
+          bench_sink ^= R->limbs[0];
       }
+
       uint32_t mul_cycles = DWT->CYCCNT - start;
       __DSB(); __ISB();
 
@@ -211,17 +196,16 @@ int main(void)
 
 
       // ---------- MOD ----------
-      const uint32_t Nmod = 50;   // mod is expensive
+      const uint32_t Nmod = 50;
 
       __DSB(); __ISB();
       start = DWT->CYCCNT;
+
       for (uint32_t i = 0; i < Nmod; i++) {
-    	  bigint *r = bigint_mod(A, B);
-    	  if (r) {
-    	      bench_sink ^= r->limbs[0];
-    	      bigint_free(r);
-    	  }
+          bigint_mod(R, A, B, TMP);
+          bench_sink ^= R->limbs[0];
       }
+
       uint32_t mod_cycles = DWT->CYCCNT - start;
       __DSB(); __ISB();
 
@@ -230,9 +214,10 @@ int main(void)
 
 
       // ---------- SANITY / LIVENESS ----------
-      HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // LED heartbeat
+      HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
       HAL_Delay(500);
   }
+
 
   /* USER CODE END 3 */
 }
