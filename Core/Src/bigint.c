@@ -378,4 +378,108 @@ int bigint_mod(bigint *res, const bigint *a, const bigint *b, bigint *tmp) {
     bigint_trim(res);
     return 0;
 }
+/* ============================================================
+ *  bit helpers (internal)
+ * ============================================================ */
+
+static int bigint_get_bit(const bigint *x, size_t bit)
+{
+    size_t limb = bit / 32;
+    size_t off  = bit % 32;
+
+    if (limb >= x->n_limbs)
+        return 0;
+
+    return (x->limbs[limb] >> off) & 1;
+}
+
+static size_t bigint_msb(const bigint *x)
+{
+    size_t i = x->n_limbs;
+
+    while (i > 0 && x->limbs[i - 1] == 0)
+        i--;
+
+    if (i == 0)
+        return 0;
+
+    uint32_t limb = x->limbs[i - 1];
+
+    int bit = 31;
+    while (((limb >> bit) & 1) == 0)
+        bit--;
+
+    return (i - 1) * 32 + bit;
+}
+
+
+/* ============================================================
+ *  mod_mul
+ * ============================================================ */
+
+int bigint_mod_mul(bigint *r,
+            const bigint *a,
+            const bigint *b,
+            const bigint *p,
+            bigint *tmp_mul,
+            bigint *tmp_mod)
+{
+    if (!r || !a || !b || !p || !tmp_mul || !tmp_mod)
+        return -1;
+
+    /* tmp_mul = a * b */
+    if (bigint_mul(tmp_mul, a, b) != 0)
+        return -1;
+
+    /* r = tmp_mul % p */
+    if (bigint_mod(r, tmp_mul, p, tmp_mod) != 0)
+        return -1;
+
+    return 0;
+}
+
+
+/* ============================================================
+ *  mod_pow  (square-multiply MSB → LSB)
+ * ============================================================ */
+
+int bigint_mod_pow(bigint *r,
+            const bigint *a,
+            const bigint *b,
+            const bigint *p,
+            bigint *tmp1,
+            bigint *tmp2,
+            bigint *tmp3)
+{
+    if (!r || !a || !b || !p)
+        return -1;
+
+    /* r = 1 */
+    bigint_set_zero(r);
+    r->limbs[0] = 1;
+
+    size_t msb = bigint_msb(b);
+
+    for (long i = (long)msb; i >= 0; i--) {
+
+        /* r = r*r % p */
+        if (bigint_mod_mul(tmp1, r, r, p, tmp2, tmp3) != 0)
+            return -1;
+
+        if (bigint_copy(r, tmp1) != 0)
+            return -1;
+
+        /* if exponent bit = 1 */
+        if (bigint_get_bit(b, i)) {
+
+            if (bigint_mod_mul(tmp1, r, a, p, tmp2, tmp3) != 0)
+                return -1;
+
+            if (bigint_copy(r, tmp1) != 0)
+                return -1;
+        }
+    }
+
+    return 0;
+}
 

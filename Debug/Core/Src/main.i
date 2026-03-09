@@ -925,7 +925,7 @@
 # 0 "<command-line>"
 #define STM32F401xE 1
 # 1 "../Core/Src/main.c"
-# 20 "../Core/Src/main.c"
+# 10 "../Core/Src/main.c"
 # 1 "../Core/Inc/main.h" 1
 # 23 "../Core/Inc/main.h"
 #define __MAIN_H 
@@ -18531,7 +18531,7 @@ uint32_t HAL_GetUIDw2(void);
 # 31 "../Core/Inc/main.h" 2
 # 53 "../Core/Inc/main.h"
 void Error_Handler(void);
-# 21 "../Core/Src/main.c" 2
+# 11 "../Core/Src/main.c" 2
 # 1 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 1 3
 # 27 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
 #define _STDIO_H_ 
@@ -20241,9 +20241,9 @@ _putchar_unlocked(int _c)
 #define L_ctermid 16
 # 801 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/stdio.h" 3
 
-# 22 "../Core/Src/main.c" 2
+# 12 "../Core/Src/main.c" 2
 # 1 "../Drivers/CMSIS/Include/core_cm4.h" 1
-# 23 "../Core/Src/main.c" 2
+# 13 "../Core/Src/main.c" 2
 # 1 "../Core/Inc/bigint.h" 1
 
 #define BIGINT_H 
@@ -20278,10 +20278,7 @@ int bigint_copy(bigint *dst, const bigint *src);
 void bigint_trim(bigint *x);
 
 
-
 int bigint_from_hex(bigint *out, const char *hex_str);
-
-
 void bigint_to_hex(const bigint *x, char *hex_output, size_t output_size);
 
 
@@ -20289,13 +20286,8 @@ int bigint_is_zero(const bigint *x);
 int bigint_cmp(const bigint *a, const bigint *b);
 
 
-
 int bigint_add(bigint *res, const bigint *a, const bigint *b);
-
-
 int bigint_sub(bigint *res, const bigint *a, const bigint *b);
-
-
 int bigint_mul(bigint *res, const bigint *a, const bigint *b);
 
 
@@ -20303,20 +20295,30 @@ int bigint_shl1(bigint *x);
 int bigint_shr1(bigint *x);
 
 
-
-
-
-
-
 int bigint_mod(bigint *res, const bigint *a, const bigint *b, bigint *tmp);
-# 24 "../Core/Src/main.c" 2
-# 53 "../Core/Src/main.c"
+
+
+
+int bigint_mod_mul(bigint *r,
+            const bigint *a,
+            const bigint *b,
+            const bigint *p,
+            bigint *tmp_mul,
+            bigint *tmp_mod);
+
+
+int bigint_mod_pow(bigint *r,
+            const bigint *a,
+            const bigint *b,
+            const bigint *p,
+            bigint *tmp1,
+            bigint *tmp2,
+            bigint *tmp3);
+# 14 "../Core/Src/main.c" 2
+
+
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-
-
-
-
 
 
 
@@ -20325,57 +20327,58 @@ static inline void DWT_CycleCounterInit(void) {
   ((DWT_Type *) (0xE0001000UL) )->CYCCNT = 0;
   ((DWT_Type *) (0xE0001000UL) )->CTRL |= (0x1UL );
 }
-# 80 "../Core/Src/main.c"
+
+
+
 int main(void)
 {
-# 93 "../Core/Src/main.c"
+
   HAL_Init();
 
   ((CoreDebug_Type *) (0xE000EDF0UL))->DEMCR |= (1UL << 24U);
   ((ITM_Type *) (0xE0000000UL) )->TCR = (1UL );
   ((ITM_Type *) (0xE0000000UL) )->TER = 1;
   setvbuf(
-# 98 "../Core/Src/main.c" 3
+# 37 "../Core/Src/main.c" 3
          ((_impure_ptr)->_stdout)
-# 98 "../Core/Src/main.c"
+# 37 "../Core/Src/main.c"
                , 
-# 98 "../Core/Src/main.c" 3 4
+# 37 "../Core/Src/main.c" 3 4
                  ((void *)0)
-# 98 "../Core/Src/main.c"
+# 37 "../Core/Src/main.c"
                      , 
-# 98 "../Core/Src/main.c" 3
+# 37 "../Core/Src/main.c" 3
                        2
-# 98 "../Core/Src/main.c"
+# 37 "../Core/Src/main.c"
                              , 0);
+
   SystemClock_Config();
-# 112 "../Core/Src/main.c"
+
   MX_GPIO_Init();
   DWT_CycleCounterInit();
 
-
-
-
-
   const char *hex_str =
       "30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47";
-
 
   bigint *A = bigint_alloc(8);
   bigint *B = bigint_alloc(8);
   bigint *R = bigint_alloc(16);
   bigint *TMP = bigint_alloc(16);
 
+
+  bigint *TMP2 = bigint_alloc(16);
+  bigint *TMP3 = bigint_alloc(16);
+  bigint *TMP4 = bigint_alloc(16);
+
   char out_hex[140];
 
-  if (!A || !B || !R || !TMP) {
+  if (!A || !B || !R || !TMP || !TMP2 || !TMP3 || !TMP4) {
     printf("Bigint alloc failed\r\n");
     Error_Handler();
   }
 
-
   bigint_from_hex(A, hex_str);
   bigint_from_hex(B, hex_str);
-
 
   bigint_add(R, A, B);
   bigint_to_hex(R, out_hex, sizeof out_hex);
@@ -20454,14 +20457,45 @@ int main(void)
 
 
 
+      const uint32_t Nmodmul = 50;
+
+      __DSB(); __ISB();
+      start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
+
+      for (uint32_t i = 0; i < Nmodmul; i++) {
+          bigint_mod_mul(R, A, B, B, TMP2, TMP3);
+          bench_sink ^= R->limbs[0];
+      }
+
+      uint32_t modmul_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
+      __DSB(); __ISB();
+
+      printf("bigint_mod_mul: %lu cycles/op\r\n",
+             (unsigned long)(modmul_cycles / Nmodmul));
+
+
+
+      const uint32_t Nmodpow = 10;
+
+      __DSB(); __ISB();
+      start = ((DWT_Type *) (0xE0001000UL) )->CYCCNT;
+
+      for (uint32_t i = 0; i < Nmodpow; i++) {
+          bigint_mod_pow(R, A, B, B, TMP2, TMP3, TMP4);
+          bench_sink ^= R->limbs[0];
+      }
+
+      uint32_t modpow_cycles = ((DWT_Type *) (0xE0001000UL) )->CYCCNT - start;
+      __DSB(); __ISB();
+
+      printf("bigint_mod_pow: %lu cycles/op\r\n",
+             (unsigned long)(modpow_cycles / Nmodpow));
+
+
       HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000UL + 0x00020000UL) + 0x0000UL)), ((uint16_t)0x0020));
       HAL_Delay(500);
   }
-
-
-
 }
-
 
 
 
@@ -20471,27 +20505,22 @@ void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-
-
   do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000UL + 0x00020000UL) + 0x3800UL))->APB1ENR) |= ((0x1UL << (28U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000UL + 0x00020000UL) + 0x3800UL))->APB1ENR) & ((0x1UL << (28U)))); (void)tmpreg; } while(0U);
   do { volatile uint32_t tmpreg = 0x00U; (((((PWR_TypeDef *) (0x40000000UL + 0x7000UL))->CR)) = ((((((((PWR_TypeDef *) (0x40000000UL + 0x7000UL))->CR))) & (~((0x3UL << (14U))))) | ((0x00008000U))))); tmpreg = ((((PWR_TypeDef *) (0x40000000UL + 0x7000UL))->CR) & ((0x3UL << (14U)))); (void)tmpreg; } while(0U);
-
-
-
 
   RCC_OscInitStruct.OscillatorType = 0x00000002U;
   RCC_OscInitStruct.HSIState = ((uint8_t)0x01);
   RCC_OscInitStruct.HSICalibrationValue = 0x10U;
   RCC_OscInitStruct.PLL.PLLState = ((uint8_t)0x00);
+
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
   }
 
-
-
   RCC_ClkInitStruct.ClockType = 0x00000002U|0x00000001U
                               |0x00000004U|0x00000008U;
+
   RCC_ClkInitStruct.SYSCLKSource = 0x00000000U;
   RCC_ClkInitStruct.AHBCLKDivider = 0x00000000U;
   RCC_ClkInitStruct.APB1CLKDivider = 0x00000000U;
@@ -20506,32 +20535,23 @@ void SystemClock_Config(void)
 
 
 
-
-
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-
-
-
-
   do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000UL + 0x00020000UL) + 0x3800UL))->AHB1ENR) |= ((0x1UL << (0U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000UL + 0x00020000UL) + 0x3800UL))->AHB1ENR) & ((0x1UL << (0U)))); (void)tmpreg; } while(0U);
 
-
   HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000UL + 0x00020000UL) + 0x0000UL)), ((uint16_t)0x0020), GPIO_PIN_RESET);
-
 
   GPIO_InitStruct.Pin = ((uint16_t)0x0020);
   GPIO_InitStruct.Mode = ((0x1UL << 0U) | (0x0UL << 4U));
   GPIO_InitStruct.Pull = 0x00000000U;
   GPIO_InitStruct.Speed = 0x00000000U;
+
   HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000UL + 0x00020000UL) + 0x0000UL)), &GPIO_InitStruct);
-
-
-
-
 }
+
+
 
 
 int _write(int file, char *ptr, int len) {
@@ -20542,18 +20562,8 @@ int _write(int file, char *ptr, int len) {
 }
 
 
-
-
-
-
-
 void Error_Handler(void)
 {
-
-
   __disable_irq();
-  while (1)
-  {
-  }
-
+  while (1) { }
 }

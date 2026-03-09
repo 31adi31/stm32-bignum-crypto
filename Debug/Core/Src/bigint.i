@@ -1665,10 +1665,7 @@ int bigint_copy(bigint *dst, const bigint *src);
 void bigint_trim(bigint *x);
 
 
-
 int bigint_from_hex(bigint *out, const char *hex_str);
-
-
 void bigint_to_hex(const bigint *x, char *hex_output, size_t output_size);
 
 
@@ -1676,13 +1673,8 @@ int bigint_is_zero(const bigint *x);
 int bigint_cmp(const bigint *a, const bigint *b);
 
 
-
 int bigint_add(bigint *res, const bigint *a, const bigint *b);
-
-
 int bigint_sub(bigint *res, const bigint *a, const bigint *b);
-
-
 int bigint_mul(bigint *res, const bigint *a, const bigint *b);
 
 
@@ -1690,12 +1682,25 @@ int bigint_shl1(bigint *x);
 int bigint_shr1(bigint *x);
 
 
-
-
-
-
-
 int bigint_mod(bigint *res, const bigint *a, const bigint *b, bigint *tmp);
+
+
+
+int bigint_mod_mul(bigint *r,
+            const bigint *a,
+            const bigint *b,
+            const bigint *p,
+            bigint *tmp_mul,
+            bigint *tmp_mod);
+
+
+int bigint_mod_pow(bigint *r,
+            const bigint *a,
+            const bigint *b,
+            const bigint *p,
+            bigint *tmp1,
+            bigint *tmp2,
+            bigint *tmp3);
 # 2 "../Core/Src/bigint.c" 2
 # 1 "/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/arm-none-eabi/include/string.h" 1 3
 
@@ -3742,5 +3747,109 @@ int bigint_mod(bigint *res, const bigint *a, const bigint *b, bigint *tmp) {
     }
 
     bigint_trim(res);
+    return 0;
+}
+
+
+
+
+static int bigint_get_bit(const bigint *x, size_t bit)
+{
+    size_t limb = bit / 32;
+    size_t off = bit % 32;
+
+    if (limb >= x->n_limbs)
+        return 0;
+
+    return (x->limbs[limb] >> off) & 1;
+}
+
+static size_t bigint_msb(const bigint *x)
+{
+    size_t i = x->n_limbs;
+
+    while (i > 0 && x->limbs[i - 1] == 0)
+        i--;
+
+    if (i == 0)
+        return 0;
+
+    uint32_t limb = x->limbs[i - 1];
+
+    int bit = 31;
+    while (((limb >> bit) & 1) == 0)
+        bit--;
+
+    return (i - 1) * 32 + bit;
+}
+
+
+
+
+
+
+int bigint_mod_mul(bigint *r,
+            const bigint *a,
+            const bigint *b,
+            const bigint *p,
+            bigint *tmp_mul,
+            bigint *tmp_mod)
+{
+    if (!r || !a || !b || !p || !tmp_mul || !tmp_mod)
+        return -1;
+
+
+    if (bigint_mul(tmp_mul, a, b) != 0)
+        return -1;
+
+
+    if (bigint_mod(r, tmp_mul, p, tmp_mod) != 0)
+        return -1;
+
+    return 0;
+}
+
+
+
+
+
+
+int bigint_mod_pow(bigint *r,
+            const bigint *a,
+            const bigint *b,
+            const bigint *p,
+            bigint *tmp1,
+            bigint *tmp2,
+            bigint *tmp3)
+{
+    if (!r || !a || !b || !p)
+        return -1;
+
+
+    bigint_set_zero(r);
+    r->limbs[0] = 1;
+
+    size_t msb = bigint_msb(b);
+
+    for (long i = (long)msb; i >= 0; i--) {
+
+
+        if (bigint_mod_mul(tmp1, r, r, p, tmp2, tmp3) != 0)
+            return -1;
+
+        if (bigint_copy(r, tmp1) != 0)
+            return -1;
+
+
+        if (bigint_get_bit(b, i)) {
+
+            if (bigint_mod_mul(tmp1, r, a, p, tmp2, tmp3) != 0)
+                return -1;
+
+            if (bigint_copy(r, tmp1) != 0)
+                return -1;
+        }
+    }
+
     return 0;
 }

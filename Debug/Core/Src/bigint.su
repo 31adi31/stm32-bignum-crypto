@@ -13,3 +13,5 @@
 ../Core/Src/bigint.c:297:5:bigint_shl1	8	static
 ../Core/Src/bigint.c:315:5:bigint_shr1	8	static
 ../Core/Src/bigint.c:336:5:bigint_mod	24	static
+../Core/Src/bigint.c:420:5:bigint_mod_mul	24	static
+../Core/Src/bigint.c:446:5:bigint_mod_pow	48	static

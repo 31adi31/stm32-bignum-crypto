@@ -150,21 +150,21 @@ bigint_set_zero:
 	.loc 1 37 8 is_stmt 0 view .LVU27
 	cbz	r0, .L16	@ x,
 .LVL10:
-.LBB61:
-.LBI61:
+.LBB66:
+.LBI66:
 	.loc 1 36 6 is_stmt 1 view .LVU28
-.LBB62:
+.LBB67:
 	.loc 1 38 5 view .LVU29
-.LBE62:
-.LBE61:
+.LBE67:
+.LBE66:
 @ ../Core/Src/bigint.c:36: void bigint_set_zero(bigint *x) {
 	.loc 1 36 33 is_stmt 0 view .LVU30
 	push	{r4, lr}	@
 	.cfi_def_cfa_offset 8
 	.cfi_offset 4, -8
 	.cfi_offset 14, -4
-.LBB64:
-.LBB63:
+.LBB69:
+.LBB68:
 @ ../Core/Src/bigint.c:38:     memset(x->limbs, 0, x->capacity * sizeof(uint32_t));
 	.loc 1 38 5 view .LVU31
 	ldr	r2, [r0, #4]	@ x_1(D)->capacity, x_1(D)->capacity
@@ -183,8 +183,8 @@ bigint_set_zero:
 	str	r3, [r4]	@ tmp126, x_1(D)->n_limbs
 .LVL13:
 	.loc 1 39 16 view .LVU35
-.LBE63:
-.LBE64:
+.LBE68:
+.LBE69:
 @ ../Core/Src/bigint.c:40: }
 	.loc 1 40 1 view .LVU36
 	pop	{r4, pc}	@
@@ -322,8 +322,8 @@ bigint_trim:
 @ ../Core/Src/bigint.c:54:     if (!x) return;
 	.loc 1 54 8 is_stmt 0 view .LVU65
 	cbz	r0, .L28	@ x,
-.LBB67:
-.LBB68:
+.LBB72:
+.LBB73:
 	.loc 1 55 27 is_stmt 1 view .LVU66
 @ ../Core/Src/bigint.c:55:     while (x->n_limbs > 1 && x->limbs[x->n_limbs - 1] == 0) {
 	.loc 1 55 13 is_stmt 0 view .LVU67
@@ -333,15 +333,15 @@ bigint_trim:
 	cmp	r3, #1	@ _1,
 	bls	.L28		@,
 	adds	r2, r3, #2	@ tmp123, _1,
-	add	r2, r0, r2, lsl #2	@ ivtmp.51, x, tmp123,
-	subs	r3, r3, #1	@ ivtmp.45, _1,
+	add	r2, r0, r2, lsl #2	@ ivtmp.57, x, tmp123,
+	subs	r3, r3, #1	@ ivtmp.51, _1,
 	b	.L31		@
 .L32:
 @ ../Core/Src/bigint.c:56:         x->n_limbs--;
 	.loc 1 56 19 view .LVU69
-	str	r3, [r0]	@ ivtmp.45, x_4(D)->n_limbs
+	str	r3, [r0]	@ ivtmp.51, x_4(D)->n_limbs
 	.loc 1 55 27 is_stmt 1 view .LVU70
-	subs	r3, r3, #1	@ ivtmp.45, ivtmp.45,
+	subs	r3, r3, #1	@ ivtmp.51, ivtmp.51,
 	beq	.L28		@,
 .L31:
 	.loc 1 56 9 view .LVU71
@@ -351,8 +351,8 @@ bigint_trim:
 	cmp	r1, #0	@ MEM[(long unsigned int *)_19]
 	beq	.L32	@
 .L28:
-.LBE68:
-.LBE67:
+.LBE73:
+.LBE72:
 @ ../Core/Src/bigint.c:58: }
 	.loc 1 58 1 view .LVU73
 	bx	lr	@
@@ -380,8 +380,8 @@ bigint_is_zero:
 	.loc 1 65 8 is_stmt 0 view .LVU76
 	cbz	r0, .L41	@ x,
 .LVL26:
-.LBB73:
-.LBB74:
+.LBB78:
+.LBB79:
 	.loc 1 66 26 is_stmt 1 discriminator 1 view .LVU77
 @ ../Core/Src/bigint.c:66:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 66 29 is_stmt 0 discriminator 1 view .LVU78
@@ -389,7 +389,7 @@ bigint_is_zero:
 @ ../Core/Src/bigint.c:66:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 66 26 discriminator 1 view .LVU79
 	cbz	r1, .L41	@ _11,
-	adds	r0, r0, #4	@ ivtmp.62, x,
+	adds	r0, r0, #4	@ ivtmp.68, x,
 .LVL27:
 @ ../Core/Src/bigint.c:66:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 66 17 view .LVU80
@@ -422,8 +422,8 @@ bigint_is_zero:
 	movs	r0, #0	@ <retval>,
 .LVL31:
 	.loc 1 67 38 discriminator 1 view .LVU89
-.LBE74:
-.LBE73:
+.LBE79:
+.LBE78:
 @ ../Core/Src/bigint.c:70: }
 	.loc 1 70 1 view .LVU90
 	bx	lr	@
@@ -455,43 +455,43 @@ bigint_cmp:
 	.loc 1 73 8 is_stmt 0 view .LVU94
 	cbz	r0, .L78	@ a,
 	.loc 1 75 5 is_stmt 1 view .LVU95
-.LBB95:
-.LBB96:
-.LBB97:
+.LBB100:
+.LBB101:
+.LBB102:
 @ ../Core/Src/bigint.c:66:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 66 29 is_stmt 0 discriminator 1 view .LVU96
 	ldr	r3, [r0]	@ i, a_3(D)->n_limbs
-.LBE97:
-.LBE96:
-.LBE95:
+.LBE102:
+.LBE101:
+.LBE100:
 @ ../Core/Src/bigint.c:75:     if (!b) return bigint_is_zero(a) ? 0 : +1;
 	.loc 1 75 8 view .LVU97
 	cmp	r1, #0	@ b
 	beq	.L79	@
 .LVL33:
-.LBB102:
-.LBI102:
+.LBB107:
+.LBI107:
 	.loc 1 72 5 is_stmt 1 view .LVU98
-.LBB103:
+.LBB108:
 	.loc 1 78 5 view .LVU99
 	.loc 1 79 5 view .LVU100
 	add	ip, r3, #2	@ tmp156, i,
-.LBE103:
-.LBE102:
+.LBE108:
+.LBE107:
 @ ../Core/Src/bigint.c:72: int bigint_cmp(const bigint *a, const bigint *b) {
 	.loc 1 72 50 is_stmt 0 view .LVU101
 	push	{r4, lr}	@
 	.cfi_def_cfa_offset 8
 	.cfi_offset 4, -8
 	.cfi_offset 14, -4
-.LBB109:
-.LBB107:
+.LBB114:
+.LBB112:
 @ ../Core/Src/bigint.c:79:     size_t nb = b->n_limbs;
 	.loc 1 79 12 view .LVU102
 	ldr	r2, [r1]	@ nb, b_4(D)->n_limbs
 .LVL34:
 	.loc 1 81 5 is_stmt 1 view .LVU103
-	add	ip, r0, ip, lsl #2	@ ivtmp.116, a, tmp156,
+	add	ip, r0, ip, lsl #2	@ ivtmp.122, a, tmp156,
 @ ../Core/Src/bigint.c:81:     while (na > 1 && a->limbs[na - 1] == 0) na--;
 	.loc 1 81 11 is_stmt 0 view .LVU104
 	b	.L54		@
@@ -515,7 +515,7 @@ bigint_cmp:
 	bhi	.L80		@,
 .L53:
 	add	ip, r2, #2	@ tmp159, nb,
-	add	ip, r1, ip, lsl #2	@ ivtmp.107, b, tmp159,
+	add	ip, r1, ip, lsl #2	@ ivtmp.113, b, tmp159,
 	b	.L56		@
 .L81:
 @ ../Core/Src/bigint.c:82:     while (nb > 1 && b->limbs[nb - 1] == 0) nb--;
@@ -548,21 +548,21 @@ bigint_cmp:
 	adds	r2, r3, #2	@ tmp162, i,
 .LVL37:
 	.loc 1 85 8 view .LVU119
-	add	r0, r0, r2, lsl #2	@ ivtmp.91, a, tmp162,
+	add	r0, r0, r2, lsl #2	@ ivtmp.97, a, tmp162,
 .LVL38:
 	.loc 1 85 8 view .LVU120
-	add	r1, r1, r2, lsl #2	@ ivtmp.95, b, tmp162,
+	add	r1, r1, r2, lsl #2	@ ivtmp.101, b, tmp162,
 .LVL39:
 .L57:
-.LBB104:
-.LBB105:
+.LBB109:
+.LBB110:
 	.loc 1 88 9 is_stmt 1 view .LVU121
 	.loc 1 91 9 view .LVU122
 	.loc 1 91 9 is_stmt 0 view .LVU123
-.LBE105:
+.LBE110:
 	.loc 1 87 27 is_stmt 1 discriminator 1 view .LVU124
 	cbz	r3, .L82	@ i,
-.LBB106:
+.LBB111:
 @ ../Core/Src/bigint.c:88:         uint32_t av = a->limbs[i - 1];
 	.loc 1 88 18 is_stmt 0 view .LVU125
 	ldr	r4, [r0, #-4]!	@ av, MEM[(long unsigned int *)_54]
@@ -589,15 +589,15 @@ bigint_cmp:
 .LVL43:
 .L69:
 	.loc 1 91 12 view .LVU133
-.LBE106:
-.LBE104:
+.LBE111:
+.LBE109:
 @ ../Core/Src/bigint.c:85:     if (na > nb) return +1;
 	.loc 1 85 25 discriminator 1 view .LVU134
 	movs	r0, #1	@ <retval>,
 .LVL44:
 	.loc 1 85 25 discriminator 1 view .LVU135
-.LBE107:
-.LBE109:
+.LBE112:
+.LBE114:
 @ ../Core/Src/bigint.c:94: }
 	.loc 1 94 1 view .LVU136
 	pop	{r4, pc}	@
@@ -610,9 +610,9 @@ bigint_cmp:
 	.loc 1 73 12 discriminator 1 view .LVU137
 	cbz	r1, .L59	@ b,
 .LVL46:
-.LBB110:
-.LBB111:
-.LBB112:
+.LBB115:
+.LBB116:
+.LBB117:
 	.loc 1 66 26 is_stmt 1 discriminator 1 view .LVU138
 @ ../Core/Src/bigint.c:66:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 66 29 is_stmt 0 discriminator 1 view .LVU139
@@ -620,7 +620,7 @@ bigint_cmp:
 @ ../Core/Src/bigint.c:66:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 66 26 discriminator 1 view .LVU140
 	cbz	r2, .L77	@ _38,
-	adds	r1, r1, #4	@ ivtmp.74, b,
+	adds	r1, r1, #4	@ ivtmp.80, b,
 .LVL47:
 	.loc 1 66 26 discriminator 1 view .LVU141
 	b	.L49		@
@@ -652,9 +652,9 @@ bigint_cmp:
 .LVL52:
 .L59:
 	.loc 1 67 12 view .LVU150
-.LBE112:
-.LBE111:
-.LBE110:
+.LBE117:
+.LBE116:
+.LBE115:
 @ ../Core/Src/bigint.c:73:     if (!a && !b) return 0;
 	.loc 1 73 26 discriminator 2 view .LVU151
 	mov	r0, r1	@ <retval>, b
@@ -667,13 +667,13 @@ bigint_cmp:
 	.cfi_def_cfa_offset 8
 	.cfi_offset 4, -8
 	.cfi_offset 14, -4
+.LBB118:
 .LBB113:
-.LBB108:
 @ ../Core/Src/bigint.c:84:     if (na < nb) return -1;
 	.loc 1 84 25 discriminator 1 view .LVU153
 	mov	r0, #-1	@ <retval>,
-.LBE108:
 .LBE113:
+.LBE118:
 @ ../Core/Src/bigint.c:94: }
 	.loc 1 94 1 view .LVU154
 	pop	{r4, pc}	@
@@ -690,9 +690,9 @@ bigint_cmp:
 	.cfi_def_cfa_offset 0
 	.cfi_restore 4
 	.cfi_restore 14
-.LBB114:
-.LBB100:
-.LBB98:
+.LBB119:
+.LBB105:
+.LBB103:
 @ ../Core/Src/bigint.c:66:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 66 26 discriminator 1 view .LVU157
 	mov	r0, r3	@ <retval>, i
@@ -702,7 +702,7 @@ bigint_cmp:
 	.loc 1 66 26 is_stmt 1 discriminator 1 view .LVU158
 	cmp	r3, #0	@ i
 	beq	.L62	@
-	adds	r0, r0, #4	@ ivtmp.81, a,
+	adds	r0, r0, #4	@ ivtmp.87, a,
 .LVL58:
 	.loc 1 66 26 is_stmt 0 discriminator 1 view .LVU159
 	b	.L52		@
@@ -730,22 +730,22 @@ bigint_cmp:
 	movs	r0, #1	@ <retval>,
 .LVL62:
 	.loc 1 67 12 view .LVU167
-.LBE98:
-.LBE100:
-.LBE114:
+.LBE103:
+.LBE105:
+.LBE119:
 @ ../Core/Src/bigint.c:75:     if (!b) return bigint_is_zero(a) ? 0 : +1;
 	.loc 1 75 42 view .LVU168
 	bx	lr	@
 .L77:
-.LBB115:
-.LBB101:
-.LBB99:
+.LBB120:
+.LBB106:
+.LBB104:
 	.loc 1 75 42 view .LVU169
 	mov	r0, r2	@ <retval>, MEM[(long unsigned int *)_41]
 	bx	lr	@
-.LBE99:
-.LBE101:
-.LBE115:
+.LBE104:
+.LBE106:
+.LBE120:
 	.cfi_endproc
 .LFE6:
 	.size	bigint_cmp, .-bigint_cmp
@@ -791,14 +791,14 @@ bigint_from_hex:
 	beq	.L88	@
 	.loc 1 110 5 is_stmt 1 view .LVU175
 .LVL64:
-.LBB130:
-.LBI130:
+.LBB135:
+.LBI135:
 	.loc 1 36 6 view .LVU176
 	.loc 1 37 5 view .LVU177
-.LBB131:
-.LBI131:
+.LBB136:
+.LBI136:
 	.loc 1 36 6 view .LVU178
-.LBB132:
+.LBB137:
 	.loc 1 38 5 view .LVU179
 @ ../Core/Src/bigint.c:38:     memset(x->limbs, 0, x->capacity * sizeof(uint32_t));
 	.loc 1 38 26 is_stmt 0 view .LVU180
@@ -822,9 +822,9 @@ bigint_from_hex:
 	str	r3, [r5]	@ tmp169, out_17(D)->n_limbs
 .LVL68:
 	.loc 1 39 16 view .LVU186
-.LBE132:
-.LBE131:
-.LBE130:
+.LBE137:
+.LBE136:
+.LBE135:
 	.loc 1 112 5 is_stmt 1 view .LVU187
 @ ../Core/Src/bigint.c:112:     size_t len = strlen(hex_str);
 	.loc 1 112 18 is_stmt 0 view .LVU188
@@ -833,7 +833,7 @@ bigint_from_hex:
 .LVL69:
 	.loc 1 113 5 is_stmt 1 view .LVU189
 	.loc 1 116 5 view .LVU190
-.LBB133:
+.LBB138:
 	.loc 1 116 10 view .LVU191
 @ ../Core/Src/bigint.c:116:     for (long i = (long)len - 1; i >= 0; i -= 8) {
 	.loc 1 116 15 is_stmt 0 view .LVU192
@@ -842,14 +842,14 @@ bigint_from_hex:
 	.loc 1 116 36 is_stmt 1 discriminator 1 view .LVU193
 	cmp	r0, #0	@ tmp170
 	beq	.L98	@
-.LBB134:
+.LBB139:
 	.loc 1 117 9 view .LVU194
 @ ../Core/Src/bigint.c:117:         if (limb_idx >= out->capacity) return -1; // not enough room
 	.loc 1 117 12 is_stmt 0 view .LVU195
 	cmp	r6, #0	@ _39
 	beq	.L88	@
 	mov	lr, r3	@ i, i
-	adds	r7, r5, #4	@ ivtmp.149, out,
+	adds	r7, r5, #4	@ ivtmp.155, out,
 	mov	r10, r5	@ out, out
 @ ../Core/Src/bigint.c:120:         long start = i - 7;
 	.loc 1 120 14 view .LVU196
@@ -860,28 +860,28 @@ bigint_from_hex:
 @ ../Core/Src/bigint.c:121:         if (start < 0) start = 0;
 	.loc 1 121 12 view .LVU198
 	bic	r5, r5, r5, asr #31	@ _24, _24
-	add	r8, r8, r0	@ ivtmp.151, tmp170
+	add	r8, r8, r0	@ ivtmp.157, tmp170
 	bic	r2, r3, #7	@ tmp174, i,
 	subs	r0, r0, #9	@ tmp172, tmp170,
 .LVL72:
-.LBB135:
+.LBB140:
 @ ../Core/Src/bigint.c:123:         for (long j = start; j <= i; j++) {
 	.loc 1 123 32 discriminator 1 view .LVU199
 	cmp	r5, lr	@ _24, i
 	sub	r9, r0, r2	@ _97, tmp172, tmp174
-.LBE135:
-.LBE134:
-.LBE133:
+.LBE140:
+.LBE139:
+.LBE138:
 @ ../Core/Src/bigint.c:113:     size_t limb_idx = 0;
 	.loc 1 113 12 view .LVU200
-	mov	r0, #0	@ ivtmp.126,
+	mov	r0, #0	@ ivtmp.132,
 .LVL73:
+.LBB158:
 .LBB153:
-.LBB148:
 	.loc 1 119 9 is_stmt 1 view .LVU201
 	.loc 1 120 9 view .LVU202
 	.loc 1 121 9 view .LVU203
-.LBB144:
+.LBB149:
 	.loc 1 123 32 discriminator 1 view .LVU204
 	bgt	.L101		@,
 .LVL74:
@@ -890,7 +890,7 @@ bigint_from_hex:
 	subs	r5, r5, #1	@ tmp175, _24,
 .LVL75:
 	.loc 1 123 32 discriminator 1 view .LVU206
-	add	r5, r5, r4	@ ivtmp.138, hex_str
+	add	r5, r5, r4	@ ivtmp.144, hex_str
 .LVL76:
 	.loc 1 123 32 discriminator 1 view .LVU207
 	movs	r3, #0	@ acc,
@@ -898,9 +898,9 @@ bigint_from_hex:
 	b	.L96		@
 .LVL77:
 .L94:
-.LBB136:
-.LBB137:
-.LBB138:
+.LBB141:
+.LBB142:
+.LBB143:
 @ ../Core/Src/bigint.c:103:     if (c >= 'A' && c <= 'F') return 10 + (int)(c - 'A');
 	.loc 1 103 8 view .LVU208
 	cmp	fp, #5	@ tmp187,
@@ -910,8 +910,8 @@ bigint_from_hex:
 	sub	r1, r2, #55	@ _80, _78,
 .LVL78:
 	.loc 1 103 41 discriminator 1 view .LVU210
-.LBE138:
-.LBE137:
+.LBE143:
+.LBE142:
 	.loc 1 125 13 is_stmt 1 view .LVU211
 .L93:
 	.loc 1 126 13 view .LVU212
@@ -921,30 +921,30 @@ bigint_from_hex:
 .LVL79:
 .L95:
 	.loc 1 126 17 view .LVU214
-.LBE136:
+.LBE141:
 	.loc 1 123 39 is_stmt 1 discriminator 2 view .LVU215
 	.loc 1 123 32 discriminator 1 view .LVU216
-	cmp	r5, r8	@ ivtmp.138, ivtmp.151
+	cmp	r5, r8	@ ivtmp.144, ivtmp.157
 	beq	.L120		@,
 .LVL80:
 .L96:
-.LBB143:
+.LBB148:
 	.loc 1 124 13 view .LVU217
-.LBB141:
-.LBB139:
+.LBB146:
+.LBB144:
 	.loc 1 102 5 view .LVU218
 	.loc 1 103 5 view .LVU219
 	.loc 1 103 31 discriminator 1 view .LVU220
-.LBE139:
-.LBE141:
+.LBE144:
+.LBE146:
 @ ../Core/Src/bigint.c:124:             int d = hexval(hex_str[j]);
 	.loc 1 124 21 is_stmt 0 view .LVU221
 	ldrb	r2, [r5, #1]!	@ zero_extendqisi2	@ _78, MEM[(const char *)_14]
 .LVL81:
-.LBB142:
-.LBI137:
+.LBB147:
+.LBI142:
 	.loc 1 100 12 is_stmt 1 view .LVU222
-.LBB140:
+.LBB145:
 	.loc 1 101 5 view .LVU223
 @ ../Core/Src/bigint.c:101:     if (c >= '0' && c <= '9') return (int)(c - '0');
 	.loc 1 101 18 is_stmt 0 view .LVU224
@@ -972,45 +972,45 @@ bigint_from_hex:
 	sub	r1, r2, #87	@ _80, _78,
 .LVL82:
 	.loc 1 102 41 discriminator 1 view .LVU232
-.LBE140:
-.LBE142:
+.LBE145:
+.LBE147:
 	.loc 1 125 13 is_stmt 1 view .LVU233
 	b	.L93		@
 .LVL83:
 .L120:
 	.loc 1 125 13 is_stmt 0 view .LVU234
 	ldr	lr, [sp, #4]	@ i, %sfp
-.LBE143:
-.LBE144:
+.LBE148:
+.LBE149:
 	.loc 1 129 9 is_stmt 1 view .LVU235
 @ ../Core/Src/bigint.c:129:         out->limbs[limb_idx++] = acc;
 	.loc 1 129 32 is_stmt 0 view .LVU236
 	str	r3, [r7, #4]!	@ acc, MEM[(long unsigned int *)_35]
-.LBE148:
+.LBE153:
 @ ../Core/Src/bigint.c:116:     for (long i = (long)len - 1; i >= 0; i -= 8) {
 	.loc 1 116 44 discriminator 2 view .LVU237
 	sub	lr, lr, #8	@ i, i,
 @ ../Core/Src/bigint.c:116:     for (long i = (long)len - 1; i >= 0; i -= 8) {
 	.loc 1 116 36 discriminator 1 view .LVU238
 	cmp	lr, r9	@ i, _97
-.LBB149:
+.LBB154:
 @ ../Core/Src/bigint.c:129:         out->limbs[limb_idx++] = acc;
 	.loc 1 129 28 view .LVU239
-	add	r2, r0, #1	@ limb_idx, ivtmp.126,
+	add	r2, r0, #1	@ limb_idx, ivtmp.132,
 .LVL84:
 	.loc 1 129 28 view .LVU240
-.LBE149:
+.LBE154:
 	.loc 1 116 44 is_stmt 1 discriminator 2 view .LVU241
 	.loc 1 116 36 discriminator 1 view .LVU242
 	beq	.L121		@,
 .LVL85:
 .L97:
-.LBB150:
+.LBB155:
 	.loc 1 117 9 view .LVU243
 @ ../Core/Src/bigint.c:117:         if (limb_idx >= out->capacity) return -1; // not enough room
 	.loc 1 117 12 is_stmt 0 view .LVU244
 	cmp	r2, r6	@ limb_idx, _39
-	sub	r8, r8, #8	@ ivtmp.151, ivtmp.151,
+	sub	r8, r8, #8	@ ivtmp.157, ivtmp.157,
 	beq	.L88		@,
 @ ../Core/Src/bigint.c:120:         long start = i - 7;
 	.loc 1 120 14 view .LVU245
@@ -1018,65 +1018,65 @@ bigint_from_hex:
 @ ../Core/Src/bigint.c:121:         if (start < 0) start = 0;
 	.loc 1 121 12 view .LVU246
 	bic	r5, r5, r5, asr #31	@ _24, _24
-.LBB145:
+.LBB150:
 @ ../Core/Src/bigint.c:123:         for (long j = start; j <= i; j++) {
 	.loc 1 123 32 discriminator 1 view .LVU247
 	cmp	r5, lr	@ _24, i
-.LBE145:
-	mov	r0, r2	@ ivtmp.126, limb_idx
+.LBE150:
+	mov	r0, r2	@ ivtmp.132, limb_idx
 	.loc 1 119 9 is_stmt 1 view .LVU248
 .LVL86:
 	.loc 1 120 9 view .LVU249
 	.loc 1 121 9 view .LVU250
-.LBB146:
+.LBB151:
 	.loc 1 123 32 discriminator 1 view .LVU251
 	ble	.L122		@,
 .LVL87:
 .L101:
 	.loc 1 123 32 is_stmt 0 discriminator 1 view .LVU252
-.LBE146:
-.LBE150:
+.LBE151:
+.LBE155:
 @ ../Core/Src/bigint.c:116:     for (long i = (long)len - 1; i >= 0; i -= 8) {
 	.loc 1 116 44 discriminator 2 view .LVU253
 	sub	lr, lr, #8	@ i, i,
 .LVL88:
-.LBB151:
-.LBB147:
+.LBB156:
+.LBB152:
 @ ../Core/Src/bigint.c:123:         for (long j = start; j <= i; j++) {
 	.loc 1 123 32 discriminator 1 view .LVU254
 	movs	r3, #0	@ acc,
-.LBE147:
+.LBE152:
 	.loc 1 129 9 is_stmt 1 view .LVU255
-.LBE151:
+.LBE156:
 @ ../Core/Src/bigint.c:116:     for (long i = (long)len - 1; i >= 0; i -= 8) {
 	.loc 1 116 36 is_stmt 0 discriminator 1 view .LVU256
 	cmp	lr, r9	@ i, _97
-.LBB152:
+.LBB157:
 @ ../Core/Src/bigint.c:129:         out->limbs[limb_idx++] = acc;
 	.loc 1 129 32 view .LVU257
 	str	r3, [r7, #4]!	@ acc, MEM[(long unsigned int *)_35]
 @ ../Core/Src/bigint.c:129:         out->limbs[limb_idx++] = acc;
 	.loc 1 129 28 view .LVU258
-	add	r2, r0, #1	@ limb_idx, ivtmp.126,
+	add	r2, r0, #1	@ limb_idx, ivtmp.132,
 .LVL89:
 	.loc 1 129 28 view .LVU259
-.LBE152:
+.LBE157:
 	.loc 1 116 44 is_stmt 1 discriminator 2 view .LVU260
 	.loc 1 116 36 discriminator 1 view .LVU261
 	bne	.L97		@,
 .LVL90:
 .L121:
 	.loc 1 116 36 is_stmt 0 discriminator 1 view .LVU262
-.LBE153:
-.LBB154:
-.LBB155:
-.LBB156:
+.LBE158:
+.LBB159:
+.LBB160:
+.LBB161:
 @ ../Core/Src/bigint.c:55:     while (x->n_limbs > 1 && x->limbs[x->n_limbs - 1] == 0) {
 	.loc 1 55 27 view .LVU263
 	cmp	r2, #1	@ limb_idx,
-.LBE156:
-.LBE155:
-.LBE154:
+.LBE161:
+.LBE160:
+.LBE159:
 @ ../Core/Src/bigint.c:132:     out->n_limbs = (limb_idx == 0) ? 1 : limb_idx;
 	.loc 1 132 18 discriminator 4 view .LVU264
 	mov	r5, r10	@ out, out
@@ -1086,26 +1086,26 @@ bigint_from_hex:
 	str	r2, [r10]	@ limb_idx, out_17(D)->n_limbs
 	.loc 1 133 5 is_stmt 1 view .LVU267
 .LVL91:
-.LBB159:
-.LBI154:
+.LBB164:
+.LBI159:
 	.loc 1 53 6 view .LVU268
 	.loc 1 54 5 view .LVU269
-.LBB158:
-.LBB157:
+.LBB163:
+.LBB162:
 	.loc 1 55 27 view .LVU270
 	beq	.L98		@,
 .LVL92:
 	.loc 1 55 27 is_stmt 0 view .LVU271
-	adds	r3, r0, #3	@ tmp188, ivtmp.126,
-	add	r3, r10, r3, lsl #2	@ ivtmp.132, out, tmp188,
+	adds	r3, r0, #3	@ tmp188, ivtmp.132,
+	add	r3, r10, r3, lsl #2	@ ivtmp.138, out, tmp188,
 	b	.L99		@
 .LVL93:
 .L100:
 @ ../Core/Src/bigint.c:56:         x->n_limbs--;
 	.loc 1 56 19 view .LVU272
-	str	r0, [r5]	@ ivtmp.126, out_17(D)->n_limbs
+	str	r0, [r5]	@ ivtmp.132, out_17(D)->n_limbs
 	.loc 1 55 27 is_stmt 1 view .LVU273
-	subs	r0, r0, #1	@ ivtmp.126, ivtmp.126,
+	subs	r0, r0, #1	@ ivtmp.132, ivtmp.132,
 	beq	.L98		@,
 .L99:
 	.loc 1 56 9 view .LVU274
@@ -1117,9 +1117,9 @@ bigint_from_hex:
 .LVL94:
 .L98:
 	.loc 1 55 27 discriminator 1 view .LVU276
-.LBE157:
-.LBE158:
-.LBE159:
+.LBE162:
+.LBE163:
+.LBE164:
 @ ../Core/Src/bigint.c:134:     return 0;
 	.loc 1 134 12 view .LVU277
 	movs	r0, #0	@ <retval>,
@@ -1195,13 +1195,13 @@ bigint_to_hex:
 	cmp	r0, #0	@ x
 	beq	.L175	@
 .LVL99:
-.LBB170:
-.LBB171:
-.LBB172:
+.LBB175:
+.LBB176:
+.LBB177:
 	.loc 1 66 26 is_stmt 1 discriminator 1 view .LVU290
-.LBE172:
-.LBE171:
-.LBE170:
+.LBE177:
+.LBE176:
+.LBE175:
 @ ../Core/Src/bigint.c:137: void bigint_to_hex(const bigint *x, char *hex_output, size_t output_size) {
 	.loc 1 137 75 is_stmt 0 view .LVU291
 	push	{r4, r5, r6, r7, r8, lr}	@
@@ -1212,9 +1212,9 @@ bigint_to_hex:
 	.cfi_offset 7, -12
 	.cfi_offset 8, -8
 	.cfi_offset 14, -4
-.LBB175:
-.LBB174:
-.LBB173:
+.LBB180:
+.LBB179:
+.LBB178:
 @ ../Core/Src/bigint.c:66:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 66 29 discriminator 1 view .LVU292
 	ldr	r4, [r0]	@ _73, x_38(D)->n_limbs
@@ -1222,7 +1222,7 @@ bigint_to_hex:
 	.loc 1 66 26 discriminator 1 view .LVU293
 	cmp	r4, #0	@ _73
 	beq	.L125	@
-	add	ip, r0, #4	@ ivtmp.202, x,
+	add	ip, r0, #4	@ ivtmp.208, x,
 @ ../Core/Src/bigint.c:66:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 66 17 view .LVU294
 	movs	r3, #0	@ i,
@@ -1251,9 +1251,9 @@ bigint_to_hex:
 	beq	.L180	@
 .LVL103:
 	.loc 1 67 12 view .LVU302
-.LBE173:
-.LBE174:
-.LBE175:
+.LBE178:
+.LBE179:
+.LBE180:
 	.loc 1 152 5 is_stmt 1 view .LVU303
 	.loc 1 153 5 view .LVU304
 	.loc 1 153 20 discriminator 1 view .LVU305
@@ -1262,7 +1262,7 @@ bigint_to_hex:
 	.loc 1 153 20 is_stmt 0 discriminator 1 view .LVU306
 	bmi	.L125		@,
 	adds	r3, r4, #2	@ tmp166, _73,
-	add	r3, r0, r3, lsl #2	@ ivtmp.196, x, tmp166,
+	add	r3, r0, r3, lsl #2	@ ivtmp.202, x, tmp166,
 	b	.L129		@
 .L130:
 	.loc 1 153 20 discriminator 1 view .LVU307
@@ -1285,25 +1285,25 @@ bigint_to_hex:
 @ ../Core/Src/bigint.c:174:     uint32_t limb = x->limbs[ms];
 	.loc 1 174 14 is_stmt 0 view .LVU314
 	adds	r7, r5, #2	@ tmp186, ms,
-	movs	r3, #28	@ ivtmp.186,
+	movs	r3, #28	@ ivtmp.192,
 	ldr	ip, [r0, r7, lsl #2]	@ limb, x_38(D)->limbs[ms_74]
 .LVL108:
 	.loc 1 175 5 is_stmt 1 view .LVU315
 	.loc 1 176 5 view .LVU316
-.LBB176:
+.LBB181:
 	.loc 1 176 10 view .LVU317
 	.loc 1 176 27 discriminator 1 view .LVU318
 .L138:
-.LBB177:
+.LBB182:
 	.loc 1 177 9 view .LVU319
 	.loc 1 180 12 discriminator 3 view .LVU320
-.LBE177:
+.LBE182:
 	.loc 1 176 36 discriminator 2 view .LVU321
 	.loc 1 176 27 discriminator 1 view .LVU322
-.LBB178:
+.LBB183:
 @ ../Core/Src/bigint.c:177:         uint32_t v = (limb >> (nib * 4)) & 0xFu;
 	.loc 1 177 28 is_stmt 0 view .LVU323
-	lsr	r4, ip, r3	@ tmp169, limb, ivtmp.186
+	lsr	r4, ip, r3	@ tmp169, limb, ivtmp.192
 .LVL109:
 	.loc 1 178 9 is_stmt 1 view .LVU324
 @ ../Core/Src/bigint.c:178:         if (!started && v == 0) continue;
@@ -1312,18 +1312,18 @@ bigint_to_hex:
 .LVL110:
 	.loc 1 178 22 discriminator 1 view .LVU326
 	bne	.L181		@,
-.LBE178:
+.LBE183:
 @ ../Core/Src/bigint.c:176:     for (int nib = 7; nib >= 0; nib--) {
 	.loc 1 176 27 discriminator 1 view .LVU327
-	subs	r3, r3, #4	@ ivtmp.186, ivtmp.186,
-	adds	r6, r3, #4	@, ivtmp.186,
+	subs	r3, r3, #4	@ ivtmp.192, ivtmp.192,
+	adds	r6, r3, #4	@, ivtmp.192,
 	bne	.L138		@,
 .LVL111:
 .L137:
 	.loc 1 176 27 discriminator 1 view .LVU328
-.LBE176:
+.LBE181:
 	.loc 1 184 5 is_stmt 1 view .LVU329
-.LBB184:
+.LBB189:
 	.loc 1 184 10 view .LVU330
 @ ../Core/Src/bigint.c:184:     for (long i = ms - 1; i >= 0; i--) {
 	.loc 1 184 15 is_stmt 0 view .LVU331
@@ -1334,32 +1334,32 @@ bigint_to_hex:
 	beq	.L143	@
 	add	lr, r4, #1	@ _12, pos,
 .L144:
-.LBB185:
-.LBB186:
+.LBB190:
+.LBB191:
 @ ../Core/Src/bigint.c:188:             PUTCH(hexdigits[v]);
 	.loc 1 188 77 is_stmt 0 discriminator 1 view .LVU333
 	ldr	r5, .L184	@ tmp187,
 .LVL113:
 	.loc 1 188 77 discriminator 1 view .LVU334
-	add	r7, r0, r7, lsl #2	@ ivtmp.178, x, tmp186,
+	add	r7, r0, r7, lsl #2	@ ivtmp.184, x, tmp186,
 .LVL114:
 .L142:
 	.loc 1 188 77 discriminator 1 view .LVU335
-.LBE186:
-.LBE185:
+.LBE191:
+.LBE190:
 	.loc 1 185 9 is_stmt 1 view .LVU336
 @ ../Core/Src/bigint.c:185:         limb = x->limbs[i];
 	.loc 1 185 14 is_stmt 0 view .LVU337
 	ldr	r0, [r7, #-4]!	@ limb, MEM[(long unsigned int *)_20]
 .LVL115:
 	.loc 1 186 9 is_stmt 1 view .LVU338
-.LBB188:
+.LBB193:
 	.loc 1 186 14 view .LVU339
 	.loc 1 186 31 discriminator 1 view .LVU340
-.LBE188:
+.LBE193:
 @ ../Core/Src/bigint.c:185:         limb = x->limbs[i];
 	.loc 1 185 14 is_stmt 0 view .LVU341
-	mov	ip, #28	@ ivtmp.169,
+	mov	ip, #28	@ ivtmp.175,
 	b	.L141		@
 .LVL116:
 .L182:
@@ -1367,22 +1367,22 @@ bigint_to_hex:
 	add	lr, r4, #1	@ _12, pos,
 .LVL117:
 .L141:
-.LBB189:
-.LBB187:
+.LBB194:
+.LBB192:
 	.loc 1 187 13 is_stmt 1 view .LVU343
 	.loc 1 188 13 view .LVU344
 	.loc 1 188 18 view .LVU345
 	.loc 1 188 47 discriminator 1 view .LVU346
 @ ../Core/Src/bigint.c:187:             uint32_t v = (limb >> (nib * 4)) & 0xFu;
 	.loc 1 187 32 is_stmt 0 view .LVU347
-	lsr	r3, r0, ip	@ tmp178, limb, ivtmp.169
+	lsr	r3, r0, ip	@ tmp178, limb, ivtmp.175
 @ ../Core/Src/bigint.c:188:             PUTCH(hexdigits[v]);
 	.loc 1 188 21 view .LVU348
 	cmp	lr, r2	@ _12, output_size
 @ ../Core/Src/bigint.c:187:             uint32_t v = (limb >> (nib * 4)) & 0xFu;
 	.loc 1 187 22 view .LVU349
 	and	r3, r3, #15	@ v, tmp178,
-	sub	ip, ip, #4	@ ivtmp.169, ivtmp.169,
+	sub	ip, ip, #4	@ ivtmp.175, ivtmp.175,
 @ ../Core/Src/bigint.c:188:             PUTCH(hexdigits[v]);
 	.loc 1 188 21 view .LVU350
 	bcs	.L140		@,
@@ -1396,12 +1396,12 @@ bigint_to_hex:
 .L140:
 .LVL118:
 	.loc 1 188 16 is_stmt 1 discriminator 3 view .LVU353
-.LBE187:
+.LBE192:
 	.loc 1 186 40 discriminator 2 view .LVU354
 	.loc 1 186 31 discriminator 1 view .LVU355
-	cmn	ip, #4	@ ivtmp.169,
+	cmn	ip, #4	@ ivtmp.175,
 	bne	.L182		@,
-.LBE189:
+.LBE194:
 	.loc 1 184 36 discriminator 2 view .LVU356
 @ ../Core/Src/bigint.c:184:     for (long i = ms - 1; i >= 0; i--) {
 	.loc 1 184 29 is_stmt 0 discriminator 1 view .LVU357
@@ -1421,7 +1421,7 @@ bigint_to_hex:
 	.cfi_restore 8
 	.cfi_restore 14
 	.loc 1 184 29 discriminator 1 view .LVU359
-.LBE184:
+.LBE189:
 	.loc 1 146 13 is_stmt 1 view .LVU360
 @ ../Core/Src/bigint.c:146:             hex_output[0] = '\0';
 	.loc 1 146 27 is_stmt 0 view .LVU361
@@ -1491,7 +1491,7 @@ bigint_to_hex:
 	.cfi_offset 8, -8
 	.cfi_offset 14, -4
 	.loc 1 184 5 is_stmt 1 view .LVU378
-.LBB190:
+.LBB195:
 	.loc 1 184 10 view .LVU379
 @ ../Core/Src/bigint.c:184:     for (long i = ms - 1; i >= 0; i--) {
 	.loc 1 184 15 is_stmt 0 view .LVU380
@@ -1503,7 +1503,7 @@ bigint_to_hex:
 .LVL123:
 .L139:
 	.loc 1 184 29 is_stmt 0 discriminator 1 view .LVU382
-.LBE190:
+.LBE195:
 	.loc 1 193 5 is_stmt 1 view .LVU383
 @ ../Core/Src/bigint.c:193:     hex_output[(pos < output_size) ? pos : (output_size - 1)] = '\0';
 	.loc 1 193 42 is_stmt 0 view .LVU384
@@ -1523,8 +1523,8 @@ bigint_to_hex:
 	pop	{r4, r5, r6, r7, r8, pc}	@
 .LVL125:
 .L181:
-.LBB191:
-.LBB179:
+.LBB196:
+.LBB184:
 @ ../Core/Src/bigint.c:180:         PUTCH(hexdigits[v]);
 	.loc 1 180 73 discriminator 1 view .LVU388
 	ldr	r8, .L184	@ tmp189,
@@ -1537,10 +1537,10 @@ bigint_to_hex:
 	.loc 1 180 9 view .LVU390
 	.loc 1 180 14 view .LVU391
 	.loc 1 180 12 discriminator 3 view .LVU392
-.LBE179:
+.LBE184:
 	.loc 1 176 36 discriminator 2 view .LVU393
 	.loc 1 176 27 discriminator 1 view .LVU394
-.LBB180:
+.LBB185:
 	.loc 1 177 9 view .LVU395
 	.loc 1 180 43 discriminator 1 view .LVU396
 	.loc 1 177 9 view .LVU397
@@ -1550,18 +1550,18 @@ bigint_to_hex:
 	bcc	.L134		@,
 .L183:
 	.loc 1 180 17 view .LVU399
-.LBE180:
+.LBE185:
 @ ../Core/Src/bigint.c:176:     for (int nib = 7; nib >= 0; nib--) {
 	.loc 1 176 27 discriminator 1 view .LVU400
-	subs	r3, r3, #4	@ ivtmp.186, ivtmp.186,
-	adds	r6, r3, #4	@, ivtmp.186,
+	subs	r3, r3, #4	@ ivtmp.192, ivtmp.192,
+	adds	r6, r3, #4	@, ivtmp.192,
 .LVL127:
 	.loc 1 176 27 discriminator 1 view .LVU401
 	beq	.L135		@,
-.LBB181:
+.LBB186:
 @ ../Core/Src/bigint.c:177:         uint32_t v = (limb >> (nib * 4)) & 0xFu;
 	.loc 1 177 28 view .LVU402
-	lsr	r6, ip, r3	@ tmp170, limb, ivtmp.186
+	lsr	r6, ip, r3	@ tmp170, limb, ivtmp.192
 @ ../Core/Src/bigint.c:180:         PUTCH(hexdigits[v]);
 	.loc 1 180 17 view .LVU403
 	cmp	lr, r2	@ _12, output_size
@@ -1574,10 +1574,10 @@ bigint_to_hex:
 	.loc 1 180 9 view .LVU407
 	.loc 1 180 14 view .LVU408
 	.loc 1 180 12 discriminator 3 view .LVU409
-.LBE181:
+.LBE186:
 	.loc 1 176 36 discriminator 2 view .LVU410
 	.loc 1 176 27 discriminator 1 view .LVU411
-.LBB182:
+.LBB187:
 	.loc 1 177 9 view .LVU412
 	.loc 1 180 43 discriminator 1 view .LVU413
 	.loc 1 177 9 view .LVU414
@@ -1592,16 +1592,16 @@ bigint_to_hex:
 	.loc 1 180 61 discriminator 1 view .LVU417
 	strb	r6, [r1, r4]	@ hexdigits[v_111], *_8
 	.loc 1 180 12 is_stmt 1 discriminator 3 view .LVU418
-.LBE182:
+.LBE187:
 	.loc 1 176 36 discriminator 2 view .LVU419
 	.loc 1 176 27 discriminator 1 view .LVU420
-	subs	r3, r3, #4	@ ivtmp.186, ivtmp.186,
-	adds	r4, r3, #4	@, ivtmp.186,
+	subs	r3, r3, #4	@ ivtmp.192, ivtmp.192,
+	adds	r4, r3, #4	@, ivtmp.192,
 	beq	.L146		@,
-.LBB183:
+.LBB188:
 @ ../Core/Src/bigint.c:177:         uint32_t v = (limb >> (nib * 4)) & 0xFu;
 	.loc 1 177 28 is_stmt 0 view .LVU421
-	lsr	r6, ip, r3	@ tmp174, limb, ivtmp.186
+	lsr	r6, ip, r3	@ tmp174, limb, ivtmp.192
 @ ../Core/Src/bigint.c:180:         PUTCH(hexdigits[v]);
 	.loc 1 180 57 discriminator 1 view .LVU422
 	mov	r4, lr	@ pos, _12
@@ -1625,8 +1625,8 @@ bigint_to_hex:
 	.align	2
 .L184:
 	.word	hexdigits.0
-.LBE183:
-.LBE191:
+.LBE188:
+.LBE196:
 	.cfi_endproc
 .LFE9:
 	.size	bigint_to_hex, .-bigint_to_hex
@@ -1700,33 +1700,33 @@ bigint_add:
 	cmp	r8, r3	@ _1, tmp144
 	bcc	.L197		@,
 .LVL137:
-.LBB192:
+.LBB197:
 	.loc 1 212 26 is_stmt 1 discriminator 1 view .LVU444
 	cbz	r4, .L198	@ n,
-.LBB193:
+.LBB198:
 @ ../Core/Src/bigint.c:213:         uint64_t av = (i < na) ? (uint64_t)a->limbs[i] : 0;
 	.loc 1 213 52 is_stmt 0 discriminator 1 view .LVU445
 	add	r5, r1, #8	@ tmp186, a,
-.LBE193:
+.LBE198:
 @ ../Core/Src/bigint.c:212:     for (size_t i = 0; i < n; i++) {
 	.loc 1 212 17 view .LVU446
 	movs	r1, #0	@ i,
 .LVL138:
-.LBB194:
+.LBB199:
 @ ../Core/Src/bigint.c:214:         uint64_t bv = (i < nb) ? (uint64_t)b->limbs[i] : 0;
 	.loc 1 214 52 discriminator 1 view .LVU447
 	add	r10, r2, #8	@ tmp187, b,
-	add	lr, r0, #4	@ ivtmp.214, res,
-.LBE194:
-.LBE192:
+	add	lr, r0, #4	@ ivtmp.220, res,
+.LBE199:
+.LBE197:
 @ ../Core/Src/bigint.c:211:     uint64_t carry = 0;
 	.loc 1 211 14 view .LVU448
 	mov	r3, r1	@ carry, i
 	mov	ip, r1	@ carry, i
 .LVL139:
 .L191:
-.LBB197:
-.LBB195:
+.LBB202:
+.LBB200:
 	.loc 1 213 9 is_stmt 1 view .LVU449
 	.loc 1 214 9 view .LVU450
 	.loc 1 216 9 view .LVU451
@@ -1752,7 +1752,7 @@ bigint_add:
 	adc	ip, ip, #0	@ carry, carry
 .L190:
 	.loc 1 216 18 view .LVU457
-.LBE195:
+.LBE200:
 @ ../Core/Src/bigint.c:212:     for (size_t i = 0; i < n; i++) {
 	.loc 1 212 32 discriminator 2 view .LVU458
 	adds	r1, r1, #1	@ i, i,
@@ -1760,7 +1760,7 @@ bigint_add:
 @ ../Core/Src/bigint.c:212:     for (size_t i = 0; i < n; i++) {
 	.loc 1 212 26 discriminator 1 view .LVU459
 	cmp	r4, r1	@ n, i
-.LBB196:
+.LBB201:
 @ ../Core/Src/bigint.c:217:         res->limbs[i] = (uint32_t)sum;
 	.loc 1 217 25 view .LVU460
 	str	r3, [lr, #4]!	@ carry, MEM[(long unsigned int *)_30]
@@ -1772,11 +1772,11 @@ bigint_add:
 	mov	ip, #0	@ carry,
 .LVL142:
 	.loc 1 218 15 view .LVU463
-.LBE196:
+.LBE201:
 	.loc 1 212 32 is_stmt 1 discriminator 2 view .LVU464
 	.loc 1 212 26 discriminator 1 view .LVU465
 	bne	.L191		@,
-.LBE197:
+.LBE202:
 @ ../Core/Src/bigint.c:222:     res->n_limbs = n + (carry ? 1 : 0);
 	.loc 1 222 22 is_stmt 0 discriminator 4 view .LVU466
 	cmp	r9, ip	@ _53,
@@ -1789,11 +1789,11 @@ bigint_add:
 @ ../Core/Src/bigint.c:221:     res->limbs[n] = (uint32_t)carry;
 	.loc 1 221 19 is_stmt 0 view .LVU468
 	adds	r4, r4, #2	@ tmp163, n,
-.LBB198:
+.LBB203:
 @ ../Core/Src/bigint.c:225:     for (size_t i = res->n_limbs; i < res->capacity; i++) res->limbs[i] = 0;
 	.loc 1 225 37 discriminator 1 view .LVU469
 	cmp	r8, r1	@ _1, _59
-.LBE198:
+.LBE203:
 @ ../Core/Src/bigint.c:221:     res->limbs[n] = (uint32_t)carry;
 	.loc 1 221 19 view .LVU470
 	str	r3, [r0, r4, lsl #2]	@ _53, res_19(D)->limbs[n_25]
@@ -1802,7 +1802,7 @@ bigint_add:
 	.loc 1 222 18 is_stmt 0 discriminator 4 view .LVU472
 	str	r1, [r0]	@ _59, res_19(D)->n_limbs
 	.loc 1 225 5 is_stmt 1 view .LVU473
-.LBB199:
+.LBB204:
 	.loc 1 225 10 view .LVU474
 .LVL144:
 	.loc 1 225 37 discriminator 1 view .LVU475
@@ -1820,7 +1820,7 @@ bigint_add:
 .LVL146:
 .L193:
 	.loc 1 225 73 discriminator 3 view .LVU478
-.LBE199:
+.LBE204:
 @ ../Core/Src/bigint.c:227:     return 0;
 	.loc 1 227 12 view .LVU479
 	movs	r0, #0	@ <retval>,
@@ -1830,7 +1830,7 @@ bigint_add:
 	pop	{r4, r5, r6, r7, r8, r9, r10, pc}	@
 .LVL147:
 .L198:
-.LBB200:
+.LBB205:
 @ ../Core/Src/bigint.c:212:     for (size_t i = 0; i < n; i++) {
 	.loc 1 212 26 discriminator 1 view .LVU481
 	mov	r1, r4	@ _59, n
@@ -1850,7 +1850,7 @@ bigint_add:
 	.cfi_restore 10
 	.cfi_restore 14
 	.loc 1 212 26 discriminator 1 view .LVU483
-.LBE200:
+.LBE205:
 @ ../Core/Src/bigint.c:203:     if (!res || !a || !b) return -1;
 	.loc 1 203 34 discriminator 5 view .LVU484
 	mov	r0, #-1	@ <retval>,
@@ -1948,30 +1948,30 @@ bigint_sub:
 	cmp	r10, r3	@ _2, _34
 	bcc	.L220		@,
 .LVL157:
-.LBB208:
+.LBB213:
 	.loc 1 238 26 is_stmt 1 discriminator 1 view .LVU503
 	cmp	r3, #0	@ _34
 	beq	.L206	@
 @ ../Core/Src/bigint.c:238:     for (size_t i = 0; i < n; i++) {
 	.loc 1 238 17 is_stmt 0 view .LVU504
 	mov	lr, #0	@ i,
-.LBB209:
+.LBB214:
 @ ../Core/Src/bigint.c:240:         uint64_t bv = (i < b->n_limbs) ? (uint64_t)b->limbs[i] : 0;
 	.loc 1 240 29 view .LVU505
 	ldr	r0, [r7], #8	@ _5, b_20(D)->n_limbs
 .LVL158:
 	.loc 1 240 29 view .LVU506
-	add	r9, r4, #4	@ ivtmp.241, a,
-	adds	r6, r5, #4	@ ivtmp.245, res,
-.LBE209:
-.LBE208:
+	add	r9, r4, #4	@ ivtmp.247, a,
+	adds	r6, r5, #4	@ ivtmp.251, res,
+.LBE214:
+.LBE213:
 @ ../Core/Src/bigint.c:235:     uint64_t borrow = 0;
 	.loc 1 235 14 view .LVU507
 	mov	ip, lr	@ borrow, i
 	mov	r4, lr	@ borrow, i
 .LVL159:
-.LBB213:
-.LBB210:
+.LBB218:
+.LBB215:
 @ ../Core/Src/bigint.c:239:         uint64_t av = (uint64_t)a->limbs[i];
 	.loc 1 239 18 view .LVU508
 	mov	r8, lr	@ tmp151, i
@@ -2009,23 +2009,23 @@ bigint_sub:
 	sbcs	r4, r8, r4	@ tmp194, tmp151, borrow
 .LVL164:
 	.loc 1 245 36 view .LVU521
-.LBE210:
+.LBE215:
 @ ../Core/Src/bigint.c:238:     for (size_t i = 0; i < n; i++) {
 	.loc 1 238 32 discriminator 2 view .LVU522
 	add	lr, lr, #1	@ i, i,
 .LVL165:
-.LBB211:
+.LBB216:
 @ ../Core/Src/bigint.c:245:         borrow = (av < needed) ? 1 : 0;
 	.loc 1 245 36 view .LVU523
 	ite	cc
 	movcc	ip, #1	@ borrow,
 	.loc 1 245 36 view .LVU524
 	movcs	ip, #0	@ borrow,
-.LBE211:
+.LBE216:
 @ ../Core/Src/bigint.c:238:     for (size_t i = 0; i < n; i++) {
 	.loc 1 238 26 discriminator 1 view .LVU525
 	cmp	r3, lr	@ _34, i
-.LBB212:
+.LBB217:
 @ ../Core/Src/bigint.c:246:         res->limbs[i] = (uint32_t)diff;
 	.loc 1 246 25 view .LVU526
 	str	r2, [r6, #4]!	@ diff, MEM[(long unsigned int *)_65]
@@ -2035,39 +2035,39 @@ bigint_sub:
 	mov	r4, #0	@ borrow,
 .LVL167:
 	.loc 1 246 9 is_stmt 1 view .LVU528
-.LBE212:
+.LBE217:
 	.loc 1 238 32 discriminator 2 view .LVU529
 	.loc 1 238 26 discriminator 1 view .LVU530
 	bne	.L208		@,
-.LBE213:
+.LBE218:
 	.loc 1 249 5 view .LVU531
-.LBB214:
-.LBB215:
-.LBB216:
+.LBB219:
+.LBB220:
+.LBB221:
 @ ../Core/Src/bigint.c:55:     while (x->n_limbs > 1 && x->limbs[x->n_limbs - 1] == 0) {
 	.loc 1 55 27 is_stmt 0 view .LVU532
 	cmp	r3, #1	@ _34,
-.LBE216:
-.LBE215:
-.LBE214:
+.LBE221:
+.LBE220:
+.LBE219:
 @ ../Core/Src/bigint.c:249:     res->n_limbs = n;
 	.loc 1 249 18 view .LVU533
 	str	r3, [r5]	@ _34, res_18(D)->n_limbs
 	.loc 1 250 5 is_stmt 1 view .LVU534
 .LVL168:
-.LBB221:
-.LBI214:
+.LBB226:
+.LBI219:
 	.loc 1 53 6 view .LVU535
 	.loc 1 54 5 view .LVU536
-.LBB219:
-.LBI215:
+.LBB224:
+.LBI220:
 	.loc 1 53 6 view .LVU537
-.LBB217:
+.LBB222:
 	.loc 1 55 27 view .LVU538
 	beq	.L221		@,
 	adds	r2, r3, #2	@ tmp161, _34,
 	.loc 1 55 27 is_stmt 0 view .LVU539
-	add	r2, r5, r2, lsl #2	@ ivtmp.235, res, tmp161,
+	add	r2, r5, r2, lsl #2	@ ivtmp.241, res, tmp161,
 	b	.L211		@
 .L212:
 	.loc 1 55 27 view .LVU540
@@ -2093,10 +2093,10 @@ bigint_sub:
 .LVL169:
 .L210:
 	.loc 1 55 27 discriminator 1 view .LVU547
-.LBE217:
-.LBE219:
-.LBE221:
-.LBB222:
+.LBE222:
+.LBE224:
+.LBE226:
+.LBB227:
 	.loc 1 252 37 is_stmt 1 discriminator 1 view .LVU548
 	cmp	r10, r0	@ _2, i
 	bls	.L214		@,
@@ -2115,7 +2115,7 @@ bigint_sub:
 .LVL172:
 .L214:
 	.loc 1 252 73 discriminator 3 view .LVU552
-.LBE222:
+.LBE227:
 @ ../Core/Src/bigint.c:254:     return 0;
 	.loc 1 254 12 view .LVU553
 	movs	r0, #0	@ <retval>,
@@ -2132,12 +2132,12 @@ bigint_sub:
 	str	r3, [r5]	@ _34, res_18(D)->n_limbs
 	.loc 1 250 5 is_stmt 1 view .LVU557
 .LVL175:
-.LBB223:
+.LBB228:
 	.loc 1 53 6 view .LVU558
 	.loc 1 54 5 view .LVU559
-.LBB220:
+.LBB225:
 	.loc 1 53 6 view .LVU560
-.LBB218:
+.LBB223:
 	.loc 1 55 27 view .LVU561
 .L221:
 	.loc 1 55 27 is_stmt 0 view .LVU562
@@ -2146,9 +2146,9 @@ bigint_sub:
 .LVL176:
 .L220:
 	.loc 1 55 27 view .LVU563
-.LBE218:
-.LBE220:
 .LBE223:
+.LBE225:
+.LBE228:
 @ ../Core/Src/bigint.c:231:     if (!res || !a || !b) return -1;
 	.loc 1 231 34 discriminator 5 view .LVU564
 	mov	r0, #-1	@ <retval>,
@@ -2267,14 +2267,14 @@ bigint_mul:
 	bl	memset		@
 .LVL184:
 	.loc 1 270 5 is_stmt 1 view .LVU590
-.LBB232:
+.LBB237:
 	.loc 1 270 10 view .LVU591
 	.loc 1 270 26 discriminator 1 view .LVU592
 	cmp	fp, #0	@ na
 	beq	.L235	@
 	adds	r2, r5, #1	@ nb, nb,
 	rsb	r3, r5, r5, lsl #30	@ tmp176, nb, nb,
-.LBB233:
+.LBB238:
 @ ../Core/Src/bigint.c:272:         uint64_t av = (uint64_t)a->limbs[i];
 	.loc 1 272 18 is_stmt 0 view .LVU593
 	ldr	r6, [r10, #8]	@ av, MEM[(long unsigned int *)_86]
@@ -2284,46 +2284,46 @@ bigint_mul:
 	.loc 1 272 9 view .LVU595
 @ ../Core/Src/bigint.c:272:         uint64_t av = (uint64_t)a->limbs[i];
 	.loc 1 272 41 is_stmt 0 view .LVU596
-	add	r10, r10, #8	@ ivtmp.281, a,
+	add	r10, r10, #8	@ ivtmp.287, a,
 .LVL186:
 	.loc 1 272 41 view .LVU597
-	add	r0, r4, r2, lsl #2	@ ivtmp.285, res, nb,
+	add	r0, r4, r2, lsl #2	@ ivtmp.291, res, nb,
 @ ../Core/Src/bigint.c:272:         uint64_t av = (uint64_t)a->limbs[i];
 	.loc 1 272 18 view .LVU598
 	mov	r8, #0	@ av,
 .LVL187:
 	.loc 1 274 9 is_stmt 1 view .LVU599
-.LBB234:
+.LBB239:
 	.loc 1 274 14 view .LVU600
 	.loc 1 274 30 discriminator 1 view .LVU601
 	cbz	r5, .L233	@ nb,
-	adds	r1, r7, #4	@ ivtmp.274, b,
-	strd	r10, fp, [sp, #12]	@ ivtmp.281, na,,
+	adds	r1, r7, #4	@ ivtmp.280, b,
+	strd	r10, fp, [sp, #12]	@ ivtmp.287, na,,
 	mov	fp, r3	@ tmp177, tmp177
 .LVL188:
 	.loc 1 274 30 is_stmt 0 discriminator 1 view .LVU602
-	mov	r3, r1	@ ivtmp.274, ivtmp.274
+	mov	r3, r1	@ ivtmp.280, ivtmp.280
 	mov	r9, r8	@ i, av
 	mov	r1, r4	@ res, res
-	mov	r4, r3	@ ivtmp.274, ivtmp.274
+	mov	r4, r3	@ ivtmp.280, ivtmp.280
 .LVL189:
 .L236:
 @ ../Core/Src/bigint.c:274:         for (size_t j = 0; j < nb; j++) {
 	.loc 1 274 21 view .LVU603
 	movs	r7, #0	@ j,
-.LBE234:
+.LBE239:
 @ ../Core/Src/bigint.c:271:         uint64_t carry = 0;
 	.loc 1 271 18 view .LVU604
-	strd	r9, r0, [sp, #4]	@ i, ivtmp.285,,
-	add	ip, fp, r0	@ ivtmp.270, tmp177, ivtmp.285
-	mov	lr, r4	@ ivtmp.274, ivtmp.274
+	strd	r9, r0, [sp, #4]	@ i, ivtmp.291,,
+	add	ip, fp, r0	@ ivtmp.276, tmp177, ivtmp.291
+	mov	lr, r4	@ ivtmp.280, ivtmp.280
 	mov	r2, r7	@ carry, j
 	mov	r10, r1	@ res, res
 	mov	r9, r6	@ av, av
 .LVL190:
 .L234:
-.LBB238:
-.LBB235:
+.LBB243:
+.LBB240:
 	.loc 1 275 13 is_stmt 1 view .LVU605
 	.loc 1 277 13 view .LVU606
 	.loc 1 278 13 view .LVU607
@@ -2346,12 +2346,12 @@ bigint_mul:
 @ ../Core/Src/bigint.c:278:             uint64_t prod = av * (uint64_t)b->limbs[j] + cur + carry;
 	.loc 1 278 56 view .LVU613
 	adc	r0, r0, #0	@ tmp214, tmp187
-.LBE235:
+.LBE240:
 @ ../Core/Src/bigint.c:274:         for (size_t j = 0; j < nb; j++) {
 	.loc 1 274 37 discriminator 3 view .LVU614
 	adds	r7, r7, #1	@ j, j,
 .LVL192:
-.LBB236:
+.LBB241:
 @ ../Core/Src/bigint.c:278:             uint64_t prod = av * (uint64_t)b->limbs[j] + cur + carry;
 	.loc 1 278 22 view .LVU615
 	adds	r3, r3, r2	@ prod, tmp213, carry
@@ -2362,37 +2362,37 @@ bigint_mul:
 	adc	r2, r0, #0	@ carry, tmp214
 .LVL194:
 	.loc 1 281 19 view .LVU618
-.LBE236:
+.LBE241:
 @ ../Core/Src/bigint.c:274:         for (size_t j = 0; j < nb; j++) {
 	.loc 1 274 30 discriminator 1 view .LVU619
 	cmp	r5, r7	@ nb, j
-.LBB237:
+.LBB242:
 @ ../Core/Src/bigint.c:280:             res->limbs[k] = (uint32_t)prod;
 	.loc 1 280 29 view .LVU620
 	str	r3, [ip]	@ prod, MEM[(long unsigned int *)_73]
 .LVL195:
 	.loc 1 281 13 is_stmt 1 view .LVU621
 	.loc 1 281 13 is_stmt 0 view .LVU622
-.LBE237:
+.LBE242:
 	.loc 1 274 37 is_stmt 1 discriminator 3 view .LVU623
 	.loc 1 274 30 discriminator 1 view .LVU624
 	bne	.L234		@,
+.LBE243:
 .LBE238:
-.LBE233:
 @ ../Core/Src/bigint.c:270:     for (size_t i = 0; i < na; i++) {
 	.loc 1 270 33 is_stmt 0 discriminator 2 view .LVU625
-	ldrd	r9, r0, [sp, #4]	@ i, ivtmp.285,,
+	ldrd	r9, r0, [sp, #4]	@ i, ivtmp.291,,
 @ ../Core/Src/bigint.c:270:     for (size_t i = 0; i < na; i++) {
 	.loc 1 270 26 discriminator 1 view .LVU626
 	ldr	r3, [sp, #16]	@ na, %sfp
 .LVL196:
-.LBB240:
+.LBB245:
 @ ../Core/Src/bigint.c:284:         res->limbs[i + nb] = (uint32_t)carry;
 	.loc 1 284 30 view .LVU627
 	str	r2, [r0, #4]!	@ carry, MEM[(long unsigned int *)_57]
 .LVL197:
 	.loc 1 284 30 view .LVU628
-.LBE240:
+.LBE245:
 @ ../Core/Src/bigint.c:270:     for (size_t i = 0; i < na; i++) {
 	.loc 1 270 33 discriminator 2 view .LVU629
 	add	r9, r9, #1	@ i, i,
@@ -2403,26 +2403,26 @@ bigint_mul:
 	.loc 1 270 33 discriminator 2 view .LVU631
 	mov	r1, r10	@ res, res
 .LVL198:
-.LBB241:
+.LBB246:
 	.loc 1 284 9 is_stmt 1 view .LVU632
-.LBE241:
+.LBE246:
 	.loc 1 270 33 discriminator 2 view .LVU633
 	.loc 1 270 26 discriminator 1 view .LVU634
 	beq	.L252		@,
 .LVL199:
-.LBB242:
+.LBB247:
 	.loc 1 271 9 view .LVU635
 	.loc 1 272 9 view .LVU636
 @ ../Core/Src/bigint.c:272:         uint64_t av = (uint64_t)a->limbs[i];
 	.loc 1 272 18 is_stmt 0 view .LVU637
-	ldr	r3, [sp, #12]	@ ivtmp.281, %sfp
+	ldr	r3, [sp, #12]	@ ivtmp.287, %sfp
 	ldr	r6, [r3, #4]!	@ av, MEM[(long unsigned int *)_33]
 	.loc 1 272 18 view .LVU638
-	str	r3, [sp, #12]	@ ivtmp.281, %sfp
+	str	r3, [sp, #12]	@ ivtmp.287, %sfp
 	mov	r8, #0	@ av,
 .LVL200:
 	.loc 1 274 9 is_stmt 1 view .LVU639
-.LBB239:
+.LBB244:
 	.loc 1 274 14 view .LVU640
 	.loc 1 274 30 discriminator 1 view .LVU641
 	b	.L236		@
@@ -2433,17 +2433,17 @@ bigint_mul:
 .LVL202:
 .L233:
 	.loc 1 274 30 discriminator 1 view .LVU643
-.LBE239:
+.LBE244:
 	.loc 1 284 9 is_stmt 1 view .LVU644
-.LBE242:
+.LBE247:
 @ ../Core/Src/bigint.c:270:     for (size_t i = 0; i < na; i++) {
 	.loc 1 270 26 is_stmt 0 discriminator 1 view .LVU645
 	cmp	fp, r2	@ na, nb
-.LBB243:
+.LBB248:
 @ ../Core/Src/bigint.c:284:         res->limbs[i + nb] = (uint32_t)carry;
 	.loc 1 284 28 view .LVU646
 	str	r5, [r0, #4]!	@ nb, MEM[(long unsigned int *)_87]
-.LBE243:
+.LBE248:
 	.loc 1 270 33 is_stmt 1 discriminator 2 view .LVU647
 .LVL203:
 	.loc 1 270 26 discriminator 1 view .LVU648
@@ -2451,7 +2451,7 @@ bigint_mul:
 .LVL204:
 .L235:
 	.loc 1 270 26 is_stmt 0 discriminator 1 view .LVU649
-.LBE232:
+.LBE237:
 	.loc 1 287 5 is_stmt 1 view .LVU650
 @ ../Core/Src/bigint.c:287:     res->n_limbs = na + nb;
 	.loc 1 287 18 is_stmt 0 view .LVU651
@@ -2459,27 +2459,27 @@ bigint_mul:
 	str	r3, [r4]	@ _2, res_22(D)->n_limbs
 	.loc 1 288 5 is_stmt 1 view .LVU652
 .LVL205:
-.LBB244:
-.LBI244:
+.LBB249:
+.LBI249:
 	.loc 1 53 6 view .LVU653
 	.loc 1 54 5 view .LVU654
-.LBB245:
-.LBI245:
+.LBB250:
+.LBI250:
 	.loc 1 53 6 view .LVU655
-.LBB246:
+.LBB251:
 	.loc 1 55 27 view .LVU656
 	cmp	r3, #1	@ _2,
 	bls	.L231		@,
 	adds	r2, r3, #2	@ tmp170, _2,
-	subs	r7, r3, #1	@ ivtmp.258, _2,
-	add	r2, r4, r2, lsl #2	@ ivtmp.264, res, tmp170,
+	subs	r7, r3, #1	@ ivtmp.264, _2,
+	add	r2, r4, r2, lsl #2	@ ivtmp.270, res, tmp170,
 	b	.L232		@
 .L237:
 @ ../Core/Src/bigint.c:56:         x->n_limbs--;
 	.loc 1 56 19 is_stmt 0 view .LVU657
-	str	r7, [r4]	@ ivtmp.258, res_22(D)->n_limbs
+	str	r7, [r4]	@ ivtmp.264, res_22(D)->n_limbs
 	.loc 1 55 27 is_stmt 1 view .LVU658
-	subs	r7, r7, #1	@ ivtmp.258, ivtmp.258,
+	subs	r7, r7, #1	@ ivtmp.264, ivtmp.264,
 	beq	.L231		@,
 .L232:
 	.loc 1 56 9 view .LVU659
@@ -2489,9 +2489,9 @@ bigint_mul:
 	cmp	r3, #0	@ MEM[(long unsigned int *)_39]
 	beq	.L237	@
 .L231:
-.LBE246:
-.LBE245:
-.LBE244:
+.LBE251:
+.LBE250:
+.LBE249:
 @ ../Core/Src/bigint.c:290:     return 0;
 	.loc 1 290 12 view .LVU661
 	movs	r0, #0	@ <retval>,
@@ -2559,16 +2559,16 @@ bigint_shl1:
 	.loc 1 298 8 is_stmt 0 view .LVU670
 	cbz	r0, .L278	@ x,
 .LVL213:
-.LBB247:
+.LBB252:
 	.loc 1 301 26 is_stmt 1 discriminator 1 view .LVU671
-.LBE247:
+.LBE252:
 @ ../Core/Src/bigint.c:297: int bigint_shl1(bigint *x) {
 	.loc 1 297 28 is_stmt 0 view .LVU672
 	push	{r4, lr}	@
 	.cfi_def_cfa_offset 8
 	.cfi_offset 4, -8
 	.cfi_offset 14, -4
-.LBB251:
+.LBB256:
 @ ../Core/Src/bigint.c:301:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 301 29 discriminator 1 view .LVU673
 	ldr	r4, [r0]	@ _18, x_17(D)->n_limbs
@@ -2578,13 +2578,13 @@ bigint_shl1:
 @ ../Core/Src/bigint.c:301:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 301 17 view .LVU675
 	movs	r1, #0	@ i,
-	add	ip, r0, #4	@ ivtmp.298, x,
-.LBE251:
+	add	ip, r0, #4	@ ivtmp.304, x,
+.LBE256:
 @ ../Core/Src/bigint.c:300:     uint32_t carry = 0;
 	.loc 1 300 14 view .LVU676
 	mov	r2, r1	@ carry, i
-.LBB252:
-.LBB248:
+.LBB257:
+.LBB253:
 @ ../Core/Src/bigint.c:302:         uint64_t v = ((uint64_t)x->limbs[i] << 1) | (uint64_t)carry;
 	.loc 1 302 23 view .LVU677
 	mov	lr, r1	@ tmp133, i
@@ -2594,12 +2594,12 @@ bigint_shl1:
 @ ../Core/Src/bigint.c:302:         uint64_t v = ((uint64_t)x->limbs[i] << 1) | (uint64_t)carry;
 	.loc 1 302 23 is_stmt 0 view .LVU679
 	ldr	r3, [ip, #4]!	@ MEM[(long unsigned int *)_12], MEM[(long unsigned int *)_12]
-.LBE248:
+.LBE253:
 @ ../Core/Src/bigint.c:301:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 301 41 discriminator 3 view .LVU680
 	adds	r1, r1, #1	@ i, i,
 .LVL215:
-.LBB249:
+.LBB254:
 @ ../Core/Src/bigint.c:302:         uint64_t v = ((uint64_t)x->limbs[i] << 1) | (uint64_t)carry;
 	.loc 1 302 45 view .LVU681
 	adds	r3, r3, r3	@ tmp150, MEM[(long unsigned int *)_12], MEM[(long unsigned int *)_12]
@@ -2611,22 +2611,22 @@ bigint_shl1:
 	adc	r2, lr, lr	@ tmp151, tmp133, tmp133
 .LVL216:
 	.loc 1 303 9 is_stmt 1 view .LVU684
-.LBE249:
+.LBE254:
 @ ../Core/Src/bigint.c:301:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 301 26 is_stmt 0 discriminator 1 view .LVU685
 	cmp	r4, r1	@ _18, i
-.LBB250:
+.LBB255:
 @ ../Core/Src/bigint.c:303:         x->limbs[i] = (uint32_t)v;
 	.loc 1 303 23 view .LVU686
 	str	r3, [ip]	@ v, MEM[(long unsigned int *)_12]
 	.loc 1 304 9 is_stmt 1 view .LVU687
 .LVL217:
 	.loc 1 304 9 is_stmt 0 view .LVU688
-.LBE250:
+.LBE255:
 	.loc 1 301 41 is_stmt 1 discriminator 3 view .LVU689
 	.loc 1 301 26 discriminator 1 view .LVU690
 	bne	.L263		@,
-.LBE252:
+.LBE257:
 	.loc 1 307 5 view .LVU691
 @ ../Core/Src/bigint.c:307:     if (carry) {
 	.loc 1 307 8 is_stmt 0 view .LVU692
@@ -2707,7 +2707,7 @@ bigint_shr1:
 	.loc 1 318 5 is_stmt 1 view .LVU709
 .LVL227:
 	.loc 1 319 5 view .LVU710
-.LBB263:
+.LBB268:
 	.loc 1 319 10 view .LVU711
 @ ../Core/Src/bigint.c:319:     for (size_t j = x->n_limbs; j > 0; j--) {
 	.loc 1 319 17 is_stmt 0 view .LVU712
@@ -2715,7 +2715,7 @@ bigint_shr1:
 .LVL228:
 	.loc 1 319 35 is_stmt 1 discriminator 1 view .LVU713
 	cbz	r2, .L299	@ j,
-.LBE263:
+.LBE268:
 @ ../Core/Src/bigint.c:315: int bigint_shr1(bigint *x) {
 	.loc 1 315 28 is_stmt 0 view .LVU714
 	push	{r4, lr}	@
@@ -2723,22 +2723,22 @@ bigint_shr1:
 	.cfi_offset 4, -8
 	.cfi_offset 14, -4
 	add	lr, r2, #2	@ tmp132, j,
-	add	lr, r0, lr, lsl #2	@ ivtmp.313, x, tmp132,
-.LBB266:
+	add	lr, r0, lr, lsl #2	@ ivtmp.319, x, tmp132,
+.LBB271:
 @ ../Core/Src/bigint.c:319:     for (size_t j = x->n_limbs; j > 0; j--) {
 	.loc 1 319 35 discriminator 1 view .LVU715
-	mov	ip, lr	@ ivtmp.322, ivtmp.313
+	mov	ip, lr	@ ivtmp.328, ivtmp.319
 @ ../Core/Src/bigint.c:319:     for (size_t j = x->n_limbs; j > 0; j--) {
 	.loc 1 319 17 view .LVU716
 	mov	r1, r2	@ i, j
-.LBE266:
+.LBE271:
 @ ../Core/Src/bigint.c:318:     uint32_t carry = 0;
 	.loc 1 318 14 view .LVU717
 	movs	r3, #0	@ new_carry,
 .LVL229:
 .L282:
-.LBB267:
-.LBB264:
+.LBB272:
+.LBB269:
 	.loc 1 320 9 is_stmt 1 view .LVU718
 	.loc 1 321 9 view .LVU719
 @ ../Core/Src/bigint.c:321:         uint32_t limb = x->limbs[i];
@@ -2746,12 +2746,12 @@ bigint_shr1:
 	ldr	r4, [ip, #-4]!	@ limb, MEM[(long unsigned int *)_40]
 .LVL230:
 	.loc 1 322 9 is_stmt 1 view .LVU721
-.LBE264:
+.LBE269:
 @ ../Core/Src/bigint.c:319:     for (size_t j = x->n_limbs; j > 0; j--) {
 	.loc 1 319 35 is_stmt 0 discriminator 1 view .LVU722
 	subs	r1, r1, #1	@ i, i,
 .LVL231:
-.LBB265:
+.LBB270:
 @ ../Core/Src/bigint.c:323:         x->limbs[i] = (limb >> 1) | carry;
 	.loc 1 323 35 view .LVU723
 	orr	r3, r3, r4, lsr #1	@ tmp135, carry, limb,
@@ -2766,27 +2766,27 @@ bigint_shr1:
 	.loc 1 323 9 is_stmt 1 view .LVU726
 	.loc 1 324 9 view .LVU727
 	.loc 1 324 9 is_stmt 0 view .LVU728
-.LBE265:
+.LBE270:
 	.loc 1 319 41 is_stmt 1 discriminator 3 view .LVU729
 	.loc 1 319 35 discriminator 1 view .LVU730
 	bne	.L282		@,
-.LBE267:
-.LBB268:
-.LBB269:
-.LBB270:
+.LBE272:
+.LBB273:
+.LBB274:
+.LBB275:
 	.loc 1 55 27 view .LVU731
 	cmp	r2, #1	@ j,
 	beq	.L283		@,
-	subs	r3, r2, #1	@ ivtmp.307, j,
+	subs	r3, r2, #1	@ ivtmp.313, j,
 .LVL234:
 	.loc 1 55 27 is_stmt 0 view .LVU732
 	b	.L284		@
 .L285:
 @ ../Core/Src/bigint.c:56:         x->n_limbs--;
 	.loc 1 56 19 view .LVU733
-	str	r3, [r0]	@ ivtmp.307, x_8(D)->n_limbs
+	str	r3, [r0]	@ ivtmp.313, x_8(D)->n_limbs
 	.loc 1 55 27 is_stmt 1 view .LVU734
-	subs	r3, r3, #1	@ ivtmp.307, ivtmp.307,
+	subs	r3, r3, #1	@ ivtmp.313, ivtmp.313,
 	beq	.L283		@,
 .L284:
 	.loc 1 56 9 view .LVU735
@@ -2796,9 +2796,9 @@ bigint_shr1:
 	cmp	r2, #0	@ MEM[(long unsigned int *)_33]
 	beq	.L285	@
 .L283:
-.LBE270:
-.LBE269:
-.LBE268:
+.LBE275:
+.LBE274:
+.LBE273:
 @ ../Core/Src/bigint.c:328:     return 0;
 	.loc 1 328 12 view .LVU737
 	movs	r0, #0	@ <retval>,
@@ -2874,9 +2874,9 @@ bigint_mod:
 	cmp	r3, #0	@ tmp
 	beq	.L303	@
 .LVL241:
-.LBB296:
-.LBB297:
-.LBB298:
+.LBB301:
+.LBB302:
+.LBB303:
 	.loc 1 66 26 is_stmt 1 discriminator 1 view .LVU750
 @ ../Core/Src/bigint.c:66:     for (size_t i = 0; i < x->n_limbs; i++) {
 	.loc 1 66 29 is_stmt 0 discriminator 1 view .LVU751
@@ -2892,7 +2892,7 @@ bigint_mod:
 	movs	r3, #0	@ i,
 .LVL243:
 	.loc 1 66 17 view .LVU754
-	adds	r0, r6, #4	@ ivtmp.390, b,
+	adds	r0, r6, #4	@ ivtmp.396, b,
 .LVL244:
 	.loc 1 66 17 view .LVU755
 	b	.L305		@
@@ -2920,9 +2920,9 @@ bigint_mod:
 	beq	.L372	@
 .LVL248:
 	.loc 1 67 12 view .LVU763
-.LBE298:
-.LBE297:
-.LBE296:
+.LBE303:
+.LBE302:
+.LBE301:
 	.loc 1 339 5 is_stmt 1 view .LVU764
 @ ../Core/Src/bigint.c:339:     if (res == tmp) return -1;
 	.loc 1 339 8 is_stmt 0 view .LVU765
@@ -2945,9 +2945,9 @@ bigint_mod:
 	.loc 1 345 8 discriminator 1 view .LVU770
 	cmp	r0, #0	@ tmp204
 	bne	.L303	@
-.LBB299:
-.LBB300:
-.LBB301:
+.LBB304:
+.LBB305:
+.LBB306:
 	.loc 1 55 27 is_stmt 1 view .LVU771
 @ ../Core/Src/bigint.c:55:     while (x->n_limbs > 1 && x->limbs[x->n_limbs - 1] == 0) {
 	.loc 1 55 13 is_stmt 0 view .LVU772
@@ -2956,16 +2956,16 @@ bigint_mod:
 	.loc 1 55 27 view .LVU773
 	cmp	r0, #1	@ _80,
 	bls	.L306		@,
-	subs	r3, r0, #1	@ ivtmp.378, _80,
+	subs	r3, r0, #1	@ ivtmp.384, _80,
 	adds	r0, r0, #2	@ tmp178, _80,
-	add	r0, r4, r0, lsl #2	@ ivtmp.384, res, tmp178,
+	add	r0, r4, r0, lsl #2	@ ivtmp.390, res, tmp178,
 	b	.L307		@
 .L309:
 @ ../Core/Src/bigint.c:56:         x->n_limbs--;
 	.loc 1 56 19 view .LVU774
-	str	r3, [r4]	@ ivtmp.378, res_20(D)->n_limbs
+	str	r3, [r4]	@ ivtmp.384, res_20(D)->n_limbs
 	.loc 1 55 27 is_stmt 1 view .LVU775
-	subs	r3, r3, #1	@ ivtmp.378, ivtmp.378,
+	subs	r3, r3, #1	@ ivtmp.384, ivtmp.384,
 	beq	.L306		@,
 .L307:
 	.loc 1 56 9 view .LVU776
@@ -2975,9 +2975,9 @@ bigint_mod:
 	cmp	r2, #0	@ MEM[(long unsigned int *)_126]
 	beq	.L309	@
 .L306:
-.LBE301:
-.LBE300:
-.LBE299:
+.LBE306:
+.LBE305:
+.LBE304:
 	.loc 1 349 5 is_stmt 1 view .LVU778
 @ ../Core/Src/bigint.c:349:     if (bigint_copy(tmp, b) != 0) return -1;
 	.loc 1 349 9 is_stmt 0 view .LVU779
@@ -2990,9 +2990,9 @@ bigint_mod:
 	mov	r8, r0	@ <retval>, tmp205
 	cmp	r0, #0	@ <retval>
 	bne	.L303	@
-.LBB302:
-.LBB303:
-.LBB304:
+.LBB307:
+.LBB308:
+.LBB309:
 	.loc 1 55 27 is_stmt 1 view .LVU781
 @ ../Core/Src/bigint.c:55:     while (x->n_limbs > 1 && x->limbs[x->n_limbs - 1] == 0) {
 	.loc 1 55 13 is_stmt 0 view .LVU782
@@ -3001,16 +3001,16 @@ bigint_mod:
 	.loc 1 55 27 view .LVU783
 	cmp	r2, #1	@ _39,
 	bls	.L310		@,
-	subs	r3, r2, #1	@ ivtmp.369, _39,
+	subs	r3, r2, #1	@ ivtmp.375, _39,
 	adds	r2, r2, #2	@ tmp181, _39,
-	add	r2, r7, r2, lsl #2	@ ivtmp.375, tmp, tmp181,
+	add	r2, r7, r2, lsl #2	@ ivtmp.381, tmp, tmp181,
 	b	.L311		@
 .L314:
 @ ../Core/Src/bigint.c:56:         x->n_limbs--;
 	.loc 1 56 19 view .LVU784
-	str	r3, [r7]	@ ivtmp.369, tmp_23(D)->n_limbs
+	str	r3, [r7]	@ ivtmp.375, tmp_23(D)->n_limbs
 	.loc 1 55 27 is_stmt 1 view .LVU785
-	subs	r3, r3, #1	@ ivtmp.369, ivtmp.369,
+	subs	r3, r3, #1	@ ivtmp.375, ivtmp.375,
 	beq	.L310		@,
 .L311:
 	.loc 1 56 9 view .LVU786
@@ -3020,9 +3020,9 @@ bigint_mod:
 	cmp	r1, #0	@ MEM[(long unsigned int *)_116]
 	beq	.L314	@
 .L310:
-.LBE304:
-.LBE303:
-.LBE302:
+.LBE309:
+.LBE308:
+.LBE307:
 	.loc 1 352 5 is_stmt 1 view .LVU788
 @ ../Core/Src/bigint.c:352:     if (bigint_cmp(res, tmp) < 0) {
 	.loc 1 352 9 is_stmt 0 view .LVU789
@@ -3108,46 +3108,46 @@ bigint_mod:
 	.loc 1 372 12 is_stmt 0 view .LVU814
 	cbz	r5, .L373	@ k,
 	.loc 1 373 9 is_stmt 1 view .LVU815
-.LBB305:
-.LBB306:
-.LBB307:
+.LBB310:
+.LBB311:
+.LBB312:
 @ ../Core/Src/bigint.c:319:     for (size_t j = x->n_limbs; j > 0; j--) {
 	.loc 1 319 17 is_stmt 0 view .LVU816
 	ldr	r3, [r7]	@ j, tmp_23(D)->n_limbs
-.LBE307:
-.LBE306:
-.LBE305:
+.LBE312:
+.LBE311:
+.LBE310:
 @ ../Core/Src/bigint.c:373:         k--;
 	.loc 1 373 10 view .LVU817
 	subs	r5, r5, #1	@ k, k,
 .LVL260:
 	.loc 1 375 9 is_stmt 1 view .LVU818
-.LBB316:
-.LBI305:
+.LBB321:
+.LBI310:
 	.loc 1 315 5 view .LVU819
-.LBB315:
+.LBB320:
 	.loc 1 316 5 view .LVU820
 	.loc 1 318 5 view .LVU821
 	.loc 1 319 5 view .LVU822
-.LBB310:
+.LBB315:
 	.loc 1 319 10 view .LVU823
 	.loc 1 319 35 discriminator 1 view .LVU824
 	cmp	r3, #0	@ j
 	beq	.L317	@
 	add	lr, r3, #2	@ tmp186, j,
-	add	lr, r7, lr, lsl #2	@ ivtmp.349, tmp, tmp186,
-	mov	r2, lr	@ ivtmp.358, ivtmp.349
+	add	lr, r7, lr, lsl #2	@ ivtmp.355, tmp, tmp186,
+	mov	r2, lr	@ ivtmp.364, ivtmp.355
 @ ../Core/Src/bigint.c:319:     for (size_t j = x->n_limbs; j > 0; j--) {
 	.loc 1 319 17 is_stmt 0 view .LVU825
 	mov	r0, r3	@ i, j
-.LBE310:
+.LBE315:
 @ ../Core/Src/bigint.c:318:     uint32_t carry = 0;
 	.loc 1 318 14 view .LVU826
 	movs	r1, #0	@ new_carry,
 .LVL261:
 .L324:
-.LBB311:
-.LBB308:
+.LBB316:
+.LBB313:
 	.loc 1 320 9 is_stmt 1 view .LVU827
 	.loc 1 321 9 view .LVU828
 @ ../Core/Src/bigint.c:321:         uint32_t limb = x->limbs[i];
@@ -3155,12 +3155,12 @@ bigint_mod:
 	ldr	r6, [r2, #-4]!	@ limb, MEM[(long unsigned int *)_105]
 .LVL262:
 	.loc 1 322 9 is_stmt 1 view .LVU830
-.LBE308:
+.LBE313:
 @ ../Core/Src/bigint.c:319:     for (size_t j = x->n_limbs; j > 0; j--) {
 	.loc 1 319 35 is_stmt 0 discriminator 1 view .LVU831
 	subs	r0, r0, #1	@ i, i,
 .LVL263:
-.LBB309:
+.LBB314:
 @ ../Core/Src/bigint.c:323:         x->limbs[i] = (limb >> 1) | carry;
 	.loc 1 323 35 view .LVU832
 	orr	r1, r1, r6, lsr #1	@ tmp189, carry, limb,
@@ -3175,27 +3175,27 @@ bigint_mod:
 	.loc 1 323 9 is_stmt 1 view .LVU835
 	.loc 1 324 9 view .LVU836
 	.loc 1 324 9 is_stmt 0 view .LVU837
-.LBE309:
+.LBE314:
 	.loc 1 319 41 is_stmt 1 discriminator 3 view .LVU838
 	.loc 1 319 35 discriminator 1 view .LVU839
 	bne	.L324		@,
-.LBE311:
-.LBB312:
-.LBB313:
-.LBB314:
+.LBE316:
+.LBB317:
+.LBB318:
+.LBB319:
 	.loc 1 55 27 view .LVU840
 	cmp	r3, #1	@ j,
 	beq	.L317		@,
-	subs	r1, r3, #1	@ ivtmp.343, j,
+	subs	r1, r3, #1	@ ivtmp.349, j,
 .LVL266:
 	.loc 1 55 27 is_stmt 0 view .LVU841
 	b	.L325		@
 .L326:
 @ ../Core/Src/bigint.c:56:         x->n_limbs--;
 	.loc 1 56 19 view .LVU842
-	str	r1, [r7]	@ ivtmp.343, tmp_23(D)->n_limbs
+	str	r1, [r7]	@ ivtmp.349, tmp_23(D)->n_limbs
 	.loc 1 55 27 is_stmt 1 view .LVU843
-	subs	r1, r1, #1	@ ivtmp.343, ivtmp.343,
+	subs	r1, r1, #1	@ ivtmp.349, ivtmp.349,
 	beq	.L317		@,
 .L325:
 	.loc 1 56 9 view .LVU844
@@ -3206,11 +3206,11 @@ bigint_mod:
 	beq	.L326	@
 .LVL267:
 	.loc 1 55 27 discriminator 1 view .LVU846
-.LBE314:
-.LBE313:
-.LBE312:
-.LBE315:
-.LBE316:
+.LBE319:
+.LBE318:
+.LBE317:
+.LBE320:
+.LBE321:
 	.loc 1 367 5 is_stmt 1 view .LVU847
 	.loc 1 368 9 view .LVU848
 @ ../Core/Src/bigint.c:368:         if (bigint_cmp(res, tmp) >= 0) {
@@ -3248,9 +3248,9 @@ bigint_mod:
 	pop	{r4, r5, r6, r7, r8, pc}	@
 .LVL271:
 .L373:
-.LBB317:
-.LBB318:
-.LBB319:
+.LBB322:
+.LBB323:
+.LBB324:
 	.loc 1 55 27 is_stmt 1 view .LVU856
 @ ../Core/Src/bigint.c:55:     while (x->n_limbs > 1 && x->limbs[x->n_limbs - 1] == 0) {
 	.loc 1 55 13 is_stmt 0 view .LVU857
@@ -3260,15 +3260,15 @@ bigint_mod:
 	cmp	r3, #1	@ _60,
 	bls	.L300		@,
 	adds	r2, r3, #2	@ tmp184, _60,
-	add	r2, r4, r2, lsl #2	@ ivtmp.340, res, tmp184,
-	subs	r3, r3, #1	@ ivtmp.334, _60,
+	add	r2, r4, r2, lsl #2	@ ivtmp.346, res, tmp184,
+	subs	r3, r3, #1	@ ivtmp.340, _60,
 	b	.L322		@
 .L327:
 @ ../Core/Src/bigint.c:56:         x->n_limbs--;
 	.loc 1 56 19 view .LVU859
-	str	r3, [r4]	@ ivtmp.334, res_20(D)->n_limbs
+	str	r3, [r4]	@ ivtmp.340, res_20(D)->n_limbs
 	.loc 1 55 27 is_stmt 1 view .LVU860
-	subs	r3, r3, #1	@ ivtmp.334, ivtmp.334,
+	subs	r3, r3, #1	@ ivtmp.340, ivtmp.340,
 	beq	.L300		@,
 .L322:
 	.loc 1 56 9 view .LVU861
@@ -3278,12 +3278,436 @@ bigint_mod:
 	cmp	r1, #0	@ MEM[(long unsigned int *)_44]
 	beq	.L327	@
 	b	.L300		@
-.LBE319:
-.LBE318:
-.LBE317:
+.LBE324:
+.LBE323:
+.LBE322:
 	.cfi_endproc
 .LFE15:
 	.size	bigint_mod, .-bigint_mod
+	.section	.text.bigint_mod_mul,"ax",%progbits
+	.align	1
+	.p2align 2,,3
+	.global	bigint_mod_mul
+	.syntax unified
+	.thumb
+	.thumb_func
+	.type	bigint_mod_mul, %function
+bigint_mod_mul:
+.LVL272:
+.LFB18:
+	.loc 1 426 1 is_stmt 1 view -0
+	.cfi_startproc
+	@ args = 8, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	.loc 1 427 5 view .LVU864
+@ ../Core/Src/bigint.c:426: {
+	.loc 1 426 1 is_stmt 0 view .LVU865
+	push	{r4, r5, r6, r7, r8, lr}	@
+	.cfi_def_cfa_offset 24
+	.cfi_offset 4, -24
+	.cfi_offset 5, -20
+	.cfi_offset 6, -16
+	.cfi_offset 7, -12
+	.cfi_offset 8, -8
+	.cfi_offset 14, -4
+@ ../Core/Src/bigint.c:426: {
+	.loc 1 426 1 view .LVU866
+	ldrd	r7, r8, [sp, #24]	@ tmp_mul, tmp_mod,,
+@ ../Core/Src/bigint.c:427:     if (!r || !a || !b || !p || !tmp_mul || !tmp_mod)
+	.loc 1 427 8 view .LVU867
+	cbz	r0, .L377	@ r,
+@ ../Core/Src/bigint.c:427:     if (!r || !a || !b || !p || !tmp_mul || !tmp_mod)
+	.loc 1 427 12 discriminator 1 view .LVU868
+	cbz	r1, .L377	@ a,
+	mov	r5, r3	@ p, tmp131
+@ ../Core/Src/bigint.c:427:     if (!r || !a || !b || !p || !tmp_mul || !tmp_mod)
+	.loc 1 427 18 discriminator 2 view .LVU869
+	cbz	r2, .L377	@ b,
+@ ../Core/Src/bigint.c:427:     if (!r || !a || !b || !p || !tmp_mul || !tmp_mod)
+	.loc 1 427 24 discriminator 3 view .LVU870
+	cbz	r5, .L377	@ p,
+@ ../Core/Src/bigint.c:427:     if (!r || !a || !b || !p || !tmp_mul || !tmp_mod)
+	.loc 1 427 30 discriminator 4 view .LVU871
+	cbz	r7, .L377	@ tmp_mul,
+@ ../Core/Src/bigint.c:427:     if (!r || !a || !b || !p || !tmp_mul || !tmp_mod)
+	.loc 1 427 42 discriminator 5 view .LVU872
+	cmp	r8, #0	@ tmp_mod
+	beq	.L377	@
+	.loc 1 431 5 is_stmt 1 view .LVU873
+	mov	r4, r0	@ r, tmp128
+@ ../Core/Src/bigint.c:431:     if (bigint_mul(tmp_mul, a, b) != 0)
+	.loc 1 431 9 is_stmt 0 view .LVU874
+	mov	r0, r7	@, tmp_mul
+.LVL273:
+	.loc 1 431 9 view .LVU875
+	bl	bigint_mul		@
+.LVL274:
+@ ../Core/Src/bigint.c:431:     if (bigint_mul(tmp_mul, a, b) != 0)
+	.loc 1 431 8 discriminator 1 view .LVU876
+	cbnz	r0, .L377	@ tmp132,
+	.loc 1 435 5 is_stmt 1 view .LVU877
+@ ../Core/Src/bigint.c:435:     if (bigint_mod(r, tmp_mul, p, tmp_mod) != 0)
+	.loc 1 435 9 is_stmt 0 view .LVU878
+	mov	r3, r8	@, tmp_mod
+	mov	r2, r5	@, p
+	mov	r1, r7	@, tmp_mul
+	mov	r0, r4	@, r
+	bl	bigint_mod		@
+.LVL275:
+@ ../Core/Src/bigint.c:435:     if (bigint_mod(r, tmp_mul, p, tmp_mod) != 0)
+	.loc 1 435 8 discriminator 1 view .LVU879
+	subs	r0, r0, #0	@ tmp126, tmp133,
+	it	ne
+	movne	r0, #1	@ tmp126,
+	rsbs	r0, r0, #0	@ <retval>, tmp126
+.LVL276:
+.L374:
+@ ../Core/Src/bigint.c:439: }
+	.loc 1 439 1 view .LVU880
+	pop	{r4, r5, r6, r7, r8, pc}	@
+.LVL277:
+.L377:
+@ ../Core/Src/bigint.c:428:         return -1;
+	.loc 1 428 16 view .LVU881
+	mov	r0, #-1	@ <retval>,
+	b	.L374		@
+	.cfi_endproc
+.LFE18:
+	.size	bigint_mod_mul, .-bigint_mod_mul
+	.section	.text.bigint_mod_pow,"ax",%progbits
+	.align	1
+	.p2align 2,,3
+	.global	bigint_mod_pow
+	.syntax unified
+	.thumb
+	.thumb_func
+	.type	bigint_mod_pow, %function
+bigint_mod_pow:
+.LVL278:
+.LFB19:
+	.loc 1 453 1 is_stmt 1 view -0
+	.cfi_startproc
+	@ args = 12, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	.loc 1 454 5 view .LVU883
+@ ../Core/Src/bigint.c:453: {
+	.loc 1 453 1 is_stmt 0 view .LVU884
+	push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}	@
+	.cfi_def_cfa_offset 36
+	.cfi_offset 4, -36
+	.cfi_offset 5, -32
+	.cfi_offset 6, -28
+	.cfi_offset 7, -24
+	.cfi_offset 8, -20
+	.cfi_offset 9, -16
+	.cfi_offset 10, -12
+	.cfi_offset 11, -8
+	.cfi_offset 14, -4
+	sub	sp, sp, #12	@,,
+	.cfi_def_cfa_offset 48
+@ ../Core/Src/bigint.c:453: {
+	.loc 1 453 1 view .LVU885
+	ldrd	r6, r9, [sp, #48]	@ tmp1, tmp2,,
+	ldr	r10, [sp, #56]	@ tmp3, tmp3
+@ ../Core/Src/bigint.c:454:     if (!r || !a || !b || !p)
+	.loc 1 454 8 view .LVU886
+	cmp	r0, #0	@ r
+	beq	.L397	@
+	mov	fp, r1	@ a, tmp182
+@ ../Core/Src/bigint.c:454:     if (!r || !a || !b || !p)
+	.loc 1 454 12 discriminator 1 view .LVU887
+	cmp	r1, #0	@ a
+	beq	.L397	@
+	mov	r7, r2	@ b, tmp183
+@ ../Core/Src/bigint.c:454:     if (!r || !a || !b || !p)
+	.loc 1 454 18 discriminator 2 view .LVU888
+	cmp	r2, #0	@ b
+	beq	.L397	@
+	mov	r8, r3	@ p, tmp184
+@ ../Core/Src/bigint.c:454:     if (!r || !a || !b || !p)
+	.loc 1 454 24 discriminator 3 view .LVU889
+	cmp	r3, #0	@ p
+	beq	.L397	@
+	.loc 1 458 5 is_stmt 1 view .LVU890
+.LVL279:
+.LBB334:
+.LBI334:
+	.loc 1 36 6 view .LVU891
+	.loc 1 37 5 view .LVU892
+.LBB335:
+.LBI335:
+	.loc 1 36 6 view .LVU893
+.LBB336:
+	.loc 1 38 5 view .LVU894
+	ldr	r2, [r0, #4]	@ r_11(D)->capacity, r_11(D)->capacity
+.LVL280:
+	.loc 1 38 5 is_stmt 0 view .LVU895
+	mov	r5, r0	@ r, tmp181
+	lsls	r2, r2, #2	@, r_11(D)->capacity,
+	movs	r1, #0	@,
+.LVL281:
+	.loc 1 38 5 view .LVU896
+	adds	r0, r0, #8	@, r,
+.LVL282:
+	.loc 1 38 5 view .LVU897
+	bl	memset		@
+.LVL283:
+	.loc 1 39 5 is_stmt 1 view .LVU898
+@ ../Core/Src/bigint.c:39:     x->n_limbs = 1;
+	.loc 1 39 16 is_stmt 0 view .LVU899
+	movs	r3, #1	@ tmp163,
+	str	r3, [r5]	@ tmp163, r_11(D)->n_limbs
+.LVL284:
+	.loc 1 39 16 view .LVU900
+.LBE336:
+.LBE335:
+.LBE334:
+	.loc 1 459 5 is_stmt 1 view .LVU901
+.LBB337:
+.LBB338:
+@ ../Core/Src/bigint.c:398:     size_t i = x->n_limbs;
+	.loc 1 398 12 is_stmt 0 view .LVU902
+	ldr	r4, [r7]	@ i, b_13(D)->n_limbs
+.LBE338:
+.LBE337:
+@ ../Core/Src/bigint.c:459:     r->limbs[0] = 1;
+	.loc 1 459 17 view .LVU903
+	str	r3, [r5, #8]	@ tmp163, r_11(D)->limbs[0]
+	.loc 1 461 5 is_stmt 1 view .LVU904
+.LVL285:
+.LBB341:
+.LBI337:
+	.loc 1 396 15 view .LVU905
+.LBB339:
+	.loc 1 398 5 view .LVU906
+	.loc 1 400 5 view .LVU907
+	adds	r3, r4, #2	@ tmp165, i,
+	add	r3, r7, r3, lsl #2	@ ivtmp.422, b, tmp165,
+.LVL286:
+.L399:
+	.loc 1 400 18 view .LVU908
+	cbz	r4, .L403	@ i,
+@ ../Core/Src/bigint.c:400:     while (i > 0 && x->limbs[i - 1] == 0)
+	.loc 1 400 18 is_stmt 0 discriminator 1 view .LVU909
+	ldr	r1, [r3, #-4]!	@ MEM[(long unsigned int *)_72], MEM[(long unsigned int *)_72]
+@ ../Core/Src/bigint.c:400:     while (i > 0 && x->limbs[i - 1] == 0)
+	.loc 1 400 32 discriminator 1 view .LVU910
+	subs	r2, r4, #1	@ _38, i,
+@ ../Core/Src/bigint.c:400:     while (i > 0 && x->limbs[i - 1] == 0)
+	.loc 1 400 18 discriminator 1 view .LVU911
+	cbnz	r1, .L427	@ MEM[(long unsigned int *)_72],
+@ ../Core/Src/bigint.c:401:         i--;
+	.loc 1 401 10 view .LVU912
+	mov	r4, r2	@ i, _38
+.LVL287:
+	.loc 1 401 10 view .LVU913
+	b	.L399		@
+.LVL288:
+.L428:
+	.loc 1 401 10 view .LVU914
+.LBE339:
+.LBE341:
+.LBB342:
+	.loc 1 475 13 is_stmt 1 view .LVU915
+@ ../Core/Src/bigint.c:475:             if (bigint_mod_mul(tmp1, r, a, p, tmp2, tmp3) != 0)
+	.loc 1 475 17 is_stmt 0 view .LVU916
+	strd	r9, r10, [sp]	@ tmp2, tmp3,
+	mov	r3, r8	@, p
+	mov	r2, fp	@, a
+	mov	r1, r5	@, r
+.LVL289:
+	.loc 1 475 17 view .LVU917
+	mov	r0, r6	@, tmp1
+	bl	bigint_mod_mul		@
+.LVL290:
+	.loc 1 478 13 is_stmt 1 view .LVU918
+@ ../Core/Src/bigint.c:475:             if (bigint_mod_mul(tmp1, r, a, p, tmp2, tmp3) != 0)
+	.loc 1 475 16 is_stmt 0 discriminator 1 view .LVU919
+	cbnz	r0, .L397	@ tmp187,
+@ ../Core/Src/bigint.c:478:             if (bigint_copy(r, tmp1) != 0)
+	.loc 1 478 17 view .LVU920
+	mov	r1, r6	@, tmp1
+	mov	r0, r5	@, r
+	bl	bigint_copy		@
+.LVL291:
+@ ../Core/Src/bigint.c:478:             if (bigint_copy(r, tmp1) != 0)
+	.loc 1 478 16 discriminator 1 view .LVU921
+	cbnz	r0, .L397	@ tmp188,
+.L405:
+.LVL292:
+	.loc 1 463 39 is_stmt 1 discriminator 2 view .LVU922
+@ ../Core/Src/bigint.c:463:     for (long i = (long)msb; i >= 0; i--) {
+	.loc 1 463 32 is_stmt 0 discriminator 1 view .LVU923
+	subs	r4, r4, #1	@ i, i,
+.LVL293:
+	.loc 1 463 32 discriminator 1 view .LVU924
+	bcc	.L404		@,
+.LVL294:
+.L403:
+	.loc 1 466 9 is_stmt 1 view .LVU925
+@ ../Core/Src/bigint.c:466:         if (bigint_mod_mul(tmp1, r, r, p, tmp2, tmp3) != 0)
+	.loc 1 466 13 is_stmt 0 view .LVU926
+	strd	r9, r10, [sp]	@ tmp2, tmp3,
+	mov	r3, r8	@, p
+	mov	r2, r5	@, r
+	mov	r1, r5	@, r
+	mov	r0, r6	@, tmp1
+	bl	bigint_mod_mul		@
+.LVL295:
+	.loc 1 469 9 is_stmt 1 view .LVU927
+@ ../Core/Src/bigint.c:466:         if (bigint_mod_mul(tmp1, r, r, p, tmp2, tmp3) != 0)
+	.loc 1 466 12 is_stmt 0 discriminator 1 view .LVU928
+	cbnz	r0, .L397	@ tmp185,
+@ ../Core/Src/bigint.c:469:         if (bigint_copy(r, tmp1) != 0)
+	.loc 1 469 13 view .LVU929
+	mov	r1, r6	@, tmp1
+	mov	r0, r5	@, r
+	bl	bigint_copy		@
+.LVL296:
+	.loc 1 473 9 is_stmt 1 view .LVU930
+.LBB343:
+.LBI343:
+	.loc 1 385 12 view .LVU931
+.LBB344:
+	.loc 1 387 5 view .LVU932
+	.loc 1 393 5 view .LVU933
+	.loc 1 393 5 is_stmt 0 view .LVU934
+.LBE344:
+.LBE343:
+@ ../Core/Src/bigint.c:469:         if (bigint_copy(r, tmp1) != 0)
+	.loc 1 469 12 discriminator 1 view .LVU935
+	cbnz	r0, .L397	@ tmp186,
+.LBB346:
+.LBB345:
+@ ../Core/Src/bigint.c:390:     if (limb >= x->n_limbs)
+	.loc 1 390 8 view .LVU936
+	ldr	r2, [r7]	@ b_13(D)->n_limbs, b_13(D)->n_limbs
+@ ../Core/Src/bigint.c:387:     size_t limb = bit / 32;
+	.loc 1 387 12 view .LVU937
+	lsrs	r3, r4, #5	@ limb, i,
+.LVL297:
+	.loc 1 388 5 is_stmt 1 view .LVU938
+	.loc 1 390 5 view .LVU939
+@ ../Core/Src/bigint.c:390:     if (limb >= x->n_limbs)
+	.loc 1 390 8 is_stmt 0 view .LVU940
+	cmp	r2, r4, lsr #5	@ b_13(D)->n_limbs, i,
+@ ../Core/Src/bigint.c:388:     size_t off  = bit % 32;
+	.loc 1 388 12 view .LVU941
+	and	r1, r4, #31	@ off, i,
+.LVL298:
+@ ../Core/Src/bigint.c:393:     return (x->limbs[limb] >> off) & 1;
+	.loc 1 393 21 view .LVU942
+	add	r3, r3, #2	@ tmp174, limb,
+.LVL299:
+@ ../Core/Src/bigint.c:390:     if (limb >= x->n_limbs)
+	.loc 1 390 8 view .LVU943
+	bls	.L405		@,
+@ ../Core/Src/bigint.c:393:     return (x->limbs[limb] >> off) & 1;
+	.loc 1 393 28 view .LVU944
+	ldr	r3, [r7, r3, lsl #2]	@ b_13(D)->limbs[limb_26], b_13(D)->limbs[limb_26]
+.LVL300:
+	.loc 1 393 28 view .LVU945
+	lsrs	r3, r3, r1	@ tmp176, b_13(D)->limbs[limb_26], off
+.LBE345:
+.LBE346:
+@ ../Core/Src/bigint.c:473:         if (bigint_get_bit(b, i)) {
+	.loc 1 473 12 discriminator 1 view .LVU946
+	lsls	r3, r3, #31	@, tmp176,
+	bmi	.L428		@,
+.LVL301:
+	.loc 1 463 39 is_stmt 1 discriminator 2 view .LVU947
+@ ../Core/Src/bigint.c:463:     for (long i = (long)msb; i >= 0; i--) {
+	.loc 1 463 32 is_stmt 0 discriminator 1 view .LVU948
+	subs	r4, r4, #1	@ i, i,
+.LVL302:
+	.loc 1 463 32 discriminator 1 view .LVU949
+	bcs	.L403		@,
+.LVL303:
+.L404:
+	.loc 1 463 32 discriminator 1 view .LVU950
+.LBE342:
+@ ../Core/Src/bigint.c:483:     return 0;
+	.loc 1 483 12 view .LVU951
+	movs	r0, #0	@ <retval>,
+@ ../Core/Src/bigint.c:484: }
+	.loc 1 484 1 view .LVU952
+	add	sp, sp, #12	@,,
+	.cfi_remember_state
+	.cfi_def_cfa_offset 36
+	@ sp needed	@
+	pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+.LVL304:
+.L397:
+	.cfi_restore_state
+@ ../Core/Src/bigint.c:455:         return -1;
+	.loc 1 455 16 view .LVU953
+	mov	r0, #-1	@ <retval>,
+@ ../Core/Src/bigint.c:484: }
+	.loc 1 484 1 view .LVU954
+	add	sp, sp, #12	@,,
+	.cfi_remember_state
+	.cfi_def_cfa_offset 36
+	@ sp needed	@
+	pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+.LVL305:
+.L427:
+	.cfi_restore_state
+.LBB347:
+.LBB340:
+	.loc 1 403 5 is_stmt 1 view .LVU955
+	.loc 1 406 5 view .LVU956
+@ ../Core/Src/bigint.c:406:     uint32_t limb = x->limbs[i - 1];
+	.loc 1 406 14 is_stmt 0 view .LVU957
+	adds	r4, r4, #1	@ tmp168, i,
+.LVL306:
+	.loc 1 406 14 view .LVU958
+	ldr	r1, [r7, r4, lsl #2]	@ limb, b_13(D)->limbs[_41]
+.LVL307:
+	.loc 1 408 5 is_stmt 1 view .LVU959
+	.loc 1 409 5 view .LVU960
+	.loc 1 409 32 view .LVU961
+	cmp	r1, #0	@ limb,
+@ ../Core/Src/bigint.c:408:     int bit = 31;
+	.loc 1 408 9 is_stmt 0 view .LVU962
+	mov	r4, #31	@ bit,
+.LVL308:
+@ ../Core/Src/bigint.c:409:     while (((limb >> bit) & 1) == 0)
+	.loc 1 409 32 view .LVU963
+	blt	.L400		@,
+.LVL309:
+.L401:
+	.loc 1 410 9 is_stmt 1 view .LVU964
+@ ../Core/Src/bigint.c:410:         bit--;
+	.loc 1 410 12 is_stmt 0 view .LVU965
+	subs	r4, r4, #1	@ bit, bit,
+.LVL310:
+	.loc 1 409 32 is_stmt 1 view .LVU966
+@ ../Core/Src/bigint.c:409:     while (((limb >> bit) & 1) == 0)
+	.loc 1 409 19 is_stmt 0 view .LVU967
+	lsr	r3, r1, r4	@ tmp170, limb, bit
+@ ../Core/Src/bigint.c:409:     while (((limb >> bit) & 1) == 0)
+	.loc 1 409 32 view .LVU968
+	lsls	r0, r3, #31	@, tmp170,
+	bpl	.L401		@,
+.LVL311:
+.L400:
+	.loc 1 412 5 is_stmt 1 view .LVU969
+	.loc 1 412 5 is_stmt 0 view .LVU970
+.LBE340:
+.LBE347:
+	.loc 1 463 5 is_stmt 1 view .LVU971
+.LBB348:
+	.loc 1 463 10 view .LVU972
+	.loc 1 463 32 discriminator 1 view .LVU973
+	adds	r4, r4, r2, lsl #5	@, i, _64, _38,
+.LVL312:
+	.loc 1 463 32 is_stmt 0 discriminator 1 view .LVU974
+	bpl	.L403		@,
+	b	.L404		@
+.LBE348:
+	.cfi_endproc
+.LFE19:
+	.size	bigint_mod_pow, .-bigint_mod_pow
 	.section	.rodata.hexdigits.0,"a"
 	.align	2
 	.type	hexdigits.0, %object
@@ -3301,400 +3725,859 @@ hexdigits.0:
 	.file 8 "<built-in>"
 	.section	.debug_info,"",%progbits
 .Ldebug_info0:
-	.4byte	0x1070
+	.4byte	0x141a
 	.2byte	0x5
 	.byte	0x1
 	.byte	0x4
 	.4byte	.Ldebug_abbrev0
-	.uleb128 0x32
-	.4byte	.LASF1034
+	.uleb128 0x37
+	.4byte	.LASF1044
 	.byte	0x1d
-	.4byte	.LASF1035
-	.4byte	.LASF1036
-	.4byte	.LLRL125
+	.4byte	.LASF1045
+	.4byte	.LASF1046
+	.4byte	.LLRL153
 	.4byte	0
 	.4byte	.Ldebug_line0
 	.4byte	.Ldebug_macro0
-	.uleb128 0x8
+	.uleb128 0xb
 	.byte	0x8
 	.byte	0x7
 	.4byte	.LASF979
-	.uleb128 0x8
+	.uleb128 0xb
 	.byte	0x4
 	.byte	0x7
 	.4byte	.LASF980
-	.uleb128 0x8
+	.uleb128 0xb
 	.byte	0x1
 	.byte	0x6
 	.4byte	.LASF981
-	.uleb128 0x8
+	.uleb128 0xb
 	.byte	0x1
 	.byte	0x8
 	.4byte	.LASF982
-	.uleb128 0x8
+	.uleb128 0xb
 	.byte	0x2
 	.byte	0x5
 	.4byte	.LASF983
-	.uleb128 0x8
+	.uleb128 0xb
 	.byte	0x2
 	.byte	0x7
 	.4byte	.LASF984
-	.uleb128 0x8
+	.uleb128 0xb
 	.byte	0x4
 	.byte	0x5
 	.4byte	.LASF985
-	.uleb128 0x10
+	.uleb128 0x11
 	.4byte	.LASF988
 	.byte	0x2
 	.byte	0x4f
 	.byte	0x1b
 	.4byte	0x67
-	.uleb128 0x8
+	.uleb128 0xb
 	.byte	0x4
 	.byte	0x7
 	.4byte	.LASF986
-	.uleb128 0x8
+	.uleb128 0xb
 	.byte	0x8
 	.byte	0x5
 	.4byte	.LASF987
-	.uleb128 0x10
+	.uleb128 0x11
 	.4byte	.LASF989
 	.byte	0x2
 	.byte	0x69
 	.byte	0x20
 	.4byte	0x2a
-	.uleb128 0x33
+	.uleb128 0x38
 	.byte	0x4
 	.byte	0x5
 	.ascii	"int\000"
-	.uleb128 0x10
+	.uleb128 0x11
 	.4byte	.LASF990
 	.byte	0x3
 	.byte	0x30
 	.byte	0x14
 	.4byte	0x5b
-	.uleb128 0x10
+	.uleb128 0x11
 	.4byte	.LASF991
 	.byte	0x3
 	.byte	0x3c
 	.byte	0x14
 	.4byte	0x75
-	.uleb128 0x10
+	.uleb128 0x11
 	.4byte	.LASF992
 	.byte	0x4
 	.byte	0xd6
 	.byte	0x16
 	.4byte	0x31
-	.uleb128 0x8
+	.uleb128 0xb
 	.byte	0x8
 	.byte	0x4
 	.4byte	.LASF993
-	.uleb128 0x34
+	.uleb128 0x39
 	.byte	0x8
 	.byte	0x5
 	.byte	0xb
 	.byte	0x9
 	.4byte	0xe1
-	.uleb128 0x1e
+	.uleb128 0x22
 	.4byte	.LASF994
 	.byte	0xc
 	.byte	0xc
 	.4byte	0xa0
 	.byte	0
-	.uleb128 0x1e
+	.uleb128 0x22
 	.4byte	.LASF995
 	.byte	0xd
 	.byte	0xc
 	.4byte	0xa0
 	.byte	0x4
-	.uleb128 0x1e
+	.uleb128 0x22
 	.4byte	.LASF996
 	.byte	0xe
 	.byte	0xe
 	.4byte	0xe1
 	.byte	0x8
 	.byte	0
-	.uleb128 0x25
+	.uleb128 0x28
 	.4byte	0x88
 	.4byte	0xf0
-	.uleb128 0x35
+	.uleb128 0x3a
 	.4byte	0x31
 	.byte	0
-	.uleb128 0x10
+	.uleb128 0x11
 	.4byte	.LASF997
 	.byte	0x5
 	.byte	0xf
 	.byte	0x3
 	.4byte	0xb3
-	.uleb128 0x1f
+	.uleb128 0x23
 	.4byte	0xf0
-	.uleb128 0x36
+	.uleb128 0x3b
 	.byte	0x4
-	.uleb128 0x13
+	.uleb128 0x15
 	.4byte	0x108
-	.uleb128 0x8
+	.uleb128 0xb
 	.byte	0x1
 	.byte	0x8
 	.4byte	.LASF507
-	.uleb128 0x1f
+	.uleb128 0x23
 	.4byte	0x108
-	.uleb128 0x13
+	.uleb128 0x15
 	.4byte	0x10f
-	.uleb128 0x13
+	.uleb128 0x15
 	.4byte	0x11e
-	.uleb128 0x37
-	.uleb128 0x19
+	.uleb128 0x3c
+	.uleb128 0x1d
 	.4byte	.LASF998
 	.byte	0x6
 	.byte	0x29
 	.byte	0x8
 	.4byte	0xa0
 	.4byte	0x135
-	.uleb128 0xc
+	.uleb128 0xf
 	.4byte	0x114
 	.byte	0
-	.uleb128 0x19
+	.uleb128 0x1d
 	.4byte	.LASF999
 	.byte	0x6
 	.byte	0x1f
 	.byte	0x8
 	.4byte	0x101
 	.4byte	0x155
-	.uleb128 0xc
+	.uleb128 0xf
 	.4byte	0x101
-	.uleb128 0xc
+	.uleb128 0xf
 	.4byte	0x119
-	.uleb128 0xc
+	.uleb128 0xf
 	.4byte	0xa0
 	.byte	0
-	.uleb128 0x38
-	.4byte	.LASF1024
+	.uleb128 0x3d
+	.4byte	.LASF1034
 	.byte	0x7
 	.byte	0x5e
 	.byte	0x6
 	.4byte	0x167
-	.uleb128 0xc
+	.uleb128 0xf
 	.4byte	0x101
 	.byte	0
-	.uleb128 0x19
+	.uleb128 0x1d
 	.4byte	.LASF1000
 	.byte	0x6
 	.byte	0x21
 	.byte	0x8
 	.4byte	0x101
 	.4byte	0x187
-	.uleb128 0xc
+	.uleb128 0xf
 	.4byte	0x101
-	.uleb128 0xc
+	.uleb128 0xf
 	.4byte	0x81
-	.uleb128 0xc
+	.uleb128 0xf
 	.4byte	0xa0
 	.byte	0
-	.uleb128 0x19
+	.uleb128 0x1d
 	.4byte	.LASF1001
 	.byte	0x7
 	.byte	0x6c
 	.byte	0x7
 	.4byte	0x101
 	.4byte	0x19d
-	.uleb128 0xc
+	.uleb128 0xf
 	.4byte	0xa0
 	.byte	0
-	.uleb128 0x20
+	.uleb128 0x16
+	.4byte	.LASF1005
+	.2byte	0x1be
+	.4byte	0x81
+	.4byte	.LFB19
+	.4byte	.LFE19-.LFB19
+	.uleb128 0x1
+	.byte	0x9c
+	.4byte	0x3f8
+	.uleb128 0x7
+	.ascii	"r\000"
+	.2byte	0x1be
+	.byte	0x1c
+	.4byte	0x3f8
+	.4byte	.LLST131
+	.4byte	.LVUS131
+	.uleb128 0x7
+	.ascii	"a\000"
+	.2byte	0x1bf
+	.byte	0x1b
+	.4byte	0x3fd
+	.4byte	.LLST132
+	.4byte	.LVUS132
+	.uleb128 0x7
+	.ascii	"b\000"
+	.2byte	0x1c0
+	.byte	0x1b
+	.4byte	0x3fd
+	.4byte	.LLST133
+	.4byte	.LVUS133
+	.uleb128 0x7
+	.ascii	"p\000"
+	.2byte	0x1c1
+	.byte	0x1b
+	.4byte	0x3fd
+	.4byte	.LLST134
+	.4byte	.LVUS134
+	.uleb128 0x17
+	.4byte	.LASF1002
+	.2byte	0x1c2
+	.4byte	0x3f8
+	.4byte	.LLST135
+	.4byte	.LVUS135
+	.uleb128 0x17
+	.4byte	.LASF1003
+	.2byte	0x1c3
+	.4byte	0x3f8
+	.4byte	.LLST136
+	.4byte	.LVUS136
+	.uleb128 0x17
+	.4byte	.LASF1004
+	.2byte	0x1c4
+	.4byte	0x3f8
+	.4byte	.LLST137
+	.4byte	.LVUS137
+	.uleb128 0xd
+	.ascii	"msb\000"
+	.2byte	0x1cd
+	.byte	0xc
+	.4byte	0xa0
+	.4byte	.LLST138
+	.4byte	.LVUS138
+	.uleb128 0x12
+	.4byte	.LLRL146
+	.4byte	0x34e
+	.uleb128 0xd
+	.ascii	"i\000"
+	.2byte	0x1cf
+	.byte	0xf
+	.4byte	0x54
+	.4byte	.LLST147
+	.4byte	.LVUS147
+	.uleb128 0x29
+	.4byte	0x517
+	.4byte	.LBI343
+	.byte	.LVU931
+	.4byte	.LLRL148
+	.2byte	0x1d9
+	.4byte	0x2b5
+	.uleb128 0x3
+	.4byte	0x531
+	.4byte	.LLST149
+	.4byte	.LVUS149
+	.uleb128 0x3
+	.4byte	0x527
+	.4byte	.LLST150
+	.4byte	.LVUS150
+	.uleb128 0x5
+	.4byte	.LLRL148
+	.uleb128 0x2
+	.4byte	0x53d
+	.4byte	.LLST151
+	.4byte	.LVUS151
+	.uleb128 0x2
+	.4byte	0x549
+	.4byte	.LLST152
+	.4byte	.LVUS152
+	.byte	0
+	.byte	0
+	.uleb128 0x9
+	.4byte	.LVL290
+	.4byte	0x402
+	.4byte	0x2e9
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x50
+	.uleb128 0x2
+	.byte	0x76
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x51
+	.uleb128 0x2
+	.byte	0x75
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x52
+	.uleb128 0x2
+	.byte	0x7b
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x53
+	.uleb128 0x2
+	.byte	0x78
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x2
+	.byte	0x7d
+	.sleb128 0
+	.uleb128 0x2
+	.byte	0x79
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x2
+	.byte	0x7d
+	.sleb128 4
+	.uleb128 0x2
+	.byte	0x7a
+	.sleb128 0
+	.byte	0
+	.uleb128 0x9
+	.4byte	.LVL291
+	.4byte	0x1025
+	.4byte	0x303
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x50
+	.uleb128 0x2
+	.byte	0x75
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x51
+	.uleb128 0x2
+	.byte	0x76
+	.sleb128 0
+	.byte	0
+	.uleb128 0x9
+	.4byte	.LVL295
+	.4byte	0x402
+	.4byte	0x337
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x50
+	.uleb128 0x2
+	.byte	0x76
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x51
+	.uleb128 0x2
+	.byte	0x75
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x52
+	.uleb128 0x2
+	.byte	0x75
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x53
+	.uleb128 0x2
+	.byte	0x78
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x2
+	.byte	0x7d
+	.sleb128 0
+	.uleb128 0x2
+	.byte	0x79
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x2
+	.byte	0x7d
+	.sleb128 4
+	.uleb128 0x2
+	.byte	0x7a
+	.sleb128 0
+	.byte	0
+	.uleb128 0xa
+	.4byte	.LVL296
+	.4byte	0x1025
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x50
+	.uleb128 0x2
+	.byte	0x75
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x51
+	.uleb128 0x2
+	.byte	0x76
+	.sleb128 0
+	.byte	0
+	.byte	0
+	.uleb128 0x2a
+	.4byte	0x108e
+	.4byte	.LBI334
+	.byte	.LVU891
+	.4byte	.LBB334
+	.4byte	.LBE334-.LBB334
+	.2byte	0x1ca
+	.4byte	0x3aa
+	.uleb128 0x3
+	.4byte	0x1098
+	.4byte	.LLST139
+	.4byte	.LVUS139
+	.uleb128 0x24
+	.4byte	0x108e
+	.4byte	.LBI335
+	.byte	.LVU893
+	.4byte	.LBB335
+	.4byte	.LBE335-.LBB335
+	.byte	0x24
+	.uleb128 0x3
+	.4byte	0x1098
+	.4byte	.LLST140
+	.4byte	.LVUS140
+	.uleb128 0xa
+	.4byte	.LVL283
+	.4byte	0x140b
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x50
+	.uleb128 0x2
+	.byte	0x75
+	.sleb128 8
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x51
+	.uleb128 0x1
+	.byte	0x30
+	.byte	0
+	.byte	0
+	.byte	0
+	.uleb128 0x3e
+	.4byte	0x4da
+	.4byte	.LBI337
+	.byte	.LVU905
+	.4byte	.LLRL141
+	.byte	0x1
+	.2byte	0x1cd
+	.byte	0x12
+	.uleb128 0x3
+	.4byte	0x4ea
+	.4byte	.LLST142
+	.4byte	.LVUS142
+	.uleb128 0x5
+	.4byte	.LLRL141
+	.uleb128 0x2
+	.4byte	0x4f4
+	.4byte	.LLST143
+	.4byte	.LVUS143
+	.uleb128 0x2
+	.4byte	0x4fe
+	.4byte	.LLST144
+	.4byte	.LVUS144
+	.uleb128 0x2
+	.4byte	0x50a
+	.4byte	.LLST145
+	.4byte	.LVUS145
+	.byte	0
+	.byte	0
+	.byte	0
+	.uleb128 0x15
+	.4byte	0xf0
+	.uleb128 0x15
+	.4byte	0xfc
+	.uleb128 0x16
 	.4byte	.LASF1006
+	.2byte	0x1a4
+	.4byte	0x81
+	.4byte	.LFB18
+	.4byte	.LFE18-.LFB18
+	.uleb128 0x1
+	.byte	0x9c
+	.4byte	0x4da
+	.uleb128 0x7
+	.ascii	"r\000"
+	.2byte	0x1a4
+	.byte	0x1c
+	.4byte	0x3f8
+	.4byte	.LLST125
+	.4byte	.LVUS125
+	.uleb128 0x7
+	.ascii	"a\000"
+	.2byte	0x1a5
+	.byte	0x1b
+	.4byte	0x3fd
+	.4byte	.LLST126
+	.4byte	.LVUS126
+	.uleb128 0x7
+	.ascii	"b\000"
+	.2byte	0x1a6
+	.byte	0x1b
+	.4byte	0x3fd
+	.4byte	.LLST127
+	.4byte	.LVUS127
+	.uleb128 0x7
+	.ascii	"p\000"
+	.2byte	0x1a7
+	.byte	0x1b
+	.4byte	0x3fd
+	.4byte	.LLST128
+	.4byte	.LVUS128
+	.uleb128 0x17
+	.4byte	.LASF1007
+	.2byte	0x1a8
+	.4byte	0x3f8
+	.4byte	.LLST129
+	.4byte	.LVUS129
+	.uleb128 0x17
+	.4byte	.LASF1008
+	.2byte	0x1a9
+	.4byte	0x3f8
+	.4byte	.LLST130
+	.4byte	.LVUS130
+	.uleb128 0x9
+	.4byte	.LVL274
+	.4byte	0x8e6
+	.4byte	0x4b7
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x50
+	.uleb128 0x2
+	.byte	0x77
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x51
+	.uleb128 0x9
+	.byte	0xa3
+	.uleb128 0x3
+	.byte	0xa5
+	.uleb128 0x1
+	.uleb128 0x2a
+	.byte	0xa8
+	.uleb128 0x31
+	.byte	0xa8
+	.uleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x52
+	.uleb128 0x9
+	.byte	0xa3
+	.uleb128 0x3
+	.byte	0xa5
+	.uleb128 0x2
+	.uleb128 0x2a
+	.byte	0xa8
+	.uleb128 0x31
+	.byte	0xa8
+	.uleb128 0
+	.byte	0
+	.uleb128 0xa
+	.4byte	.LVL275
+	.4byte	0x556
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x50
+	.uleb128 0x2
+	.byte	0x74
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x51
+	.uleb128 0x2
+	.byte	0x77
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x52
+	.uleb128 0x2
+	.byte	0x75
+	.sleb128 0
+	.uleb128 0x1
+	.uleb128 0x1
+	.byte	0x53
+	.uleb128 0x2
+	.byte	0x78
+	.sleb128 0
+	.byte	0
+	.byte	0
+	.uleb128 0x2b
+	.4byte	.LASF1010
+	.2byte	0x18c
+	.byte	0xf
+	.4byte	0xa0
+	.4byte	0x517
+	.uleb128 0x1e
+	.ascii	"x\000"
+	.2byte	0x18c
+	.byte	0x28
+	.4byte	0x3fd
+	.uleb128 0x10
+	.ascii	"i\000"
+	.2byte	0x18e
+	.byte	0xc
+	.4byte	0xa0
+	.uleb128 0x18
+	.4byte	.LASF1009
+	.2byte	0x196
+	.byte	0xe
+	.4byte	0x88
+	.uleb128 0x10
+	.ascii	"bit\000"
+	.2byte	0x198
+	.byte	0x9
+	.4byte	0x81
+	.byte	0
+	.uleb128 0x2b
+	.4byte	.LASF1011
+	.2byte	0x181
+	.byte	0xc
+	.4byte	0x81
+	.4byte	0x556
+	.uleb128 0x1e
+	.ascii	"x\000"
+	.2byte	0x181
+	.byte	0x29
+	.4byte	0x3fd
+	.uleb128 0x1e
+	.ascii	"bit\000"
+	.2byte	0x181
+	.byte	0x33
+	.4byte	0xa0
+	.uleb128 0x18
+	.4byte	.LASF1009
+	.2byte	0x183
+	.byte	0xc
+	.4byte	0xa0
+	.uleb128 0x10
+	.ascii	"off\000"
+	.2byte	0x184
+	.byte	0xc
+	.4byte	0xa0
+	.byte	0
+	.uleb128 0x16
+	.4byte	.LASF1012
 	.2byte	0x150
 	.4byte	0x81
 	.4byte	.LFB15
 	.4byte	.LFE15-.LFB15
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x466
-	.uleb128 0xe
+	.4byte	0x81d
+	.uleb128 0x7
 	.ascii	"res\000"
 	.2byte	0x150
 	.byte	0x18
-	.4byte	0x466
+	.4byte	0x3f8
 	.4byte	.LLST110
 	.4byte	.LVUS110
-	.uleb128 0xe
+	.uleb128 0x7
 	.ascii	"a\000"
 	.2byte	0x150
 	.byte	0x2b
-	.4byte	0x46b
+	.4byte	0x3fd
 	.4byte	.LLST111
 	.4byte	.LVUS111
-	.uleb128 0xe
+	.uleb128 0x7
 	.ascii	"b\000"
 	.2byte	0x150
 	.byte	0x3c
-	.4byte	0x46b
+	.4byte	0x3fd
 	.4byte	.LLST112
 	.4byte	.LVUS112
-	.uleb128 0xe
+	.uleb128 0x7
 	.ascii	"tmp\000"
 	.2byte	0x150
 	.byte	0x47
-	.4byte	0x466
+	.4byte	0x3f8
 	.4byte	.LLST113
 	.4byte	.LVUS113
-	.uleb128 0xf
+	.uleb128 0xd
 	.ascii	"k\000"
 	.2byte	0x165
 	.byte	0xc
 	.4byte	0xa0
 	.4byte	.LLST114
 	.4byte	.LVUS114
-	.uleb128 0x1a
-	.4byte	0xc44
-	.4byte	.LBB296
-	.4byte	.LBE296-.LBB296
+	.uleb128 0x1f
+	.4byte	0xfee
+	.4byte	.LBB301
+	.4byte	.LBE301-.LBB301
 	.2byte	0x152
 	.byte	0x9
-	.4byte	0x25e
-	.uleb128 0x2
-	.4byte	0xc52
-	.uleb128 0xa
-	.4byte	0xc44
-	.4byte	.LBB297
-	.4byte	.LBE297-.LBB297
+	.4byte	0x617
+	.uleb128 0x4
+	.4byte	0xffc
+	.uleb128 0xe
+	.4byte	0xfee
+	.4byte	.LBB302
+	.4byte	.LBE302-.LBB302
 	.byte	0x40
 	.byte	0x5
+	.uleb128 0x4
+	.4byte	0xffc
+	.uleb128 0x20
+	.4byte	0x1005
+	.4byte	.LBB303
+	.4byte	.LBE303-.LBB303
 	.uleb128 0x2
-	.4byte	0xc52
-	.uleb128 0x1b
-	.4byte	0xc5b
-	.4byte	.LBB298
-	.4byte	.LBE298-.LBB298
-	.uleb128 0x3
-	.4byte	0xc5c
+	.4byte	0x1006
 	.4byte	.LLST115
 	.4byte	.LVUS115
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x1a
-	.4byte	0xc67
-	.4byte	.LBB299
-	.4byte	.LBE299-.LBB299
+	.uleb128 0x1f
+	.4byte	0x1011
+	.4byte	.LBB304
+	.4byte	.LBE304-.LBB304
 	.2byte	0x15a
 	.byte	0x5
-	.4byte	0x28d
-	.uleb128 0x2
-	.4byte	0xc71
-	.uleb128 0xa
-	.4byte	0xc67
-	.4byte	.LBB300
-	.4byte	.LBE300-.LBB300
+	.4byte	0x646
+	.uleb128 0x4
+	.4byte	0x101b
+	.uleb128 0xe
+	.4byte	0x1011
+	.4byte	.LBB305
+	.4byte	.LBE305-.LBB305
 	.byte	0x35
 	.byte	0x6
-	.uleb128 0x2
-	.4byte	0xc71
+	.uleb128 0x4
+	.4byte	0x101b
 	.byte	0
 	.byte	0
-	.uleb128 0x1a
-	.4byte	0xc67
-	.4byte	.LBB302
-	.4byte	.LBE302-.LBB302
+	.uleb128 0x1f
+	.4byte	0x1011
+	.4byte	.LBB307
+	.4byte	.LBE307-.LBB307
 	.2byte	0x15e
 	.byte	0x5
-	.4byte	0x2bc
-	.uleb128 0x2
-	.4byte	0xc71
-	.uleb128 0xa
-	.4byte	0xc67
-	.4byte	.LBB303
-	.4byte	.LBE303-.LBB303
+	.4byte	0x675
+	.uleb128 0x4
+	.4byte	0x101b
+	.uleb128 0xe
+	.4byte	0x1011
+	.4byte	.LBB308
+	.4byte	.LBE308-.LBB308
 	.byte	0x35
 	.byte	0x6
-	.uleb128 0x2
-	.4byte	0xc71
+	.uleb128 0x4
+	.4byte	0x101b
 	.byte	0
 	.byte	0
-	.uleb128 0x39
-	.4byte	0x470
-	.4byte	.LBI305
+	.uleb128 0x29
+	.4byte	0x81d
+	.4byte	.LBI310
 	.byte	.LVU819
 	.4byte	.LLRL116
-	.byte	0x1
 	.2byte	0x177
-	.byte	0xd
-	.4byte	0x367
-	.uleb128 0x5
-	.4byte	0x482
+	.4byte	0x71e
+	.uleb128 0x3
+	.4byte	0x82f
 	.4byte	.LLST117
 	.4byte	.LVUS117
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL116
-	.uleb128 0x3
-	.4byte	0x48d
+	.uleb128 0x2
+	.4byte	0x839
 	.4byte	.LLST118
 	.4byte	.LVUS118
-	.uleb128 0x26
-	.4byte	0x499
+	.uleb128 0x2c
+	.4byte	0x845
 	.4byte	.LLRL119
-	.4byte	0x33d
-	.uleb128 0x3
-	.4byte	0x49a
+	.4byte	0x6f4
+	.uleb128 0x2
+	.4byte	0x846
 	.4byte	.LLST120
 	.4byte	.LVUS120
-	.uleb128 0x14
-	.4byte	0x4a4
+	.uleb128 0x19
+	.4byte	0x850
 	.4byte	.LLRL121
-	.uleb128 0x3
-	.4byte	0x4a5
+	.uleb128 0x2
+	.4byte	0x851
 	.4byte	.LLST122
 	.4byte	.LVUS122
-	.uleb128 0x3
-	.4byte	0x4af
+	.uleb128 0x2
+	.4byte	0x85b
 	.4byte	.LLST123
 	.4byte	.LVUS123
-	.uleb128 0x3
-	.4byte	0x4bb
+	.uleb128 0x2
+	.4byte	0x867
 	.4byte	.LLST124
 	.4byte	.LVUS124
 	.byte	0
 	.byte	0
-	.uleb128 0x27
-	.4byte	0xc67
-	.4byte	.LBB312
-	.4byte	.LBE312-.LBB312
-	.uleb128 0x2
-	.4byte	0xc71
-	.uleb128 0xa
-	.4byte	0xc67
-	.4byte	.LBB313
-	.4byte	.LBE313-.LBB313
-	.byte	0x35
-	.byte	0x6
-	.uleb128 0x2
-	.4byte	0xc71
-	.byte	0
-	.byte	0
-	.byte	0
-	.byte	0
-	.uleb128 0x1a
-	.4byte	0xc67
+	.uleb128 0x2d
+	.4byte	0x1011
 	.4byte	.LBB317
 	.4byte	.LBE317-.LBB317
-	.2byte	0x17a
-	.byte	0x5
-	.4byte	0x396
-	.uleb128 0x2
-	.4byte	0xc71
-	.uleb128 0xa
-	.4byte	0xc67
+	.uleb128 0x4
+	.4byte	0x101b
+	.uleb128 0xe
+	.4byte	0x1011
 	.4byte	.LBB318
 	.4byte	.LBE318-.LBB318
 	.byte	0x35
 	.byte	0x6
-	.uleb128 0x2
-	.4byte	0xc71
+	.uleb128 0x4
+	.4byte	0x101b
 	.byte	0
 	.byte	0
-	.uleb128 0xd
+	.byte	0
+	.byte	0
+	.uleb128 0x1f
+	.4byte	0x1011
+	.4byte	.LBB322
+	.4byte	.LBE322-.LBB322
+	.2byte	0x17a
+	.byte	0x5
+	.4byte	0x74d
+	.uleb128 0x4
+	.4byte	0x101b
+	.uleb128 0xe
+	.4byte	0x1011
+	.4byte	.LBB323
+	.4byte	.LBE323-.LBB323
+	.byte	0x35
+	.byte	0x6
+	.uleb128 0x4
+	.4byte	0x101b
+	.byte	0
+	.byte	0
+	.uleb128 0x9
 	.4byte	.LVL249
-	.4byte	0xc7b
-	.4byte	0x3aa
+	.4byte	0x1025
+	.4byte	0x761
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -3702,10 +4585,10 @@ hexdigits.0:
 	.byte	0x74
 	.sleb128 0
 	.byte	0
-	.uleb128 0xd
+	.uleb128 0x9
 	.4byte	.LVL250
-	.4byte	0xc7b
-	.4byte	0x3c4
+	.4byte	0x1025
+	.4byte	0x77b
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -3719,10 +4602,10 @@ hexdigits.0:
 	.byte	0x76
 	.sleb128 0
 	.byte	0
-	.uleb128 0xd
+	.uleb128 0x9
 	.4byte	.LVL251
-	.4byte	0xbee
-	.4byte	0x3de
+	.4byte	0xf98
+	.4byte	0x795
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -3736,13 +4619,13 @@ hexdigits.0:
 	.byte	0x77
 	.sleb128 0
 	.byte	0
-	.uleb128 0x3a
+	.uleb128 0x3f
 	.4byte	.LVL253
-	.4byte	0x4ca
-	.uleb128 0xd
+	.4byte	0x876
+	.uleb128 0x9
 	.4byte	.LVL255
-	.4byte	0xbee
-	.4byte	0x401
+	.4byte	0xf98
+	.4byte	0x7b8
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -3756,10 +4639,10 @@ hexdigits.0:
 	.byte	0x74
 	.sleb128 0
 	.byte	0
-	.uleb128 0xd
+	.uleb128 0x9
 	.4byte	.LVL257
-	.4byte	0x470
-	.4byte	0x415
+	.4byte	0x81d
+	.4byte	0x7cc
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -3767,10 +4650,10 @@ hexdigits.0:
 	.byte	0x77
 	.sleb128 0
 	.byte	0
-	.uleb128 0xd
+	.uleb128 0x9
 	.4byte	.LVL259
-	.4byte	0xbee
-	.4byte	0x42f
+	.4byte	0xf98
+	.4byte	0x7e6
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -3784,10 +4667,10 @@ hexdigits.0:
 	.byte	0x77
 	.sleb128 0
 	.byte	0
-	.uleb128 0xd
+	.uleb128 0x9
 	.4byte	.LVL268
-	.4byte	0xbee
-	.4byte	0x449
+	.4byte	0xf98
+	.4byte	0x800
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -3801,9 +4684,9 @@ hexdigits.0:
 	.byte	0x77
 	.sleb128 0
 	.byte	0
-	.uleb128 0xb
+	.uleb128 0xa
 	.4byte	.LVL269
-	.4byte	0x6a5
+	.4byte	0xa4f
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -3824,89 +4707,84 @@ hexdigits.0:
 	.sleb128 0
 	.byte	0
 	.byte	0
-	.uleb128 0x13
-	.4byte	0xf0
-	.uleb128 0x13
-	.4byte	0xfc
-	.uleb128 0x3b
-	.4byte	.LASF1002
+	.uleb128 0x40
+	.4byte	.LASF1013
 	.byte	0x1
 	.2byte	0x13b
 	.byte	0x5
 	.4byte	0x81
 	.byte	0x1
-	.4byte	0x4ca
-	.uleb128 0x3c
+	.4byte	0x876
+	.uleb128 0x1e
 	.ascii	"x\000"
-	.byte	0x1
 	.2byte	0x13b
 	.byte	0x19
-	.4byte	0x466
-	.uleb128 0x21
-	.4byte	.LASF1003
+	.4byte	0x3f8
+	.uleb128 0x18
+	.4byte	.LASF1014
 	.2byte	0x13e
 	.byte	0xe
 	.4byte	0x88
-	.uleb128 0x15
-	.uleb128 0x1c
+	.uleb128 0x1a
+	.uleb128 0x10
 	.ascii	"j\000"
 	.2byte	0x13f
 	.byte	0x11
 	.4byte	0xa0
-	.uleb128 0x15
-	.uleb128 0x1c
+	.uleb128 0x1a
+	.uleb128 0x10
 	.ascii	"i\000"
 	.2byte	0x140
 	.byte	0x10
 	.4byte	0xa0
-	.uleb128 0x21
-	.4byte	.LASF1004
+	.uleb128 0x18
+	.4byte	.LASF1009
 	.2byte	0x141
 	.byte	0x12
 	.4byte	0x88
-	.uleb128 0x21
-	.4byte	.LASF1005
+	.uleb128 0x18
+	.4byte	.LASF1015
 	.2byte	0x142
 	.byte	0x12
 	.4byte	0x88
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x20
-	.4byte	.LASF1007
+	.uleb128 0x16
+	.4byte	.LASF1016
 	.2byte	0x129
 	.4byte	0x81
 	.4byte	.LFB13
 	.4byte	.LFE13-.LFB13
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x53a
-	.uleb128 0xe
+	.4byte	0x8e6
+	.uleb128 0x7
 	.ascii	"x\000"
 	.2byte	0x129
 	.byte	0x19
-	.4byte	0x466
+	.4byte	0x3f8
 	.4byte	.LLST96
 	.4byte	.LVUS96
-	.uleb128 0x22
-	.4byte	.LASF1003
+	.uleb128 0x25
+	.4byte	.LASF1014
 	.2byte	0x12c
 	.byte	0xe
 	.4byte	0x88
 	.4byte	.LLST97
 	.4byte	.LVUS97
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL98
-	.uleb128 0xf
+	.uleb128 0xd
 	.ascii	"i\000"
 	.2byte	0x12d
 	.byte	0x11
 	.4byte	0xa0
 	.4byte	.LLST99
 	.4byte	.LVUS99
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL100
-	.uleb128 0xf
+	.uleb128 0xd
 	.ascii	"v\000"
 	.2byte	0x12e
 	.byte	0x12
@@ -3916,100 +4794,100 @@ hexdigits.0:
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x20
-	.4byte	.LASF1008
+	.uleb128 0x16
+	.4byte	.LASF1017
 	.2byte	0x101
 	.4byte	0x81
 	.4byte	.LFB12
 	.4byte	.LFE12-.LFB12
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x6a5
-	.uleb128 0xe
+	.4byte	0xa4f
+	.uleb128 0x7
 	.ascii	"res\000"
 	.2byte	0x101
 	.byte	0x18
-	.4byte	0x466
+	.4byte	0x3f8
 	.4byte	.LLST81
 	.4byte	.LVUS81
-	.uleb128 0xe
+	.uleb128 0x7
 	.ascii	"a\000"
 	.2byte	0x101
 	.byte	0x2b
-	.4byte	0x46b
+	.4byte	0x3fd
 	.4byte	.LLST82
 	.4byte	.LVUS82
-	.uleb128 0xe
+	.uleb128 0x7
 	.ascii	"b\000"
 	.2byte	0x101
 	.byte	0x3c
-	.4byte	0x46b
+	.4byte	0x3fd
 	.4byte	.LLST83
 	.4byte	.LVUS83
-	.uleb128 0xf
+	.uleb128 0xd
 	.ascii	"na\000"
 	.2byte	0x107
 	.byte	0xc
 	.4byte	0xa0
 	.4byte	.LLST84
 	.4byte	.LVUS84
-	.uleb128 0xf
+	.uleb128 0xd
 	.ascii	"nb\000"
 	.2byte	0x108
 	.byte	0xc
 	.4byte	0xa0
 	.4byte	.LLST85
 	.4byte	.LVUS85
-	.uleb128 0x28
-	.4byte	.LBB232
-	.4byte	.LBE232-.LBB232
-	.4byte	0x646
-	.uleb128 0xf
+	.uleb128 0x2e
+	.4byte	.LBB237
+	.4byte	.LBE237-.LBB237
+	.4byte	0x9f2
+	.uleb128 0xd
 	.ascii	"i\000"
 	.2byte	0x10e
 	.byte	0x11
 	.4byte	0xa0
 	.4byte	.LLST86
 	.4byte	.LVUS86
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL87
-	.uleb128 0x22
-	.4byte	.LASF1003
+	.uleb128 0x25
+	.4byte	.LASF1014
 	.2byte	0x10f
 	.byte	0x12
 	.4byte	0x94
 	.4byte	.LLST88
 	.4byte	.LVUS88
-	.uleb128 0x1c
+	.uleb128 0x10
 	.ascii	"av\000"
 	.2byte	0x110
 	.byte	0x12
 	.4byte	0x94
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL89
-	.uleb128 0xf
+	.uleb128 0xd
 	.ascii	"j\000"
 	.2byte	0x112
 	.byte	0x15
 	.4byte	0xa0
 	.4byte	.LLST90
 	.4byte	.LVUS90
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL91
-	.uleb128 0x1c
+	.uleb128 0x10
 	.ascii	"k\000"
 	.2byte	0x113
 	.byte	0x14
 	.4byte	0xa0
-	.uleb128 0xf
+	.uleb128 0xd
 	.ascii	"cur\000"
 	.2byte	0x115
 	.byte	0x16
 	.4byte	0x94
 	.4byte	.LLST92
 	.4byte	.LVUS92
-	.uleb128 0x22
-	.4byte	.LASF1009
+	.uleb128 0x25
+	.4byte	.LASF1018
 	.2byte	0x116
 	.byte	0x16
 	.4byte	0x94
@@ -4019,36 +4897,34 @@ hexdigits.0:
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x3d
-	.4byte	0xc67
-	.4byte	.LBI244
+	.uleb128 0x2a
+	.4byte	0x1011
+	.4byte	.LBI249
 	.byte	.LVU653
-	.4byte	.LBB244
-	.4byte	.LBE244-.LBB244
-	.byte	0x1
+	.4byte	.LBB249
+	.4byte	.LBE249-.LBB249
 	.2byte	0x120
-	.byte	0x5
-	.4byte	0x68f
-	.uleb128 0x5
-	.4byte	0xc71
+	.4byte	0xa39
+	.uleb128 0x3
+	.4byte	0x101b
 	.4byte	.LLST94
 	.4byte	.LVUS94
-	.uleb128 0x29
-	.4byte	0xc67
-	.4byte	.LBI245
+	.uleb128 0x24
+	.4byte	0x1011
+	.4byte	.LBI250
 	.byte	.LVU655
-	.4byte	.LBB245
-	.4byte	.LBE245-.LBB245
+	.4byte	.LBB250
+	.4byte	.LBE250-.LBB250
 	.byte	0x35
-	.uleb128 0x5
-	.4byte	0xc71
+	.uleb128 0x3
+	.4byte	0x101b
 	.4byte	.LLST95
 	.4byte	.LVUS95
 	.byte	0
 	.byte	0
-	.uleb128 0xb
+	.uleb128 0xa
 	.4byte	.LVL184
-	.4byte	0x1061
+	.4byte	0x140b
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -4062,8 +4938,8 @@ hexdigits.0:
 	.byte	0x30
 	.byte	0
 	.byte	0
-	.uleb128 0x16
-	.4byte	.LASF1010
+	.uleb128 0x1b
+	.4byte	.LASF1019
 	.byte	0xe6
 	.byte	0x5
 	.4byte	0x81
@@ -4071,86 +4947,86 @@ hexdigits.0:
 	.4byte	.LFE11-.LFB11
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x7dc
-	.uleb128 0x9
+	.4byte	0xb86
+	.uleb128 0xc
 	.ascii	"res\000"
 	.byte	0xe6
 	.byte	0x18
-	.4byte	0x466
+	.4byte	0x3f8
 	.4byte	.LLST70
 	.4byte	.LVUS70
-	.uleb128 0x9
+	.uleb128 0xc
 	.ascii	"a\000"
 	.byte	0xe6
 	.byte	0x2b
-	.4byte	0x46b
+	.4byte	0x3fd
 	.4byte	.LLST71
 	.4byte	.LVUS71
-	.uleb128 0x9
+	.uleb128 0xc
 	.ascii	"b\000"
 	.byte	0xe6
 	.byte	0x3c
-	.4byte	0x46b
+	.4byte	0x3fd
 	.4byte	.LLST72
 	.4byte	.LVUS72
-	.uleb128 0x11
-	.4byte	.LASF1011
+	.uleb128 0x13
+	.4byte	.LASF1020
 	.byte	0xeb
 	.byte	0xe
 	.4byte	0x94
 	.4byte	.LLST73
 	.4byte	.LVUS73
-	.uleb128 0x7
+	.uleb128 0x8
 	.ascii	"n\000"
 	.byte	0xec
 	.byte	0xc
 	.4byte	0xa0
-	.uleb128 0x17
+	.uleb128 0x12
 	.4byte	.LLRL74
-	.4byte	0x758
-	.uleb128 0x4
+	.4byte	0xb02
+	.uleb128 0x6
 	.ascii	"i\000"
 	.byte	0xee
 	.byte	0x11
 	.4byte	0xa0
 	.4byte	.LLST75
 	.4byte	.LVUS75
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL76
-	.uleb128 0x7
+	.uleb128 0x8
 	.ascii	"av\000"
 	.byte	0xef
 	.byte	0x12
 	.4byte	0x94
-	.uleb128 0x7
+	.uleb128 0x8
 	.ascii	"bv\000"
 	.byte	0xf0
 	.byte	0x12
 	.4byte	0x94
-	.uleb128 0x2a
-	.4byte	.LASF1012
+	.uleb128 0x2f
+	.4byte	.LASF1021
 	.byte	0xf2
 	.4byte	0x94
-	.uleb128 0x2a
-	.4byte	.LASF1013
+	.uleb128 0x2f
+	.4byte	.LASF1022
 	.byte	0xf3
 	.4byte	0x94
 	.byte	0
 	.byte	0
-	.uleb128 0x28
-	.4byte	.LBB222
-	.4byte	.LBE222-.LBB222
-	.4byte	0x786
-	.uleb128 0x4
+	.uleb128 0x2e
+	.4byte	.LBB227
+	.4byte	.LBE227-.LBB227
+	.4byte	0xb30
+	.uleb128 0x6
 	.ascii	"i\000"
 	.byte	0xfc
 	.byte	0x11
 	.4byte	0xa0
 	.4byte	.LLST80
 	.4byte	.LVUS80
-	.uleb128 0xb
+	.uleb128 0xa
 	.4byte	.LVL172
-	.4byte	0x1061
+	.4byte	0x140b
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x51
@@ -4158,33 +5034,33 @@ hexdigits.0:
 	.byte	0x30
 	.byte	0
 	.byte	0
-	.uleb128 0x23
-	.4byte	0xc67
-	.4byte	.LBI214
+	.uleb128 0x26
+	.4byte	0x1011
+	.4byte	.LBI219
 	.byte	.LVU535
 	.4byte	.LLRL77
 	.byte	0xfa
-	.4byte	0x7c5
-	.uleb128 0x5
-	.4byte	0xc71
+	.4byte	0xb6f
+	.uleb128 0x3
+	.4byte	0x101b
 	.4byte	.LLST78
 	.4byte	.LVUS78
-	.uleb128 0x24
-	.4byte	0xc67
-	.4byte	.LBI215
+	.uleb128 0x27
+	.4byte	0x1011
+	.4byte	.LBI220
 	.byte	.LVU537
 	.4byte	.LLRL77
 	.byte	0x35
 	.byte	0x6
-	.uleb128 0x5
-	.4byte	0xc71
+	.uleb128 0x3
+	.4byte	0x101b
 	.4byte	.LLST79
 	.4byte	.LVUS79
 	.byte	0
 	.byte	0
-	.uleb128 0xb
+	.uleb128 0xa
 	.4byte	.LVL156
-	.4byte	0xbee
+	.4byte	0xf98
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -4199,8 +5075,8 @@ hexdigits.0:
 	.sleb128 0
 	.byte	0
 	.byte	0
-	.uleb128 0x16
-	.4byte	.LASF1014
+	.uleb128 0x1b
+	.4byte	.LASF1023
 	.byte	0xca
 	.byte	0x5
 	.4byte	0x81
@@ -4208,95 +5084,95 @@ hexdigits.0:
 	.4byte	.LFE10-.LFB10
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x8d1
-	.uleb128 0x9
+	.4byte	0xc7b
+	.uleb128 0xc
 	.ascii	"res\000"
 	.byte	0xca
 	.byte	0x18
-	.4byte	0x466
+	.4byte	0x3f8
 	.4byte	.LLST59
 	.4byte	.LVUS59
-	.uleb128 0x9
+	.uleb128 0xc
 	.ascii	"a\000"
 	.byte	0xca
 	.byte	0x2b
-	.4byte	0x46b
+	.4byte	0x3fd
 	.4byte	.LLST60
 	.4byte	.LVUS60
-	.uleb128 0x9
+	.uleb128 0xc
 	.ascii	"b\000"
 	.byte	0xca
 	.byte	0x3c
-	.4byte	0x46b
+	.4byte	0x3fd
 	.4byte	.LLST61
 	.4byte	.LVUS61
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"na\000"
 	.byte	0xcd
 	.byte	0xc
 	.4byte	0xa0
 	.4byte	.LLST62
 	.4byte	.LVUS62
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"nb\000"
 	.byte	0xce
 	.byte	0xc
 	.4byte	0xa0
 	.4byte	.LLST63
 	.4byte	.LVUS63
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"n\000"
 	.byte	0xcf
 	.byte	0xc
 	.4byte	0xa0
 	.4byte	.LLST64
 	.4byte	.LVUS64
-	.uleb128 0x11
-	.4byte	.LASF1003
+	.uleb128 0x13
+	.4byte	.LASF1014
 	.byte	0xd3
 	.byte	0xe
 	.4byte	0x94
 	.4byte	.LLST65
 	.4byte	.LVUS65
-	.uleb128 0x17
+	.uleb128 0x12
 	.4byte	.LLRL66
-	.4byte	0x8b2
-	.uleb128 0x4
+	.4byte	0xc5c
+	.uleb128 0x6
 	.ascii	"i\000"
 	.byte	0xd4
 	.byte	0x11
 	.4byte	0xa0
 	.4byte	.LLST67
 	.4byte	.LVUS67
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL68
-	.uleb128 0x7
+	.uleb128 0x8
 	.ascii	"av\000"
 	.byte	0xd5
 	.byte	0x12
 	.4byte	0x94
-	.uleb128 0x7
+	.uleb128 0x8
 	.ascii	"bv\000"
 	.byte	0xd6
 	.byte	0x12
 	.4byte	0x94
-	.uleb128 0x7
+	.uleb128 0x8
 	.ascii	"sum\000"
 	.byte	0xd8
 	.byte	0x12
 	.4byte	0x94
 	.byte	0
 	.byte	0
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL69
-	.uleb128 0x7
+	.uleb128 0x8
 	.ascii	"i\000"
 	.byte	0xe1
 	.byte	0x11
 	.4byte	0xa0
-	.uleb128 0xb
+	.uleb128 0xa
 	.4byte	.LVL146
-	.4byte	0x1061
+	.4byte	0x140b
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x51
@@ -4305,85 +5181,85 @@ hexdigits.0:
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x2b
-	.4byte	.LASF1028
+	.uleb128 0x30
+	.4byte	.LASF1038
 	.byte	0x89
 	.4byte	.LFB9
 	.4byte	.LFE9-.LFB9
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0xa1e
-	.uleb128 0x9
+	.4byte	0xdc8
+	.uleb128 0xc
 	.ascii	"x\000"
 	.byte	0x89
 	.byte	0x22
-	.4byte	0x46b
+	.4byte	0x3fd
 	.4byte	.LLST43
 	.4byte	.LVUS43
-	.uleb128 0x2c
-	.4byte	.LASF1015
+	.uleb128 0x31
+	.4byte	.LASF1024
 	.byte	0x89
 	.byte	0x2b
 	.4byte	0x103
 	.uleb128 0x1
 	.byte	0x51
-	.uleb128 0x2c
-	.4byte	.LASF1016
+	.uleb128 0x31
+	.4byte	.LASF1025
 	.byte	0x89
 	.byte	0x3e
 	.4byte	0xa0
 	.uleb128 0x1
 	.byte	0x52
-	.uleb128 0x3e
-	.4byte	.LASF1037
+	.uleb128 0x41
+	.4byte	.LASF1047
 	.byte	0x1
 	.byte	0x8a
 	.byte	0x17
-	.4byte	0xa2e
+	.4byte	0xdd8
 	.uleb128 0x5
 	.byte	0x3
 	.4byte	hexdigits.0
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"ms\000"
 	.byte	0x98
 	.byte	0xa
 	.4byte	0x54
 	.4byte	.LLST44
 	.4byte	.LVUS44
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"pos\000"
 	.byte	0xa5
 	.byte	0xc
 	.4byte	0xa0
 	.4byte	.LLST45
 	.4byte	.LVUS45
-	.uleb128 0x11
-	.4byte	.LASF1004
+	.uleb128 0x13
+	.4byte	.LASF1009
 	.byte	0xae
 	.byte	0xe
 	.4byte	0x88
 	.4byte	.LLST46
 	.4byte	.LVUS46
-	.uleb128 0x11
-	.4byte	.LASF1017
+	.uleb128 0x13
+	.4byte	.LASF1026
 	.byte	0xaf
 	.byte	0x9
 	.4byte	0x81
 	.4byte	.LLST47
 	.4byte	.LVUS47
-	.uleb128 0x17
+	.uleb128 0x12
 	.4byte	.LLRL50
-	.4byte	0x9a1
-	.uleb128 0x4
+	.4byte	0xd4b
+	.uleb128 0x6
 	.ascii	"nib\000"
 	.byte	0xb0
 	.byte	0xe
 	.4byte	0x81
 	.4byte	.LLST51
 	.4byte	.LVUS51
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL52
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"v\000"
 	.byte	0xb1
 	.byte	0x12
@@ -4392,28 +5268,28 @@ hexdigits.0:
 	.4byte	.LVUS53
 	.byte	0
 	.byte	0
-	.uleb128 0x17
+	.uleb128 0x12
 	.4byte	.LLRL54
-	.4byte	0x9e4
-	.uleb128 0x4
+	.4byte	0xd8e
+	.uleb128 0x6
 	.ascii	"i\000"
 	.byte	0xb8
 	.byte	0xf
 	.4byte	0x54
 	.4byte	.LLST55
 	.4byte	.LVUS55
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL56
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"nib\000"
 	.byte	0xba
 	.byte	0x12
 	.4byte	0x81
 	.4byte	.LLST57
 	.4byte	.LVUS57
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL58
-	.uleb128 0x7
+	.uleb128 0x8
 	.ascii	"v\000"
 	.byte	0xbb
 	.byte	0x16
@@ -4421,42 +5297,42 @@ hexdigits.0:
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x1d
-	.4byte	0xc44
+	.uleb128 0x21
+	.4byte	0xfee
 	.4byte	.LLRL48
 	.byte	0x8d
 	.byte	0xf
-	.uleb128 0x2
-	.4byte	0xc52
-	.uleb128 0x1d
-	.4byte	0xc44
+	.uleb128 0x4
+	.4byte	0xffc
+	.uleb128 0x21
+	.4byte	0xfee
 	.4byte	.LLRL48
 	.byte	0x40
 	.byte	0x5
-	.uleb128 0x2
-	.4byte	0xc52
-	.uleb128 0x14
-	.4byte	0xc5b
+	.uleb128 0x4
+	.4byte	0xffc
+	.uleb128 0x19
+	.4byte	0x1005
 	.4byte	.LLRL48
-	.uleb128 0x3
-	.4byte	0xc5c
+	.uleb128 0x2
+	.4byte	0x1006
 	.4byte	.LLST49
 	.4byte	.LVUS49
 	.byte	0
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x25
+	.uleb128 0x28
 	.4byte	0x10f
-	.4byte	0xa2e
-	.uleb128 0x3f
+	.4byte	0xdd8
+	.uleb128 0x42
 	.4byte	0x31
 	.byte	0x10
 	.byte	0
-	.uleb128 0x1f
-	.4byte	0xa1e
-	.uleb128 0x16
-	.4byte	.LASF1018
+	.uleb128 0x23
+	.4byte	0xdc8
+	.uleb128 0x1b
+	.4byte	.LASF1027
 	.byte	0x6b
 	.byte	0x5
 	.4byte	0x81
@@ -4464,88 +5340,88 @@ hexdigits.0:
 	.4byte	.LFE8-.LFB8
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0xbd3
-	.uleb128 0x9
+	.4byte	0xf7d
+	.uleb128 0xc
 	.ascii	"out\000"
 	.byte	0x6b
 	.byte	0x1d
-	.4byte	0x466
+	.4byte	0x3f8
 	.4byte	.LLST24
 	.4byte	.LVUS24
-	.uleb128 0x2d
-	.4byte	.LASF1019
+	.uleb128 0x32
+	.4byte	.LASF1028
 	.byte	0x6b
 	.byte	0x2e
 	.4byte	0x114
 	.4byte	.LLST25
 	.4byte	.LVUS25
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"len\000"
 	.byte	0x70
 	.byte	0xc
 	.4byte	0xa0
 	.4byte	.LLST26
 	.4byte	.LVUS26
-	.uleb128 0x11
-	.4byte	.LASF1020
+	.uleb128 0x13
+	.4byte	.LASF1029
 	.byte	0x71
 	.byte	0xc
 	.4byte	0xa0
 	.4byte	.LLST27
 	.4byte	.LVUS27
-	.uleb128 0x17
+	.uleb128 0x12
 	.4byte	.LLRL30
-	.4byte	0xb2b
-	.uleb128 0x4
+	.4byte	0xed5
+	.uleb128 0x6
 	.ascii	"i\000"
 	.byte	0x74
 	.byte	0xf
 	.4byte	0x54
 	.4byte	.LLST31
 	.4byte	.LVUS31
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL32
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"acc\000"
 	.byte	0x77
 	.byte	0x12
 	.4byte	0x88
 	.4byte	.LLST33
 	.4byte	.LVUS33
-	.uleb128 0x11
-	.4byte	.LASF1021
+	.uleb128 0x13
+	.4byte	.LASF1030
 	.byte	0x78
 	.byte	0xe
 	.4byte	0x54
 	.4byte	.LLST34
 	.4byte	.LVUS34
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL35
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"j\000"
 	.byte	0x7b
 	.byte	0x13
 	.4byte	0x54
 	.4byte	.LLST36
 	.4byte	.LVUS36
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL37
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"d\000"
 	.byte	0x7c
 	.byte	0x11
 	.4byte	0x81
 	.4byte	.LLST38
 	.4byte	.LVUS38
-	.uleb128 0x24
-	.4byte	0xbd3
-	.4byte	.LBI137
+	.uleb128 0x27
+	.4byte	0xf7d
+	.4byte	.LBI142
 	.byte	.LVU222
 	.4byte	.LLRL39
 	.byte	0x7c
 	.byte	0x15
-	.uleb128 0x5
-	.4byte	0xbe4
+	.uleb128 0x3
+	.4byte	0xf8e
 	.4byte	.LLST40
 	.4byte	.LVUS40
 	.byte	0
@@ -4553,34 +5429,34 @@ hexdigits.0:
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x40
-	.4byte	0xce4
-	.4byte	.LBI130
+	.uleb128 0x43
+	.4byte	0x108e
+	.4byte	.LBI135
 	.byte	.LVU176
-	.4byte	.LBB130
-	.4byte	.LBE130-.LBB130
+	.4byte	.LBB135
+	.4byte	.LBE135-.LBB135
 	.byte	0x1
 	.byte	0x6e
 	.byte	0x5
-	.4byte	0xb90
-	.uleb128 0x5
-	.4byte	0xcee
+	.4byte	0xf3a
+	.uleb128 0x3
+	.4byte	0x1098
 	.4byte	.LLST28
 	.4byte	.LVUS28
-	.uleb128 0x29
-	.4byte	0xce4
-	.4byte	.LBI131
+	.uleb128 0x24
+	.4byte	0x108e
+	.4byte	.LBI136
 	.byte	.LVU178
-	.4byte	.LBB131
-	.4byte	.LBE131-.LBB131
+	.4byte	.LBB136
+	.4byte	.LBE136-.LBB136
 	.byte	0x24
-	.uleb128 0x5
-	.4byte	0xcee
+	.uleb128 0x3
+	.4byte	0x1098
 	.4byte	.LLST29
 	.4byte	.LVUS29
-	.uleb128 0xb
+	.uleb128 0xa
 	.4byte	.LVL67
-	.4byte	0x1061
+	.4byte	0x140b
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -4603,27 +5479,27 @@ hexdigits.0:
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x23
-	.4byte	0xc67
-	.4byte	.LBI154
+	.uleb128 0x26
+	.4byte	0x1011
+	.4byte	.LBI159
 	.byte	.LVU268
 	.4byte	.LLRL41
 	.byte	0x85
-	.4byte	0xbc2
-	.uleb128 0x5
-	.4byte	0xc71
+	.4byte	0xf6c
+	.uleb128 0x3
+	.4byte	0x101b
 	.4byte	.LLST42
 	.4byte	.LVUS42
-	.uleb128 0x1d
-	.4byte	0xc67
+	.uleb128 0x21
+	.4byte	0x1011
 	.4byte	.LLRL41
 	.byte	0x35
 	.byte	0x6
-	.uleb128 0x2
-	.4byte	0xc71
+	.uleb128 0x4
+	.4byte	0x101b
 	.byte	0
 	.byte	0
-	.uleb128 0xb
+	.uleb128 0xa
 	.4byte	.LVL69
 	.4byte	0x11f
 	.uleb128 0x1
@@ -4634,58 +5510,58 @@ hexdigits.0:
 	.sleb128 0
 	.byte	0
 	.byte	0
-	.uleb128 0x41
-	.4byte	.LASF1038
+	.uleb128 0x44
+	.4byte	.LASF1031
 	.byte	0x1
 	.byte	0x64
 	.byte	0xc
 	.4byte	0x81
 	.byte	0x1
-	.4byte	0xbee
-	.uleb128 0x12
+	.4byte	0xf98
+	.uleb128 0x14
 	.ascii	"c\000"
 	.byte	0x64
 	.byte	0x18
 	.4byte	0x108
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF1022
+	.uleb128 0x33
+	.4byte	.LASF1032
 	.byte	0x48
 	.4byte	0x81
-	.4byte	0xc44
-	.uleb128 0x12
+	.4byte	0xfee
+	.uleb128 0x14
 	.ascii	"a\000"
 	.byte	0x48
 	.byte	0x1e
-	.4byte	0x46b
-	.uleb128 0x12
+	.4byte	0x3fd
+	.uleb128 0x14
 	.ascii	"b\000"
 	.byte	0x48
 	.byte	0x2f
-	.4byte	0x46b
-	.uleb128 0x7
+	.4byte	0x3fd
+	.uleb128 0x8
 	.ascii	"na\000"
 	.byte	0x4e
 	.byte	0xc
 	.4byte	0xa0
-	.uleb128 0x7
+	.uleb128 0x8
 	.ascii	"nb\000"
 	.byte	0x4f
 	.byte	0xc
 	.4byte	0xa0
-	.uleb128 0x15
-	.uleb128 0x7
+	.uleb128 0x1a
+	.uleb128 0x8
 	.ascii	"i\000"
 	.byte	0x57
 	.byte	0x11
 	.4byte	0xa0
-	.uleb128 0x15
-	.uleb128 0x7
+	.uleb128 0x1a
+	.uleb128 0x8
 	.ascii	"av\000"
 	.byte	0x58
 	.byte	0x12
 	.4byte	0x88
-	.uleb128 0x7
+	.uleb128 0x8
 	.ascii	"bv\000"
 	.byte	0x59
 	.byte	0x12
@@ -4693,36 +5569,36 @@ hexdigits.0:
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF1023
+	.uleb128 0x33
+	.4byte	.LASF1033
 	.byte	0x40
 	.4byte	0x81
-	.4byte	0xc67
-	.uleb128 0x12
+	.4byte	0x1011
+	.uleb128 0x14
 	.ascii	"x\000"
 	.byte	0x40
 	.byte	0x22
-	.4byte	0x46b
-	.uleb128 0x15
-	.uleb128 0x7
+	.4byte	0x3fd
+	.uleb128 0x1a
+	.uleb128 0x8
 	.ascii	"i\000"
 	.byte	0x42
 	.byte	0x11
 	.4byte	0xa0
 	.byte	0
 	.byte	0
-	.uleb128 0x2f
-	.4byte	.LASF1025
+	.uleb128 0x34
+	.4byte	.LASF1035
 	.byte	0x35
-	.4byte	0xc7b
-	.uleb128 0x12
+	.4byte	0x1025
+	.uleb128 0x14
 	.ascii	"x\000"
 	.byte	0x35
 	.byte	0x1a
-	.4byte	0x466
+	.4byte	0x3f8
 	.byte	0
-	.uleb128 0x16
-	.4byte	.LASF1026
+	.uleb128 0x1b
+	.4byte	.LASF1036
 	.byte	0x2a
 	.byte	0x5
 	.4byte	0x81
@@ -4730,25 +5606,25 @@ hexdigits.0:
 	.4byte	.LFE3-.LFB3
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0xce4
-	.uleb128 0x9
+	.4byte	0x108e
+	.uleb128 0xc
 	.ascii	"dst\000"
 	.byte	0x2a
 	.byte	0x19
-	.4byte	0x466
+	.4byte	0x3f8
 	.4byte	.LLST6
 	.4byte	.LVUS6
-	.uleb128 0x9
+	.uleb128 0xc
 	.ascii	"src\000"
 	.byte	0x2a
 	.byte	0x2c
-	.4byte	0x46b
+	.4byte	0x3fd
 	.4byte	.LLST7
 	.4byte	.LVUS7
-	.uleb128 0xd
+	.uleb128 0x9
 	.4byte	.LVL18
-	.4byte	0x1061
-	.4byte	0xcd3
+	.4byte	0x140b
+	.4byte	0x107d
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -4761,9 +5637,9 @@ hexdigits.0:
 	.uleb128 0x1
 	.byte	0x30
 	.byte	0
-	.uleb128 0xb
+	.uleb128 0xa
 	.4byte	.LVL19
-	.4byte	0x106a
+	.4byte	0x1414
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x51
@@ -4772,32 +5648,32 @@ hexdigits.0:
 	.sleb128 8
 	.byte	0
 	.byte	0
-	.uleb128 0x2f
-	.4byte	.LASF1027
+	.uleb128 0x34
+	.4byte	.LASF1037
 	.byte	0x24
-	.4byte	0xcf8
-	.uleb128 0x12
+	.4byte	0x10a2
+	.uleb128 0x14
 	.ascii	"x\000"
 	.byte	0x24
 	.byte	0x1e
-	.4byte	0x466
+	.4byte	0x3f8
 	.byte	0
-	.uleb128 0x2b
-	.4byte	.LASF1029
+	.uleb128 0x30
+	.4byte	.LASF1039
 	.byte	0x20
 	.4byte	.LFB1
 	.4byte	.LFE1-.LFB1
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0xd35
-	.uleb128 0x9
+	.4byte	0x10df
+	.uleb128 0xc
 	.ascii	"x\000"
 	.byte	0x20
 	.byte	0x1a
-	.4byte	0x466
+	.4byte	0x3f8
 	.4byte	.LLST2
 	.4byte	.LVUS2
-	.uleb128 0x42
+	.uleb128 0x45
 	.4byte	.LVL8
 	.4byte	0x155
 	.uleb128 0x1
@@ -4815,34 +5691,34 @@ hexdigits.0:
 	.uleb128 0
 	.byte	0
 	.byte	0
-	.uleb128 0x16
-	.4byte	.LASF1030
+	.uleb128 0x1b
+	.4byte	.LASF1040
 	.byte	0x14
 	.byte	0x9
-	.4byte	0x466
+	.4byte	0x3f8
 	.4byte	.LFB0
 	.4byte	.LFE0-.LFB0
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0xda2
-	.uleb128 0x2d
-	.4byte	.LASF1031
+	.4byte	0x114c
+	.uleb128 0x32
+	.4byte	.LASF1041
 	.byte	0x14
 	.byte	0x1d
 	.4byte	0xa0
 	.4byte	.LLST0
 	.4byte	.LVUS0
-	.uleb128 0x4
+	.uleb128 0x6
 	.ascii	"x\000"
 	.byte	0x17
 	.byte	0xd
-	.4byte	0x466
+	.4byte	0x3f8
 	.4byte	.LLST1
 	.4byte	.LVUS1
-	.uleb128 0xd
+	.uleb128 0x9
 	.4byte	.LVL4
 	.4byte	0x187
-	.4byte	0xd86
+	.4byte	0x1130
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -4850,9 +5726,9 @@ hexdigits.0:
 	.byte	0x75
 	.sleb128 0
 	.byte	0
-	.uleb128 0xb
+	.uleb128 0xa
 	.4byte	.LVL6
-	.4byte	0x1061
+	.4byte	0x140b
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -4872,31 +5748,31 @@ hexdigits.0:
 	.sleb128 -8
 	.byte	0
 	.byte	0
-	.uleb128 0x18
-	.4byte	0xce4
+	.uleb128 0x1c
+	.4byte	0x108e
 	.4byte	.LFB2
 	.4byte	.LFE2-.LFB2
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0xdf6
-	.uleb128 0x5
-	.4byte	0xcee
+	.4byte	0x11a0
+	.uleb128 0x3
+	.4byte	0x1098
 	.4byte	.LLST3
 	.4byte	.LVUS3
-	.uleb128 0x24
-	.4byte	0xce4
-	.4byte	.LBI61
+	.uleb128 0x27
+	.4byte	0x108e
+	.4byte	.LBI66
 	.byte	.LVU28
 	.4byte	.LLRL4
 	.byte	0x24
 	.byte	0x6
-	.uleb128 0x5
-	.4byte	0xcee
+	.uleb128 0x3
+	.4byte	0x1098
 	.4byte	.LLST5
 	.4byte	.LVUS5
-	.uleb128 0xb
+	.uleb128 0xa
 	.4byte	.LVL12
-	.4byte	0x1061
+	.4byte	0x140b
 	.uleb128 0x1
 	.uleb128 0x1
 	.byte	0x50
@@ -4911,241 +5787,241 @@ hexdigits.0:
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x18
-	.4byte	0xc67
+	.uleb128 0x1c
+	.4byte	0x1011
 	.4byte	.LFB4
 	.4byte	.LFE4-.LFB4
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0xe26
-	.uleb128 0x43
-	.4byte	0xc71
+	.4byte	0x11d0
+	.uleb128 0x46
+	.4byte	0x101b
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0xa
-	.4byte	0xc67
-	.4byte	.LBB67
-	.4byte	.LBE67-.LBB67
+	.uleb128 0xe
+	.4byte	0x1011
+	.4byte	.LBB72
+	.4byte	.LBE72-.LBB72
 	.byte	0x35
 	.byte	0x6
-	.uleb128 0x2
-	.4byte	0xc71
+	.uleb128 0x4
+	.4byte	0x101b
 	.byte	0
 	.byte	0
-	.uleb128 0x18
-	.4byte	0xc44
+	.uleb128 0x1c
+	.4byte	0xfee
 	.4byte	.LFB5
 	.4byte	.LFE5-.LFB5
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0xe77
-	.uleb128 0x5
-	.4byte	0xc52
+	.4byte	0x1221
+	.uleb128 0x3
+	.4byte	0xffc
 	.4byte	.LLST8
 	.4byte	.LVUS8
-	.uleb128 0xa
-	.4byte	0xc44
-	.4byte	.LBB73
-	.4byte	.LBE73-.LBB73
+	.uleb128 0xe
+	.4byte	0xfee
+	.4byte	.LBB78
+	.4byte	.LBE78-.LBB78
 	.byte	0x40
 	.byte	0x5
+	.uleb128 0x4
+	.4byte	0xffc
+	.uleb128 0x20
+	.4byte	0x1005
+	.4byte	.LBB79
+	.4byte	.LBE79-.LBB79
 	.uleb128 0x2
-	.4byte	0xc52
-	.uleb128 0x1b
-	.4byte	0xc5b
-	.4byte	.LBB74
-	.4byte	.LBE74-.LBB74
-	.uleb128 0x3
-	.4byte	0xc5c
+	.4byte	0x1006
 	.4byte	.LLST9
 	.4byte	.LVUS9
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x18
-	.4byte	0xbee
+	.uleb128 0x1c
+	.4byte	0xf98
 	.4byte	.LFB6
 	.4byte	.LFE6-.LFB6
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0xfbf
-	.uleb128 0x5
-	.4byte	0xbfc
+	.4byte	0x1369
+	.uleb128 0x3
+	.4byte	0xfa6
 	.4byte	.LLST10
 	.4byte	.LVUS10
-	.uleb128 0x5
-	.4byte	0xc05
+	.uleb128 0x3
+	.4byte	0xfaf
 	.4byte	.LLST11
 	.4byte	.LVUS11
-	.uleb128 0x30
-	.4byte	0xc0e
-	.uleb128 0x30
-	.4byte	0xc18
-	.uleb128 0x44
-	.4byte	0xc44
+	.uleb128 0x35
+	.4byte	0xfb8
+	.uleb128 0x35
+	.4byte	0xfc2
+	.uleb128 0x47
+	.4byte	0xfee
 	.4byte	.LLRL12
 	.byte	0x1
 	.byte	0x4b
 	.byte	0x14
-	.4byte	0xeec
-	.uleb128 0x2
-	.4byte	0xc52
-	.uleb128 0x1d
-	.4byte	0xc44
+	.4byte	0x1296
+	.uleb128 0x4
+	.4byte	0xffc
+	.uleb128 0x21
+	.4byte	0xfee
 	.4byte	.LLRL12
 	.byte	0x40
 	.byte	0x5
-	.uleb128 0x2
-	.4byte	0xc52
-	.uleb128 0x14
-	.4byte	0xc5b
+	.uleb128 0x4
+	.4byte	0xffc
+	.uleb128 0x19
+	.4byte	0x1005
 	.4byte	.LLRL12
-	.uleb128 0x3
-	.4byte	0xc5c
+	.uleb128 0x2
+	.4byte	0x1006
 	.4byte	.LLST13
 	.4byte	.LVUS13
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x23
-	.4byte	0xbee
-	.4byte	.LBI102
+	.uleb128 0x26
+	.4byte	0xf98
+	.4byte	.LBI107
 	.byte	.LVU98
 	.4byte	.LLRL14
 	.byte	0x48
-	.4byte	0xf79
-	.uleb128 0x5
-	.4byte	0xc05
+	.4byte	0x1323
+	.uleb128 0x3
+	.4byte	0xfaf
 	.4byte	.LLST15
 	.4byte	.LVUS15
-	.uleb128 0x5
-	.4byte	0xbfc
+	.uleb128 0x3
+	.4byte	0xfa6
 	.4byte	.LLST16
 	.4byte	.LVUS16
-	.uleb128 0x6
+	.uleb128 0x5
 	.4byte	.LLRL14
-	.uleb128 0x3
-	.4byte	0xc0e
+	.uleb128 0x2
+	.4byte	0xfb8
 	.4byte	.LLST17
 	.4byte	.LVUS17
-	.uleb128 0x3
-	.4byte	0xc18
+	.uleb128 0x2
+	.4byte	0xfc2
 	.4byte	.LLST18
 	.4byte	.LVUS18
-	.uleb128 0x1b
-	.4byte	0xc22
-	.4byte	.LBB104
-	.4byte	.LBE104-.LBB104
-	.uleb128 0x3
-	.4byte	0xc23
+	.uleb128 0x20
+	.4byte	0xfcc
+	.4byte	.LBB109
+	.4byte	.LBE109-.LBB109
+	.uleb128 0x2
+	.4byte	0xfcd
 	.4byte	.LLST19
 	.4byte	.LVUS19
-	.uleb128 0x14
-	.4byte	0xc2c
+	.uleb128 0x19
+	.4byte	0xfd6
 	.4byte	.LLRL20
-	.uleb128 0x3
-	.4byte	0xc2d
+	.uleb128 0x2
+	.4byte	0xfd7
 	.4byte	.LLST21
 	.4byte	.LVUS21
-	.uleb128 0x3
-	.4byte	0xc37
+	.uleb128 0x2
+	.4byte	0xfe1
 	.4byte	.LLST22
 	.4byte	.LVUS22
 	.byte	0
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0xa
-	.4byte	0xc44
-	.4byte	.LBB110
-	.4byte	.LBE110-.LBB110
+	.uleb128 0xe
+	.4byte	0xfee
+	.4byte	.LBB115
+	.4byte	.LBE115-.LBB115
 	.byte	0x4a
 	.byte	0x14
-	.uleb128 0x2
-	.4byte	0xc52
-	.uleb128 0xa
-	.4byte	0xc44
-	.4byte	.LBB111
-	.4byte	.LBE111-.LBB111
+	.uleb128 0x4
+	.4byte	0xffc
+	.uleb128 0xe
+	.4byte	0xfee
+	.4byte	.LBB116
+	.4byte	.LBE116-.LBB116
 	.byte	0x40
 	.byte	0x5
+	.uleb128 0x4
+	.4byte	0xffc
+	.uleb128 0x20
+	.4byte	0x1005
+	.4byte	.LBB117
+	.4byte	.LBE117-.LBB117
 	.uleb128 0x2
-	.4byte	0xc52
-	.uleb128 0x1b
-	.4byte	0xc5b
-	.4byte	.LBB112
-	.4byte	.LBE112-.LBB112
-	.uleb128 0x3
-	.4byte	0xc5c
+	.4byte	0x1006
 	.4byte	.LLST23
 	.4byte	.LVUS23
 	.byte	0
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x18
-	.4byte	0x470
+	.uleb128 0x1c
+	.4byte	0x81d
 	.4byte	.LFB14
 	.4byte	.LFE14-.LFB14
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1061
-	.uleb128 0x5
-	.4byte	0x482
+	.4byte	0x140b
+	.uleb128 0x3
+	.4byte	0x82f
 	.4byte	.LLST102
 	.4byte	.LVUS102
-	.uleb128 0x3
-	.4byte	0x48d
+	.uleb128 0x2
+	.4byte	0x839
 	.4byte	.LLST103
 	.4byte	.LVUS103
-	.uleb128 0x26
-	.4byte	0x499
+	.uleb128 0x2c
+	.4byte	0x845
 	.4byte	.LLRL104
-	.4byte	0x1038
-	.uleb128 0x3
-	.4byte	0x49a
+	.4byte	0x13e2
+	.uleb128 0x2
+	.4byte	0x846
 	.4byte	.LLST105
 	.4byte	.LVUS105
-	.uleb128 0x14
-	.4byte	0x4a4
+	.uleb128 0x19
+	.4byte	0x850
 	.4byte	.LLRL106
-	.uleb128 0x3
-	.4byte	0x4a5
+	.uleb128 0x2
+	.4byte	0x851
 	.4byte	.LLST107
 	.4byte	.LVUS107
-	.uleb128 0x3
-	.4byte	0x4af
+	.uleb128 0x2
+	.4byte	0x85b
 	.4byte	.LLST108
 	.4byte	.LVUS108
-	.uleb128 0x3
-	.4byte	0x4bb
+	.uleb128 0x2
+	.4byte	0x867
 	.4byte	.LLST109
 	.4byte	.LVUS109
 	.byte	0
 	.byte	0
-	.uleb128 0x27
-	.4byte	0xc67
-	.4byte	.LBB268
-	.4byte	.LBE268-.LBB268
-	.uleb128 0x2
-	.4byte	0xc71
-	.uleb128 0xa
-	.4byte	0xc67
-	.4byte	.LBB269
-	.4byte	.LBE269-.LBB269
+	.uleb128 0x2d
+	.4byte	0x1011
+	.4byte	.LBB273
+	.4byte	.LBE273-.LBB273
+	.uleb128 0x4
+	.4byte	0x101b
+	.uleb128 0xe
+	.4byte	0x1011
+	.4byte	.LBB274
+	.4byte	.LBE274-.LBB274
 	.byte	0x35
 	.byte	0x6
-	.uleb128 0x2
-	.4byte	0xc71
+	.uleb128 0x4
+	.4byte	0x101b
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x31
+	.uleb128 0x36
 	.4byte	.LASF1000
-	.4byte	.LASF1032
-	.uleb128 0x31
+	.4byte	.LASF1042
+	.uleb128 0x36
 	.4byte	.LASF999
-	.4byte	.LASF1033
+	.4byte	.LASF1043
 	.byte	0
 	.section	.debug_abbrev,"",%progbits
 .Ldebug_abbrev0:
@@ -5159,14 +6035,18 @@ hexdigits.0:
 	.byte	0
 	.byte	0
 	.uleb128 0x2
-	.uleb128 0x5
+	.uleb128 0x34
 	.byte	0
 	.uleb128 0x31
 	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x17
+	.uleb128 0x2137
+	.uleb128 0x17
 	.byte	0
 	.byte	0
 	.uleb128 0x3
-	.uleb128 0x34
+	.uleb128 0x5
 	.byte	0
 	.uleb128 0x31
 	.uleb128 0x13
@@ -5177,44 +6057,60 @@ hexdigits.0:
 	.byte	0
 	.byte	0
 	.uleb128 0x4
-	.uleb128 0x34
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0x8
-	.uleb128 0x3a
-	.uleb128 0x21
-	.sleb128 1
-	.uleb128 0x3b
-	.uleb128 0xb
-	.uleb128 0x39
-	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
-	.uleb128 0x2
-	.uleb128 0x17
-	.uleb128 0x2137
-	.uleb128 0x17
-	.byte	0
-	.byte	0
-	.uleb128 0x5
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x31
 	.uleb128 0x13
-	.uleb128 0x2
-	.uleb128 0x17
-	.uleb128 0x2137
-	.uleb128 0x17
 	.byte	0
 	.byte	0
-	.uleb128 0x6
+	.uleb128 0x5
 	.uleb128 0xb
 	.byte	0x1
 	.uleb128 0x55
 	.uleb128 0x17
 	.byte	0
 	.byte	0
+	.uleb128 0x6
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0x21
+	.sleb128 1
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x17
+	.uleb128 0x2137
+	.uleb128 0x17
+	.byte	0
+	.byte	0
 	.uleb128 0x7
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0x21
+	.sleb128 1
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x17
+	.uleb128 0x2137
+	.uleb128 0x17
+	.byte	0
+	.byte	0
+	.uleb128 0x8
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -5230,7 +6126,27 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x8
+	.uleb128 0x9
+	.uleb128 0x48
+	.byte	0x1
+	.uleb128 0x7d
+	.uleb128 0x1
+	.uleb128 0x7f
+	.uleb128 0x13
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0xa
+	.uleb128 0x48
+	.byte	0x1
+	.uleb128 0x7d
+	.uleb128 0x1
+	.uleb128 0x7f
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0xb
 	.uleb128 0x24
 	.byte	0
 	.uleb128 0xb
@@ -5241,7 +6157,7 @@ hexdigits.0:
 	.uleb128 0xe
 	.byte	0
 	.byte	0
-	.uleb128 0x9
+	.uleb128 0xc
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -5261,7 +6177,27 @@ hexdigits.0:
 	.uleb128 0x17
 	.byte	0
 	.byte	0
-	.uleb128 0xa
+	.uleb128 0xd
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0x21
+	.sleb128 1
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x17
+	.uleb128 0x2137
+	.uleb128 0x17
+	.byte	0
+	.byte	0
+	.uleb128 0xe
 	.uleb128 0x1d
 	.byte	0x1
 	.uleb128 0x31
@@ -5279,54 +6215,14 @@ hexdigits.0:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0xb
-	.uleb128 0x48
-	.byte	0x1
-	.uleb128 0x7d
-	.uleb128 0x1
-	.uleb128 0x7f
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0xc
-	.uleb128 0x5
-	.byte	0
-	.uleb128 0x49
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0xd
-	.uleb128 0x48
-	.byte	0x1
-	.uleb128 0x7d
-	.uleb128 0x1
-	.uleb128 0x7f
-	.uleb128 0x13
-	.uleb128 0x1
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0xe
-	.uleb128 0x5
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0x8
-	.uleb128 0x3a
-	.uleb128 0x21
-	.sleb128 1
-	.uleb128 0x3b
-	.uleb128 0x5
-	.uleb128 0x39
-	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
-	.uleb128 0x2
-	.uleb128 0x17
-	.uleb128 0x2137
-	.uleb128 0x17
-	.byte	0
-	.byte	0
 	.uleb128 0xf
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x10
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -5340,13 +6236,9 @@ hexdigits.0:
 	.uleb128 0xb
 	.uleb128 0x49
 	.uleb128 0x13
-	.uleb128 0x2
-	.uleb128 0x17
-	.uleb128 0x2137
-	.uleb128 0x17
 	.byte	0
 	.byte	0
-	.uleb128 0x10
+	.uleb128 0x11
 	.uleb128 0x16
 	.byte	0
 	.uleb128 0x3
@@ -5361,7 +6253,16 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x11
+	.uleb128 0x12
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x55
+	.uleb128 0x17
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x13
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -5381,7 +6282,7 @@ hexdigits.0:
 	.uleb128 0x17
 	.byte	0
 	.byte	0
-	.uleb128 0x12
+	.uleb128 0x14
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -5397,7 +6298,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x13
+	.uleb128 0x15
 	.uleb128 0xf
 	.byte	0
 	.uleb128 0xb
@@ -5407,7 +6308,75 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x14
+	.uleb128 0x16
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0x21
+	.sleb128 1
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x39
+	.uleb128 0x21
+	.sleb128 5
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x6
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x7a
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x17
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0x21
+	.sleb128 1
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x39
+	.uleb128 0x21
+	.sleb128 21
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x17
+	.uleb128 0x2137
+	.uleb128 0x17
+	.byte	0
+	.byte	0
+	.uleb128 0x18
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0x21
+	.sleb128 1
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x19
 	.uleb128 0xb
 	.byte	0x1
 	.uleb128 0x31
@@ -5416,12 +6385,12 @@ hexdigits.0:
 	.uleb128 0x17
 	.byte	0
 	.byte	0
-	.uleb128 0x15
+	.uleb128 0x1a
 	.uleb128 0xb
 	.byte	0x1
 	.byte	0
 	.byte	0
-	.uleb128 0x16
+	.uleb128 0x1b
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -5451,16 +6420,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x17
-	.uleb128 0xb
-	.byte	0x1
-	.uleb128 0x55
-	.uleb128 0x17
-	.uleb128 0x1
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0x18
+	.uleb128 0x1c
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x31
@@ -5477,7 +6437,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x19
+	.uleb128 0x1d
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -5500,7 +6460,23 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x1a
+	.uleb128 0x1e
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0x21
+	.sleb128 1
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x1f
 	.uleb128 0x1d
 	.byte	0x1
 	.uleb128 0x31
@@ -5520,7 +6496,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x1b
+	.uleb128 0x20
 	.uleb128 0xb
 	.byte	0x1
 	.uleb128 0x31
@@ -5531,23 +6507,7 @@ hexdigits.0:
 	.uleb128 0x6
 	.byte	0
 	.byte	0
-	.uleb128 0x1c
-	.uleb128 0x34
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0x8
-	.uleb128 0x3a
 	.uleb128 0x21
-	.sleb128 1
-	.uleb128 0x3b
-	.uleb128 0x5
-	.uleb128 0x39
-	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0x1d
 	.uleb128 0x1d
 	.byte	0x1
 	.uleb128 0x31
@@ -5563,7 +6523,7 @@ hexdigits.0:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x1e
+	.uleb128 0x22
 	.uleb128 0xd
 	.byte	0
 	.uleb128 0x3
@@ -5581,61 +6541,37 @@ hexdigits.0:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x1f
+	.uleb128 0x23
 	.uleb128 0x26
 	.byte	0
 	.uleb128 0x49
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x20
-	.uleb128 0x2e
+	.uleb128 0x24
+	.uleb128 0x1d
 	.byte	0x1
-	.uleb128 0x3f
-	.uleb128 0x19
-	.uleb128 0x3
-	.uleb128 0xe
-	.uleb128 0x3a
-	.uleb128 0x21
-	.sleb128 1
-	.uleb128 0x3b
-	.uleb128 0x5
-	.uleb128 0x39
-	.uleb128 0x21
-	.sleb128 5
-	.uleb128 0x27
-	.uleb128 0x19
-	.uleb128 0x49
+	.uleb128 0x31
 	.uleb128 0x13
+	.uleb128 0x52
+	.uleb128 0x1
+	.uleb128 0x2138
+	.uleb128 0xb
 	.uleb128 0x11
 	.uleb128 0x1
 	.uleb128 0x12
 	.uleb128 0x6
-	.uleb128 0x40
-	.uleb128 0x18
-	.uleb128 0x7a
-	.uleb128 0x19
-	.uleb128 0x1
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0x21
-	.uleb128 0x34
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0xe
-	.uleb128 0x3a
+	.uleb128 0x58
 	.uleb128 0x21
 	.sleb128 1
-	.uleb128 0x3b
-	.uleb128 0x5
-	.uleb128 0x39
+	.uleb128 0x59
 	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
+	.uleb128 0x57
+	.uleb128 0x21
+	.sleb128 6
 	.byte	0
 	.byte	0
-	.uleb128 0x22
+	.uleb128 0x25
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -5655,7 +6591,7 @@ hexdigits.0:
 	.uleb128 0x17
 	.byte	0
 	.byte	0
-	.uleb128 0x23
+	.uleb128 0x26
 	.uleb128 0x1d
 	.byte	0x1
 	.uleb128 0x31
@@ -5678,7 +6614,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x24
+	.uleb128 0x27
 	.uleb128 0x1d
 	.byte	0x1
 	.uleb128 0x31
@@ -5698,7 +6634,7 @@ hexdigits.0:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x25
+	.uleb128 0x28
 	.uleb128 0x1
 	.byte	0x1
 	.uleb128 0x49
@@ -5707,7 +6643,78 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x26
+	.uleb128 0x29
+	.uleb128 0x1d
+	.byte	0x1
+	.uleb128 0x31
+	.uleb128 0x13
+	.uleb128 0x52
+	.uleb128 0x1
+	.uleb128 0x2138
+	.uleb128 0xb
+	.uleb128 0x55
+	.uleb128 0x17
+	.uleb128 0x58
+	.uleb128 0x21
+	.sleb128 1
+	.uleb128 0x59
+	.uleb128 0x5
+	.uleb128 0x57
+	.uleb128 0x21
+	.sleb128 13
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x2a
+	.uleb128 0x1d
+	.byte	0x1
+	.uleb128 0x31
+	.uleb128 0x13
+	.uleb128 0x52
+	.uleb128 0x1
+	.uleb128 0x2138
+	.uleb128 0xb
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x6
+	.uleb128 0x58
+	.uleb128 0x21
+	.sleb128 1
+	.uleb128 0x59
+	.uleb128 0x5
+	.uleb128 0x57
+	.uleb128 0x21
+	.sleb128 5
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x2b
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0x21
+	.sleb128 1
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x20
+	.uleb128 0x21
+	.sleb128 1
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x2c
 	.uleb128 0xb
 	.byte	0x1
 	.uleb128 0x31
@@ -5718,7 +6725,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x27
+	.uleb128 0x2d
 	.uleb128 0x1d
 	.byte	0x1
 	.uleb128 0x31
@@ -5738,7 +6745,7 @@ hexdigits.0:
 	.sleb128 5
 	.byte	0
 	.byte	0
-	.uleb128 0x28
+	.uleb128 0x2e
 	.uleb128 0xb
 	.byte	0x1
 	.uleb128 0x11
@@ -5749,30 +6756,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x29
-	.uleb128 0x1d
-	.byte	0x1
-	.uleb128 0x31
-	.uleb128 0x13
-	.uleb128 0x52
-	.uleb128 0x1
-	.uleb128 0x2138
-	.uleb128 0xb
-	.uleb128 0x11
-	.uleb128 0x1
-	.uleb128 0x12
-	.uleb128 0x6
-	.uleb128 0x58
-	.uleb128 0x21
-	.sleb128 1
-	.uleb128 0x59
-	.uleb128 0xb
-	.uleb128 0x57
-	.uleb128 0x21
-	.sleb128 6
-	.byte	0
-	.byte	0
-	.uleb128 0x2a
+	.uleb128 0x2f
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -5789,7 +6773,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x2b
+	.uleb128 0x30
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -5818,7 +6802,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x2c
+	.uleb128 0x31
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -5836,7 +6820,7 @@ hexdigits.0:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x2d
+	.uleb128 0x32
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -5856,7 +6840,7 @@ hexdigits.0:
 	.uleb128 0x17
 	.byte	0
 	.byte	0
-	.uleb128 0x2e
+	.uleb128 0x33
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -5882,7 +6866,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x2f
+	.uleb128 0x34
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -5906,14 +6890,14 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x30
+	.uleb128 0x35
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x31
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x31
+	.uleb128 0x36
 	.uleb128 0x2e
 	.byte	0
 	.uleb128 0x3f
@@ -5932,7 +6916,7 @@ hexdigits.0:
 	.sleb128 0
 	.byte	0
 	.byte	0
-	.uleb128 0x32
+	.uleb128 0x37
 	.uleb128 0x11
 	.byte	0x1
 	.uleb128 0x25
@@ -5953,7 +6937,7 @@ hexdigits.0:
 	.uleb128 0x17
 	.byte	0
 	.byte	0
-	.uleb128 0x33
+	.uleb128 0x38
 	.uleb128 0x24
 	.byte	0
 	.uleb128 0xb
@@ -5964,7 +6948,7 @@ hexdigits.0:
 	.uleb128 0x8
 	.byte	0
 	.byte	0
-	.uleb128 0x34
+	.uleb128 0x39
 	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0xb
@@ -5979,26 +6963,26 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x35
+	.uleb128 0x3a
 	.uleb128 0x21
 	.byte	0
 	.uleb128 0x49
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x36
+	.uleb128 0x3b
 	.uleb128 0xf
 	.byte	0
 	.uleb128 0xb
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x37
+	.uleb128 0x3c
 	.uleb128 0x26
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x38
+	.uleb128 0x3d
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -6019,7 +7003,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x39
+	.uleb128 0x3e
 	.uleb128 0x1d
 	.byte	0x1
 	.uleb128 0x31
@@ -6036,11 +7020,9 @@ hexdigits.0:
 	.uleb128 0x5
 	.uleb128 0x57
 	.uleb128 0xb
-	.uleb128 0x1
-	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x3a
+	.uleb128 0x3f
 	.uleb128 0x48
 	.byte	0
 	.uleb128 0x7d
@@ -6049,7 +7031,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x3b
+	.uleb128 0x40
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -6072,45 +7054,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x3c
-	.uleb128 0x5
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0x8
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0x5
-	.uleb128 0x39
-	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0x3d
-	.uleb128 0x1d
-	.byte	0x1
-	.uleb128 0x31
-	.uleb128 0x13
-	.uleb128 0x52
-	.uleb128 0x1
-	.uleb128 0x2138
-	.uleb128 0xb
-	.uleb128 0x11
-	.uleb128 0x1
-	.uleb128 0x12
-	.uleb128 0x6
-	.uleb128 0x58
-	.uleb128 0xb
-	.uleb128 0x59
-	.uleb128 0x5
-	.uleb128 0x57
-	.uleb128 0xb
-	.uleb128 0x1
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0x3e
+	.uleb128 0x41
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -6127,7 +7071,7 @@ hexdigits.0:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x3f
+	.uleb128 0x42
 	.uleb128 0x21
 	.byte	0
 	.uleb128 0x49
@@ -6136,7 +7080,7 @@ hexdigits.0:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x40
+	.uleb128 0x43
 	.uleb128 0x1d
 	.byte	0x1
 	.uleb128 0x31
@@ -6159,7 +7103,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x41
+	.uleb128 0x44
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3
@@ -6180,7 +7124,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x42
+	.uleb128 0x45
 	.uleb128 0x48
 	.byte	0x1
 	.uleb128 0x7d
@@ -6191,7 +7135,7 @@ hexdigits.0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x43
+	.uleb128 0x46
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x31
@@ -6200,7 +7144,7 @@ hexdigits.0:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x44
+	.uleb128 0x47
 	.uleb128 0x1d
 	.byte	0x1
 	.uleb128 0x31
@@ -6226,6 +7170,726 @@ hexdigits.0:
 	.byte	0
 	.4byte	0
 .Ldebug_loc0:
+.LVUS131:
+	.uleb128 0
+	.uleb128 .LVU897
+	.uleb128 .LVU897
+	.uleb128 .LVU953
+	.uleb128 .LVU953
+	.uleb128 .LVU955
+	.uleb128 .LVU955
+	.uleb128 0
+.LLST131:
+	.byte	0x6
+	.4byte	.LVL278
+	.byte	0x4
+	.uleb128 .LVL278-.LVL278
+	.uleb128 .LVL282-.LVL278
+	.uleb128 0x1
+	.byte	0x50
+	.byte	0x4
+	.uleb128 .LVL282-.LVL278
+	.uleb128 .LVL304-.LVL278
+	.uleb128 0x1
+	.byte	0x55
+	.byte	0x4
+	.uleb128 .LVL304-.LVL278
+	.uleb128 .LVL305-.LVL278
+	.uleb128 0xa
+	.byte	0xa3
+	.uleb128 0x3
+	.byte	0xa5
+	.uleb128 0
+	.uleb128 0x2a
+	.byte	0xa8
+	.uleb128 0x31
+	.byte	0xa8
+	.uleb128 0
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL305-.LVL278
+	.uleb128 .LFE19-.LVL278
+	.uleb128 0x1
+	.byte	0x55
+	.byte	0
+.LVUS132:
+	.uleb128 0
+	.uleb128 .LVU896
+	.uleb128 .LVU896
+	.uleb128 .LVU953
+	.uleb128 .LVU953
+	.uleb128 .LVU955
+	.uleb128 .LVU955
+	.uleb128 0
+.LLST132:
+	.byte	0x6
+	.4byte	.LVL278
+	.byte	0x4
+	.uleb128 .LVL278-.LVL278
+	.uleb128 .LVL281-.LVL278
+	.uleb128 0x1
+	.byte	0x51
+	.byte	0x4
+	.uleb128 .LVL281-.LVL278
+	.uleb128 .LVL304-.LVL278
+	.uleb128 0x1
+	.byte	0x5b
+	.byte	0x4
+	.uleb128 .LVL304-.LVL278
+	.uleb128 .LVL305-.LVL278
+	.uleb128 0xa
+	.byte	0xa3
+	.uleb128 0x3
+	.byte	0xa5
+	.uleb128 0x1
+	.uleb128 0x2a
+	.byte	0xa8
+	.uleb128 0x31
+	.byte	0xa8
+	.uleb128 0
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL305-.LVL278
+	.uleb128 .LFE19-.LVL278
+	.uleb128 0x1
+	.byte	0x5b
+	.byte	0
+.LVUS133:
+	.uleb128 0
+	.uleb128 .LVU895
+	.uleb128 .LVU895
+	.uleb128 .LVU953
+	.uleb128 .LVU953
+	.uleb128 .LVU955
+	.uleb128 .LVU955
+	.uleb128 0
+.LLST133:
+	.byte	0x6
+	.4byte	.LVL278
+	.byte	0x4
+	.uleb128 .LVL278-.LVL278
+	.uleb128 .LVL280-.LVL278
+	.uleb128 0x1
+	.byte	0x52
+	.byte	0x4
+	.uleb128 .LVL280-.LVL278
+	.uleb128 .LVL304-.LVL278
+	.uleb128 0x1
+	.byte	0x57
+	.byte	0x4
+	.uleb128 .LVL304-.LVL278
+	.uleb128 .LVL305-.LVL278
+	.uleb128 0xa
+	.byte	0xa3
+	.uleb128 0x3
+	.byte	0xa5
+	.uleb128 0x2
+	.uleb128 0x2a
+	.byte	0xa8
+	.uleb128 0x31
+	.byte	0xa8
+	.uleb128 0
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL305-.LVL278
+	.uleb128 .LFE19-.LVL278
+	.uleb128 0x1
+	.byte	0x57
+	.byte	0
+.LVUS134:
+	.uleb128 0
+	.uleb128 .LVU898
+	.uleb128 .LVU898
+	.uleb128 .LVU953
+	.uleb128 .LVU953
+	.uleb128 .LVU955
+	.uleb128 .LVU955
+	.uleb128 0
+.LLST134:
+	.byte	0x6
+	.4byte	.LVL278
+	.byte	0x4
+	.uleb128 .LVL278-.LVL278
+	.uleb128 .LVL283-1-.LVL278
+	.uleb128 0x1
+	.byte	0x53
+	.byte	0x4
+	.uleb128 .LVL283-1-.LVL278
+	.uleb128 .LVL304-.LVL278
+	.uleb128 0x1
+	.byte	0x58
+	.byte	0x4
+	.uleb128 .LVL304-.LVL278
+	.uleb128 .LVL305-.LVL278
+	.uleb128 0xa
+	.byte	0xa3
+	.uleb128 0x3
+	.byte	0xa5
+	.uleb128 0x3
+	.uleb128 0x2a
+	.byte	0xa8
+	.uleb128 0x31
+	.byte	0xa8
+	.uleb128 0
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL305-.LVL278
+	.uleb128 .LFE19-.LVL278
+	.uleb128 0x1
+	.byte	0x58
+	.byte	0
+.LVUS135:
+	.uleb128 0
+	.uleb128 .LVU953
+	.uleb128 .LVU953
+	.uleb128 0
+.LLST135:
+	.byte	0x6
+	.4byte	.LVL278
+	.byte	0x4
+	.uleb128 .LVL278-.LVL278
+	.uleb128 .LVL304-.LVL278
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.byte	0x4
+	.uleb128 .LVL304-.LVL278
+	.uleb128 .LFE19-.LVL278
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.byte	0
+.LVUS136:
+	.uleb128 0
+	.uleb128 .LVU953
+	.uleb128 .LVU953
+	.uleb128 0
+.LLST136:
+	.byte	0x6
+	.4byte	.LVL278
+	.byte	0x4
+	.uleb128 .LVL278-.LVL278
+	.uleb128 .LVL304-.LVL278
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 4
+	.byte	0x4
+	.uleb128 .LVL304-.LVL278
+	.uleb128 .LFE19-.LVL278
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 4
+	.byte	0
+.LVUS137:
+	.uleb128 0
+	.uleb128 .LVU953
+	.uleb128 .LVU953
+	.uleb128 0
+.LLST137:
+	.byte	0x6
+	.4byte	.LVL278
+	.byte	0x4
+	.uleb128 .LVL278-.LVL278
+	.uleb128 .LVL304-.LVL278
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 8
+	.byte	0x4
+	.uleb128 .LVL304-.LVL278
+	.uleb128 .LFE19-.LVL278
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 8
+	.byte	0
+.LVUS138:
+	.uleb128 .LVU970
+	.uleb128 .LVU974
+	.uleb128 .LVU974
+	.uleb128 0
+.LLST138:
+	.byte	0x6
+	.4byte	.LVL311
+	.byte	0x4
+	.uleb128 .LVL311-.LVL311
+	.uleb128 .LVL312-.LVL311
+	.uleb128 0x8
+	.byte	0x72
+	.sleb128 0
+	.byte	0x35
+	.byte	0x24
+	.byte	0x74
+	.sleb128 0
+	.byte	0x22
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL312-.LVL311
+	.uleb128 .LFE19-.LVL311
+	.uleb128 0x1
+	.byte	0x54
+	.byte	0
+.LVUS147:
+	.uleb128 .LVU914
+	.uleb128 .LVU924
+	.uleb128 .LVU924
+	.uleb128 .LVU925
+	.uleb128 .LVU925
+	.uleb128 .LVU949
+	.uleb128 .LVU949
+	.uleb128 .LVU950
+	.uleb128 .LVU973
+	.uleb128 .LVU974
+	.uleb128 .LVU974
+	.uleb128 0
+.LLST147:
+	.byte	0x6
+	.4byte	.LVL288
+	.byte	0x4
+	.uleb128 .LVL288-.LVL288
+	.uleb128 .LVL293-.LVL288
+	.uleb128 0x1
+	.byte	0x54
+	.byte	0x4
+	.uleb128 .LVL293-.LVL288
+	.uleb128 .LVL294-.LVL288
+	.uleb128 0x3
+	.byte	0x74
+	.sleb128 1
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL294-.LVL288
+	.uleb128 .LVL302-.LVL288
+	.uleb128 0x1
+	.byte	0x54
+	.byte	0x4
+	.uleb128 .LVL302-.LVL288
+	.uleb128 .LVL303-.LVL288
+	.uleb128 0x3
+	.byte	0x74
+	.sleb128 1
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL311-.LVL288
+	.uleb128 .LVL312-.LVL288
+	.uleb128 0x8
+	.byte	0x72
+	.sleb128 0
+	.byte	0x35
+	.byte	0x24
+	.byte	0x74
+	.sleb128 0
+	.byte	0x22
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL312-.LVL288
+	.uleb128 .LFE19-.LVL288
+	.uleb128 0x1
+	.byte	0x54
+	.byte	0
+.LVUS149:
+	.uleb128 .LVU931
+	.uleb128 .LVU934
+.LLST149:
+	.byte	0x8
+	.4byte	.LVL296
+	.uleb128 .LVL296-.LVL296
+	.uleb128 0x1
+	.byte	0x54
+	.byte	0
+.LVUS150:
+	.uleb128 .LVU931
+	.uleb128 .LVU934
+.LLST150:
+	.byte	0x8
+	.4byte	.LVL296
+	.uleb128 .LVL296-.LVL296
+	.uleb128 0x1
+	.byte	0x57
+	.byte	0
+.LVUS151:
+	.uleb128 .LVU914
+	.uleb128 .LVU922
+	.uleb128 .LVU938
+	.uleb128 .LVU943
+	.uleb128 .LVU943
+	.uleb128 .LVU945
+	.uleb128 .LVU945
+	.uleb128 .LVU947
+.LLST151:
+	.byte	0x6
+	.4byte	.LVL288
+	.byte	0x4
+	.uleb128 .LVL288-.LVL288
+	.uleb128 .LVL292-.LVL288
+	.uleb128 0x5
+	.byte	0x74
+	.sleb128 0
+	.byte	0x35
+	.byte	0x25
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL297-.LVL288
+	.uleb128 .LVL299-.LVL288
+	.uleb128 0x1
+	.byte	0x53
+	.byte	0x4
+	.uleb128 .LVL299-.LVL288
+	.uleb128 .LVL300-.LVL288
+	.uleb128 0x3
+	.byte	0x73
+	.sleb128 -2
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL300-.LVL288
+	.uleb128 .LVL301-.LVL288
+	.uleb128 0x5
+	.byte	0x74
+	.sleb128 0
+	.byte	0x35
+	.byte	0x25
+	.byte	0x9f
+	.byte	0
+.LVUS152:
+	.uleb128 .LVU914
+	.uleb128 .LVU917
+	.uleb128 .LVU917
+	.uleb128 .LVU922
+	.uleb128 .LVU939
+	.uleb128 .LVU942
+	.uleb128 .LVU942
+	.uleb128 .LVU947
+.LLST152:
+	.byte	0x6
+	.4byte	.LVL288
+	.byte	0x4
+	.uleb128 .LVL288-.LVL288
+	.uleb128 .LVL289-.LVL288
+	.uleb128 0x1
+	.byte	0x51
+	.byte	0x4
+	.uleb128 .LVL289-.LVL288
+	.uleb128 .LVL292-.LVL288
+	.uleb128 0x5
+	.byte	0x74
+	.sleb128 0
+	.byte	0x4f
+	.byte	0x1a
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL297-.LVL288
+	.uleb128 .LVL298-.LVL288
+	.uleb128 0x5
+	.byte	0x74
+	.sleb128 0
+	.byte	0x4f
+	.byte	0x1a
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL298-.LVL288
+	.uleb128 .LVL301-.LVL288
+	.uleb128 0x1
+	.byte	0x51
+	.byte	0
+.LVUS139:
+	.uleb128 .LVU891
+	.uleb128 .LVU897
+	.uleb128 .LVU897
+	.uleb128 .LVU900
+.LLST139:
+	.byte	0x6
+	.4byte	.LVL279
+	.byte	0x4
+	.uleb128 .LVL279-.LVL279
+	.uleb128 .LVL282-.LVL279
+	.uleb128 0x1
+	.byte	0x50
+	.byte	0x4
+	.uleb128 .LVL282-.LVL279
+	.uleb128 .LVL284-.LVL279
+	.uleb128 0x1
+	.byte	0x55
+	.byte	0
+.LVUS140:
+	.uleb128 .LVU893
+	.uleb128 .LVU897
+	.uleb128 .LVU897
+	.uleb128 .LVU900
+.LLST140:
+	.byte	0x6
+	.4byte	.LVL279
+	.byte	0x4
+	.uleb128 .LVL279-.LVL279
+	.uleb128 .LVL282-.LVL279
+	.uleb128 0x1
+	.byte	0x50
+	.byte	0x4
+	.uleb128 .LVL282-.LVL279
+	.uleb128 .LVL284-.LVL279
+	.uleb128 0x1
+	.byte	0x55
+	.byte	0
+.LVUS142:
+	.uleb128 .LVU905
+	.uleb128 .LVU914
+	.uleb128 .LVU955
+	.uleb128 .LVU970
+.LLST142:
+	.byte	0x6
+	.4byte	.LVL285
+	.byte	0x4
+	.uleb128 .LVL285-.LVL285
+	.uleb128 .LVL288-.LVL285
+	.uleb128 0x1
+	.byte	0x57
+	.byte	0x4
+	.uleb128 .LVL305-.LVL285
+	.uleb128 .LVL311-.LVL285
+	.uleb128 0x1
+	.byte	0x57
+	.byte	0
+.LVUS143:
+	.uleb128 .LVU907
+	.uleb128 .LVU913
+	.uleb128 .LVU913
+	.uleb128 .LVU914
+	.uleb128 .LVU955
+	.uleb128 .LVU958
+	.uleb128 .LVU958
+	.uleb128 .LVU963
+	.uleb128 .LVU963
+	.uleb128 .LVU970
+.LLST143:
+	.byte	0x6
+	.4byte	.LVL285
+	.byte	0x4
+	.uleb128 .LVL285-.LVL285
+	.uleb128 .LVL287-.LVL285
+	.uleb128 0x1
+	.byte	0x54
+	.byte	0x4
+	.uleb128 .LVL287-.LVL285
+	.uleb128 .LVL288-.LVL285
+	.uleb128 0x3
+	.byte	0x72
+	.sleb128 1
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL305-.LVL285
+	.uleb128 .LVL306-.LVL285
+	.uleb128 0x1
+	.byte	0x54
+	.byte	0x4
+	.uleb128 .LVL306-.LVL285
+	.uleb128 .LVL308-.LVL285
+	.uleb128 0x3
+	.byte	0x74
+	.sleb128 -1
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL308-.LVL285
+	.uleb128 .LVL311-.LVL285
+	.uleb128 0x3
+	.byte	0x72
+	.sleb128 1
+	.byte	0x9f
+	.byte	0
+.LVUS144:
+	.uleb128 .LVU959
+	.uleb128 .LVU970
+.LLST144:
+	.byte	0x8
+	.4byte	.LVL307
+	.uleb128 .LVL311-.LVL307
+	.uleb128 0x1
+	.byte	0x51
+	.byte	0
+.LVUS145:
+	.uleb128 .LVU960
+	.uleb128 .LVU964
+	.uleb128 .LVU964
+	.uleb128 .LVU969
+.LLST145:
+	.byte	0x6
+	.4byte	.LVL307
+	.byte	0x4
+	.uleb128 .LVL307-.LVL307
+	.uleb128 .LVL309-.LVL307
+	.uleb128 0x2
+	.byte	0x4f
+	.byte	0x9f
+	.byte	0x4
+	.uleb128 .LVL309-.LVL307
+	.uleb128 .LVL311-.LVL307
+	.uleb128 0x1
+	.byte	0x54
+	.byte	0
+.LVUS125:
+	.uleb128 0
+	.uleb128 .LVU875
+	.uleb128 .LVU875
+	.uleb128 .LVU880
+	.uleb128 .LVU880
+	.uleb128 0
+.LLST125:
+	.byte	0x6
+	.4byte	.LVL272
+	.byte	0x4
+	.uleb128 .LVL272-.LVL272
+	.uleb128 .LVL273-.LVL272
+	.uleb128 0x1
+	.byte	0x50
+	.byte	0x4
+	.uleb128 .LVL273-.LVL272
+	.uleb128 .LVL276-.LVL272
+	.uleb128 0x1
+	.byte	0x54
+	.byte	0x4
+	.uleb128 .LVL276-.LVL272
+	.uleb128 .LFE18-.LVL272
+	.uleb128 0xa
+	.byte	0xa3
+	.uleb128 0x3
+	.byte	0xa5
+	.uleb128 0
+	.uleb128 0x2a
+	.byte	0xa8
+	.uleb128 0x31
+	.byte	0xa8
+	.uleb128 0
+	.byte	0x9f
+	.byte	0
+.LVUS126:
+	.uleb128 0
+	.uleb128 .LVU876
+	.uleb128 .LVU876
+	.uleb128 0
+.LLST126:
+	.byte	0x6
+	.4byte	.LVL272
+	.byte	0x4
+	.uleb128 .LVL272-.LVL272
+	.uleb128 .LVL274-1-.LVL272
+	.uleb128 0x1
+	.byte	0x51
+	.byte	0x4
+	.uleb128 .LVL274-1-.LVL272
+	.uleb128 .LFE18-.LVL272
+	.uleb128 0xa
+	.byte	0xa3
+	.uleb128 0x3
+	.byte	0xa5
+	.uleb128 0x1
+	.uleb128 0x2a
+	.byte	0xa8
+	.uleb128 0x31
+	.byte	0xa8
+	.uleb128 0
+	.byte	0x9f
+	.byte	0
+.LVUS127:
+	.uleb128 0
+	.uleb128 .LVU876
+	.uleb128 .LVU876
+	.uleb128 0
+.LLST127:
+	.byte	0x6
+	.4byte	.LVL272
+	.byte	0x4
+	.uleb128 .LVL272-.LVL272
+	.uleb128 .LVL274-1-.LVL272
+	.uleb128 0x1
+	.byte	0x52
+	.byte	0x4
+	.uleb128 .LVL274-1-.LVL272
+	.uleb128 .LFE18-.LVL272
+	.uleb128 0xa
+	.byte	0xa3
+	.uleb128 0x3
+	.byte	0xa5
+	.uleb128 0x2
+	.uleb128 0x2a
+	.byte	0xa8
+	.uleb128 0x31
+	.byte	0xa8
+	.uleb128 0
+	.byte	0x9f
+	.byte	0
+.LVUS128:
+	.uleb128 0
+	.uleb128 .LVU876
+	.uleb128 .LVU876
+	.uleb128 .LVU880
+	.uleb128 .LVU880
+	.uleb128 0
+.LLST128:
+	.byte	0x6
+	.4byte	.LVL272
+	.byte	0x4
+	.uleb128 .LVL272-.LVL272
+	.uleb128 .LVL274-1-.LVL272
+	.uleb128 0x1
+	.byte	0x53
+	.byte	0x4
+	.uleb128 .LVL274-1-.LVL272
+	.uleb128 .LVL276-.LVL272
+	.uleb128 0x1
+	.byte	0x55
+	.byte	0x4
+	.uleb128 .LVL276-.LVL272
+	.uleb128 .LFE18-.LVL272
+	.uleb128 0xa
+	.byte	0xa3
+	.uleb128 0x3
+	.byte	0xa5
+	.uleb128 0x3
+	.uleb128 0x2a
+	.byte	0xa8
+	.uleb128 0x31
+	.byte	0xa8
+	.uleb128 0
+	.byte	0x9f
+	.byte	0
+.LVUS129:
+	.uleb128 0
+	.uleb128 .LVU881
+	.uleb128 .LVU881
+	.uleb128 0
+.LLST129:
+	.byte	0x6
+	.4byte	.LVL272
+	.byte	0x4
+	.uleb128 .LVL272-.LVL272
+	.uleb128 .LVL277-.LVL272
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.byte	0x4
+	.uleb128 .LVL277-.LVL272
+	.uleb128 .LFE18-.LVL272
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.byte	0
+.LVUS130:
+	.uleb128 0
+	.uleb128 .LVU881
+	.uleb128 .LVU881
+	.uleb128 0
+.LLST130:
+	.byte	0x6
+	.4byte	.LVL272
+	.byte	0x4
+	.uleb128 .LVL272-.LVL272
+	.uleb128 .LVL277-.LVL272
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 4
+	.byte	0x4
+	.uleb128 .LVL277-.LVL272
+	.uleb128 .LFE18-.LVL272
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 4
+	.byte	0
 .LVUS110:
 	.uleb128 0
 	.uleb128 .LVU755
@@ -9686,7 +11350,7 @@ hexdigits.0:
 	.byte	0
 .Ldebug_loc3:
 	.section	.debug_aranges,"",%progbits
-	.4byte	0x8c
+	.4byte	0x9c
 	.2byte	0x2
 	.4byte	.Ldebug_info0
 	.byte	0x4
@@ -9723,6 +11387,10 @@ hexdigits.0:
 	.4byte	.LFE14-.LFB14
 	.4byte	.LFB15
 	.4byte	.LFE15-.LFB15
+	.4byte	.LFB18
+	.4byte	.LFE18-.LFB18
+	.4byte	.LFB19
+	.4byte	.LFE19-.LFB19
 	.4byte	0
 	.4byte	0
 	.section	.debug_rnglists,"",%progbits
@@ -9735,242 +11403,226 @@ hexdigits.0:
 	.4byte	0
 .LLRL4:
 	.byte	0x5
-	.4byte	.LBB61
+	.4byte	.LBB66
 	.byte	0x4
-	.uleb128 .LBB61-.LBB61
-	.uleb128 .LBE61-.LBB61
+	.uleb128 .LBB66-.LBB66
+	.uleb128 .LBE66-.LBB66
 	.byte	0x4
-	.uleb128 .LBB64-.LBB61
-	.uleb128 .LBE64-.LBB61
+	.uleb128 .LBB69-.LBB66
+	.uleb128 .LBE69-.LBB66
 	.byte	0
 .LLRL12:
 	.byte	0x5
-	.4byte	.LBB95
+	.4byte	.LBB100
 	.byte	0x4
-	.uleb128 .LBB95-.LBB95
-	.uleb128 .LBE95-.LBB95
+	.uleb128 .LBB100-.LBB100
+	.uleb128 .LBE100-.LBB100
 	.byte	0x4
-	.uleb128 .LBB114-.LBB95
-	.uleb128 .LBE114-.LBB95
+	.uleb128 .LBB119-.LBB100
+	.uleb128 .LBE119-.LBB100
 	.byte	0x4
-	.uleb128 .LBB115-.LBB95
-	.uleb128 .LBE115-.LBB95
+	.uleb128 .LBB120-.LBB100
+	.uleb128 .LBE120-.LBB100
 	.byte	0
 .LLRL14:
 	.byte	0x5
-	.4byte	.LBB102
+	.4byte	.LBB107
 	.byte	0x4
-	.uleb128 .LBB102-.LBB102
-	.uleb128 .LBE102-.LBB102
+	.uleb128 .LBB107-.LBB107
+	.uleb128 .LBE107-.LBB107
 	.byte	0x4
-	.uleb128 .LBB109-.LBB102
-	.uleb128 .LBE109-.LBB102
+	.uleb128 .LBB114-.LBB107
+	.uleb128 .LBE114-.LBB107
 	.byte	0x4
-	.uleb128 .LBB113-.LBB102
-	.uleb128 .LBE113-.LBB102
+	.uleb128 .LBB118-.LBB107
+	.uleb128 .LBE118-.LBB107
 	.byte	0
 .LLRL20:
 	.byte	0x5
-	.4byte	.LBB105
+	.4byte	.LBB110
 	.byte	0x4
-	.uleb128 .LBB105-.LBB105
-	.uleb128 .LBE105-.LBB105
+	.uleb128 .LBB110-.LBB110
+	.uleb128 .LBE110-.LBB110
 	.byte	0x4
-	.uleb128 .LBB106-.LBB105
-	.uleb128 .LBE106-.LBB105
+	.uleb128 .LBB111-.LBB110
+	.uleb128 .LBE111-.LBB110
 	.byte	0
 .LLRL30:
 	.byte	0x5
-	.4byte	.LBB133
+	.4byte	.LBB138
 	.byte	0x4
-	.uleb128 .LBB133-.LBB133
-	.uleb128 .LBE133-.LBB133
+	.uleb128 .LBB138-.LBB138
+	.uleb128 .LBE138-.LBB138
 	.byte	0x4
-	.uleb128 .LBB153-.LBB133
-	.uleb128 .LBE153-.LBB133
+	.uleb128 .LBB158-.LBB138
+	.uleb128 .LBE158-.LBB138
 	.byte	0
 .LLRL32:
 	.byte	0x5
-	.4byte	.LBB134
+	.4byte	.LBB139
 	.byte	0x4
-	.uleb128 .LBB134-.LBB134
-	.uleb128 .LBE134-.LBB134
+	.uleb128 .LBB139-.LBB139
+	.uleb128 .LBE139-.LBB139
 	.byte	0x4
-	.uleb128 .LBB148-.LBB134
-	.uleb128 .LBE148-.LBB134
+	.uleb128 .LBB153-.LBB139
+	.uleb128 .LBE153-.LBB139
 	.byte	0x4
-	.uleb128 .LBB149-.LBB134
-	.uleb128 .LBE149-.LBB134
+	.uleb128 .LBB154-.LBB139
+	.uleb128 .LBE154-.LBB139
 	.byte	0x4
-	.uleb128 .LBB150-.LBB134
-	.uleb128 .LBE150-.LBB134
+	.uleb128 .LBB155-.LBB139
+	.uleb128 .LBE155-.LBB139
 	.byte	0x4
-	.uleb128 .LBB151-.LBB134
-	.uleb128 .LBE151-.LBB134
+	.uleb128 .LBB156-.LBB139
+	.uleb128 .LBE156-.LBB139
 	.byte	0x4
-	.uleb128 .LBB152-.LBB134
-	.uleb128 .LBE152-.LBB134
+	.uleb128 .LBB157-.LBB139
+	.uleb128 .LBE157-.LBB139
 	.byte	0
 .LLRL35:
 	.byte	0x5
-	.4byte	.LBB135
+	.4byte	.LBB140
 	.byte	0x4
-	.uleb128 .LBB135-.LBB135
-	.uleb128 .LBE135-.LBB135
+	.uleb128 .LBB140-.LBB140
+	.uleb128 .LBE140-.LBB140
 	.byte	0x4
-	.uleb128 .LBB144-.LBB135
-	.uleb128 .LBE144-.LBB135
+	.uleb128 .LBB149-.LBB140
+	.uleb128 .LBE149-.LBB140
 	.byte	0x4
-	.uleb128 .LBB145-.LBB135
-	.uleb128 .LBE145-.LBB135
+	.uleb128 .LBB150-.LBB140
+	.uleb128 .LBE150-.LBB140
 	.byte	0x4
-	.uleb128 .LBB146-.LBB135
-	.uleb128 .LBE146-.LBB135
+	.uleb128 .LBB151-.LBB140
+	.uleb128 .LBE151-.LBB140
 	.byte	0x4
-	.uleb128 .LBB147-.LBB135
-	.uleb128 .LBE147-.LBB135
+	.uleb128 .LBB152-.LBB140
+	.uleb128 .LBE152-.LBB140
 	.byte	0
 .LLRL37:
 	.byte	0x5
-	.4byte	.LBB136
+	.4byte	.LBB141
 	.byte	0x4
-	.uleb128 .LBB136-.LBB136
-	.uleb128 .LBE136-.LBB136
+	.uleb128 .LBB141-.LBB141
+	.uleb128 .LBE141-.LBB141
 	.byte	0x4
-	.uleb128 .LBB143-.LBB136
-	.uleb128 .LBE143-.LBB136
+	.uleb128 .LBB148-.LBB141
+	.uleb128 .LBE148-.LBB141
 	.byte	0
 .LLRL39:
 	.byte	0x5
-	.4byte	.LBB137
+	.4byte	.LBB142
 	.byte	0x4
-	.uleb128 .LBB137-.LBB137
-	.uleb128 .LBE137-.LBB137
+	.uleb128 .LBB142-.LBB142
+	.uleb128 .LBE142-.LBB142
 	.byte	0x4
-	.uleb128 .LBB141-.LBB137
-	.uleb128 .LBE141-.LBB137
+	.uleb128 .LBB146-.LBB142
+	.uleb128 .LBE146-.LBB142
 	.byte	0x4
-	.uleb128 .LBB142-.LBB137
-	.uleb128 .LBE142-.LBB137
+	.uleb128 .LBB147-.LBB142
+	.uleb128 .LBE147-.LBB142
 	.byte	0
 .LLRL41:
 	.byte	0x5
-	.4byte	.LBB154
+	.4byte	.LBB159
 	.byte	0x4
-	.uleb128 .LBB154-.LBB154
-	.uleb128 .LBE154-.LBB154
+	.uleb128 .LBB159-.LBB159
+	.uleb128 .LBE159-.LBB159
 	.byte	0x4
-	.uleb128 .LBB159-.LBB154
-	.uleb128 .LBE159-.LBB154
+	.uleb128 .LBB164-.LBB159
+	.uleb128 .LBE164-.LBB159
 	.byte	0
 .LLRL48:
 	.byte	0x5
-	.4byte	.LBB170
+	.4byte	.LBB175
 	.byte	0x4
-	.uleb128 .LBB170-.LBB170
-	.uleb128 .LBE170-.LBB170
+	.uleb128 .LBB175-.LBB175
+	.uleb128 .LBE175-.LBB175
 	.byte	0x4
-	.uleb128 .LBB175-.LBB170
-	.uleb128 .LBE175-.LBB170
+	.uleb128 .LBB180-.LBB175
+	.uleb128 .LBE180-.LBB175
 	.byte	0
 .LLRL50:
 	.byte	0x5
-	.4byte	.LBB176
+	.4byte	.LBB181
 	.byte	0x4
-	.uleb128 .LBB176-.LBB176
-	.uleb128 .LBE176-.LBB176
+	.uleb128 .LBB181-.LBB181
+	.uleb128 .LBE181-.LBB181
 	.byte	0x4
-	.uleb128 .LBB191-.LBB176
-	.uleb128 .LBE191-.LBB176
+	.uleb128 .LBB196-.LBB181
+	.uleb128 .LBE196-.LBB181
 	.byte	0
 .LLRL52:
 	.byte	0x5
-	.4byte	.LBB177
+	.4byte	.LBB182
 	.byte	0x4
-	.uleb128 .LBB177-.LBB177
-	.uleb128 .LBE177-.LBB177
+	.uleb128 .LBB182-.LBB182
+	.uleb128 .LBE182-.LBB182
 	.byte	0x4
-	.uleb128 .LBB178-.LBB177
-	.uleb128 .LBE178-.LBB177
+	.uleb128 .LBB183-.LBB182
+	.uleb128 .LBE183-.LBB182
 	.byte	0x4
-	.uleb128 .LBB179-.LBB177
-	.uleb128 .LBE179-.LBB177
+	.uleb128 .LBB184-.LBB182
+	.uleb128 .LBE184-.LBB182
 	.byte	0x4
-	.uleb128 .LBB180-.LBB177
-	.uleb128 .LBE180-.LBB177
+	.uleb128 .LBB185-.LBB182
+	.uleb128 .LBE185-.LBB182
 	.byte	0x4
-	.uleb128 .LBB181-.LBB177
-	.uleb128 .LBE181-.LBB177
+	.uleb128 .LBB186-.LBB182
+	.uleb128 .LBE186-.LBB182
 	.byte	0x4
-	.uleb128 .LBB182-.LBB177
-	.uleb128 .LBE182-.LBB177
+	.uleb128 .LBB187-.LBB182
+	.uleb128 .LBE187-.LBB182
 	.byte	0x4
-	.uleb128 .LBB183-.LBB177
-	.uleb128 .LBE183-.LBB177
+	.uleb128 .LBB188-.LBB182
+	.uleb128 .LBE188-.LBB182
 	.byte	0
 .LLRL54:
 	.byte	0x5
-	.4byte	.LBB184
+	.4byte	.LBB189
 	.byte	0x4
-	.uleb128 .LBB184-.LBB184
-	.uleb128 .LBE184-.LBB184
+	.uleb128 .LBB189-.LBB189
+	.uleb128 .LBE189-.LBB189
 	.byte	0x4
-	.uleb128 .LBB190-.LBB184
-	.uleb128 .LBE190-.LBB184
+	.uleb128 .LBB195-.LBB189
+	.uleb128 .LBE195-.LBB189
 	.byte	0
 .LLRL56:
 	.byte	0x5
-	.4byte	.LBB185
+	.4byte	.LBB190
 	.byte	0x4
-	.uleb128 .LBB185-.LBB185
-	.uleb128 .LBE185-.LBB185
+	.uleb128 .LBB190-.LBB190
+	.uleb128 .LBE190-.LBB190
 	.byte	0x4
-	.uleb128 .LBB188-.LBB185
-	.uleb128 .LBE188-.LBB185
+	.uleb128 .LBB193-.LBB190
+	.uleb128 .LBE193-.LBB190
 	.byte	0x4
-	.uleb128 .LBB189-.LBB185
-	.uleb128 .LBE189-.LBB185
+	.uleb128 .LBB194-.LBB190
+	.uleb128 .LBE194-.LBB190
 	.byte	0
 .LLRL58:
 	.byte	0x5
-	.4byte	.LBB186
+	.4byte	.LBB191
 	.byte	0x4
-	.uleb128 .LBB186-.LBB186
-	.uleb128 .LBE186-.LBB186
+	.uleb128 .LBB191-.LBB191
+	.uleb128 .LBE191-.LBB191
 	.byte	0x4
-	.uleb128 .LBB187-.LBB186
-	.uleb128 .LBE187-.LBB186
+	.uleb128 .LBB192-.LBB191
+	.uleb128 .LBE192-.LBB191
 	.byte	0
 .LLRL66:
 	.byte	0x5
-	.4byte	.LBB192
+	.4byte	.LBB197
 	.byte	0x4
-	.uleb128 .LBB192-.LBB192
-	.uleb128 .LBE192-.LBB192
+	.uleb128 .LBB197-.LBB197
+	.uleb128 .LBE197-.LBB197
 	.byte	0x4
-	.uleb128 .LBB197-.LBB192
-	.uleb128 .LBE197-.LBB192
+	.uleb128 .LBB202-.LBB197
+	.uleb128 .LBE202-.LBB197
 	.byte	0x4
-	.uleb128 .LBB200-.LBB192
-	.uleb128 .LBE200-.LBB192
+	.uleb128 .LBB205-.LBB197
+	.uleb128 .LBE205-.LBB197
 	.byte	0
 .LLRL68:
-	.byte	0x5
-	.4byte	.LBB193
-	.byte	0x4
-	.uleb128 .LBB193-.LBB193
-	.uleb128 .LBE193-.LBB193
-	.byte	0x4
-	.uleb128 .LBB194-.LBB193
-	.uleb128 .LBE194-.LBB193
-	.byte	0x4
-	.uleb128 .LBB195-.LBB193
-	.uleb128 .LBE195-.LBB193
-	.byte	0x4
-	.uleb128 .LBB196-.LBB193
-	.uleb128 .LBE196-.LBB193
-	.byte	0
-.LLRL69:
 	.byte	0x5
 	.4byte	.LBB198
 	.byte	0x4
@@ -9979,174 +11631,223 @@ hexdigits.0:
 	.byte	0x4
 	.uleb128 .LBB199-.LBB198
 	.uleb128 .LBE199-.LBB198
+	.byte	0x4
+	.uleb128 .LBB200-.LBB198
+	.uleb128 .LBE200-.LBB198
+	.byte	0x4
+	.uleb128 .LBB201-.LBB198
+	.uleb128 .LBE201-.LBB198
+	.byte	0
+.LLRL69:
+	.byte	0x5
+	.4byte	.LBB203
+	.byte	0x4
+	.uleb128 .LBB203-.LBB203
+	.uleb128 .LBE203-.LBB203
+	.byte	0x4
+	.uleb128 .LBB204-.LBB203
+	.uleb128 .LBE204-.LBB203
 	.byte	0
 .LLRL74:
 	.byte	0x5
-	.4byte	.LBB208
+	.4byte	.LBB213
 	.byte	0x4
-	.uleb128 .LBB208-.LBB208
-	.uleb128 .LBE208-.LBB208
+	.uleb128 .LBB213-.LBB213
+	.uleb128 .LBE213-.LBB213
 	.byte	0x4
-	.uleb128 .LBB213-.LBB208
-	.uleb128 .LBE213-.LBB208
+	.uleb128 .LBB218-.LBB213
+	.uleb128 .LBE218-.LBB213
 	.byte	0
 .LLRL76:
-	.byte	0x5
-	.4byte	.LBB209
-	.byte	0x4
-	.uleb128 .LBB209-.LBB209
-	.uleb128 .LBE209-.LBB209
-	.byte	0x4
-	.uleb128 .LBB210-.LBB209
-	.uleb128 .LBE210-.LBB209
-	.byte	0x4
-	.uleb128 .LBB211-.LBB209
-	.uleb128 .LBE211-.LBB209
-	.byte	0x4
-	.uleb128 .LBB212-.LBB209
-	.uleb128 .LBE212-.LBB209
-	.byte	0
-.LLRL77:
 	.byte	0x5
 	.4byte	.LBB214
 	.byte	0x4
 	.uleb128 .LBB214-.LBB214
 	.uleb128 .LBE214-.LBB214
 	.byte	0x4
-	.uleb128 .LBB221-.LBB214
-	.uleb128 .LBE221-.LBB214
+	.uleb128 .LBB215-.LBB214
+	.uleb128 .LBE215-.LBB214
 	.byte	0x4
-	.uleb128 .LBB223-.LBB214
-	.uleb128 .LBE223-.LBB214
+	.uleb128 .LBB216-.LBB214
+	.uleb128 .LBE216-.LBB214
+	.byte	0x4
+	.uleb128 .LBB217-.LBB214
+	.uleb128 .LBE217-.LBB214
+	.byte	0
+.LLRL77:
+	.byte	0x5
+	.4byte	.LBB219
+	.byte	0x4
+	.uleb128 .LBB219-.LBB219
+	.uleb128 .LBE219-.LBB219
+	.byte	0x4
+	.uleb128 .LBB226-.LBB219
+	.uleb128 .LBE226-.LBB219
+	.byte	0x4
+	.uleb128 .LBB228-.LBB219
+	.uleb128 .LBE228-.LBB219
 	.byte	0
 .LLRL87:
 	.byte	0x5
-	.4byte	.LBB233
+	.4byte	.LBB238
 	.byte	0x4
-	.uleb128 .LBB233-.LBB233
-	.uleb128 .LBE233-.LBB233
+	.uleb128 .LBB238-.LBB238
+	.uleb128 .LBE238-.LBB238
 	.byte	0x4
-	.uleb128 .LBB240-.LBB233
-	.uleb128 .LBE240-.LBB233
+	.uleb128 .LBB245-.LBB238
+	.uleb128 .LBE245-.LBB238
 	.byte	0x4
-	.uleb128 .LBB241-.LBB233
-	.uleb128 .LBE241-.LBB233
+	.uleb128 .LBB246-.LBB238
+	.uleb128 .LBE246-.LBB238
 	.byte	0x4
-	.uleb128 .LBB242-.LBB233
-	.uleb128 .LBE242-.LBB233
+	.uleb128 .LBB247-.LBB238
+	.uleb128 .LBE247-.LBB238
 	.byte	0x4
-	.uleb128 .LBB243-.LBB233
-	.uleb128 .LBE243-.LBB233
+	.uleb128 .LBB248-.LBB238
+	.uleb128 .LBE248-.LBB238
 	.byte	0
 .LLRL89:
 	.byte	0x5
-	.4byte	.LBB234
+	.4byte	.LBB239
 	.byte	0x4
-	.uleb128 .LBB234-.LBB234
-	.uleb128 .LBE234-.LBB234
+	.uleb128 .LBB239-.LBB239
+	.uleb128 .LBE239-.LBB239
 	.byte	0x4
-	.uleb128 .LBB238-.LBB234
-	.uleb128 .LBE238-.LBB234
+	.uleb128 .LBB243-.LBB239
+	.uleb128 .LBE243-.LBB239
 	.byte	0x4
-	.uleb128 .LBB239-.LBB234
-	.uleb128 .LBE239-.LBB234
+	.uleb128 .LBB244-.LBB239
+	.uleb128 .LBE244-.LBB239
 	.byte	0
 .LLRL91:
 	.byte	0x5
-	.4byte	.LBB235
+	.4byte	.LBB240
 	.byte	0x4
-	.uleb128 .LBB235-.LBB235
-	.uleb128 .LBE235-.LBB235
+	.uleb128 .LBB240-.LBB240
+	.uleb128 .LBE240-.LBB240
 	.byte	0x4
-	.uleb128 .LBB236-.LBB235
-	.uleb128 .LBE236-.LBB235
+	.uleb128 .LBB241-.LBB240
+	.uleb128 .LBE241-.LBB240
 	.byte	0x4
-	.uleb128 .LBB237-.LBB235
-	.uleb128 .LBE237-.LBB235
+	.uleb128 .LBB242-.LBB240
+	.uleb128 .LBE242-.LBB240
 	.byte	0
 .LLRL98:
 	.byte	0x5
-	.4byte	.LBB247
+	.4byte	.LBB252
 	.byte	0x4
-	.uleb128 .LBB247-.LBB247
-	.uleb128 .LBE247-.LBB247
+	.uleb128 .LBB252-.LBB252
+	.uleb128 .LBE252-.LBB252
 	.byte	0x4
-	.uleb128 .LBB251-.LBB247
-	.uleb128 .LBE251-.LBB247
+	.uleb128 .LBB256-.LBB252
+	.uleb128 .LBE256-.LBB252
 	.byte	0x4
-	.uleb128 .LBB252-.LBB247
-	.uleb128 .LBE252-.LBB247
+	.uleb128 .LBB257-.LBB252
+	.uleb128 .LBE257-.LBB252
 	.byte	0
 .LLRL100:
 	.byte	0x5
-	.4byte	.LBB248
+	.4byte	.LBB253
 	.byte	0x4
-	.uleb128 .LBB248-.LBB248
-	.uleb128 .LBE248-.LBB248
+	.uleb128 .LBB253-.LBB253
+	.uleb128 .LBE253-.LBB253
 	.byte	0x4
-	.uleb128 .LBB249-.LBB248
-	.uleb128 .LBE249-.LBB248
+	.uleb128 .LBB254-.LBB253
+	.uleb128 .LBE254-.LBB253
 	.byte	0x4
-	.uleb128 .LBB250-.LBB248
-	.uleb128 .LBE250-.LBB248
+	.uleb128 .LBB255-.LBB253
+	.uleb128 .LBE255-.LBB253
 	.byte	0
 .LLRL104:
 	.byte	0x5
-	.4byte	.LBB263
+	.4byte	.LBB268
 	.byte	0x4
-	.uleb128 .LBB263-.LBB263
-	.uleb128 .LBE263-.LBB263
+	.uleb128 .LBB268-.LBB268
+	.uleb128 .LBE268-.LBB268
 	.byte	0x4
-	.uleb128 .LBB266-.LBB263
-	.uleb128 .LBE266-.LBB263
+	.uleb128 .LBB271-.LBB268
+	.uleb128 .LBE271-.LBB268
 	.byte	0x4
-	.uleb128 .LBB267-.LBB263
-	.uleb128 .LBE267-.LBB263
+	.uleb128 .LBB272-.LBB268
+	.uleb128 .LBE272-.LBB268
 	.byte	0
 .LLRL106:
 	.byte	0x5
-	.4byte	.LBB264
+	.4byte	.LBB269
 	.byte	0x4
-	.uleb128 .LBB264-.LBB264
-	.uleb128 .LBE264-.LBB264
+	.uleb128 .LBB269-.LBB269
+	.uleb128 .LBE269-.LBB269
 	.byte	0x4
-	.uleb128 .LBB265-.LBB264
-	.uleb128 .LBE265-.LBB264
+	.uleb128 .LBB270-.LBB269
+	.uleb128 .LBE270-.LBB269
 	.byte	0
 .LLRL116:
 	.byte	0x5
-	.4byte	.LBB305
+	.4byte	.LBB310
 	.byte	0x4
-	.uleb128 .LBB305-.LBB305
-	.uleb128 .LBE305-.LBB305
+	.uleb128 .LBB310-.LBB310
+	.uleb128 .LBE310-.LBB310
 	.byte	0x4
-	.uleb128 .LBB316-.LBB305
-	.uleb128 .LBE316-.LBB305
+	.uleb128 .LBB321-.LBB310
+	.uleb128 .LBE321-.LBB310
 	.byte	0
 .LLRL119:
 	.byte	0x5
-	.4byte	.LBB307
+	.4byte	.LBB312
 	.byte	0x4
-	.uleb128 .LBB307-.LBB307
-	.uleb128 .LBE307-.LBB307
+	.uleb128 .LBB312-.LBB312
+	.uleb128 .LBE312-.LBB312
 	.byte	0x4
-	.uleb128 .LBB310-.LBB307
-	.uleb128 .LBE310-.LBB307
+	.uleb128 .LBB315-.LBB312
+	.uleb128 .LBE315-.LBB312
 	.byte	0x4
-	.uleb128 .LBB311-.LBB307
-	.uleb128 .LBE311-.LBB307
+	.uleb128 .LBB316-.LBB312
+	.uleb128 .LBE316-.LBB312
 	.byte	0
 .LLRL121:
 	.byte	0x5
-	.4byte	.LBB308
+	.4byte	.LBB313
 	.byte	0x4
-	.uleb128 .LBB308-.LBB308
-	.uleb128 .LBE308-.LBB308
+	.uleb128 .LBB313-.LBB313
+	.uleb128 .LBE313-.LBB313
 	.byte	0x4
-	.uleb128 .LBB309-.LBB308
-	.uleb128 .LBE309-.LBB308
+	.uleb128 .LBB314-.LBB313
+	.uleb128 .LBE314-.LBB313
 	.byte	0
-.LLRL125:
+.LLRL141:
+	.byte	0x5
+	.4byte	.LBB337
+	.byte	0x4
+	.uleb128 .LBB337-.LBB337
+	.uleb128 .LBE337-.LBB337
+	.byte	0x4
+	.uleb128 .LBB341-.LBB337
+	.uleb128 .LBE341-.LBB337
+	.byte	0x4
+	.uleb128 .LBB347-.LBB337
+	.uleb128 .LBE347-.LBB337
+	.byte	0
+.LLRL146:
+	.byte	0x5
+	.4byte	.LBB342
+	.byte	0x4
+	.uleb128 .LBB342-.LBB342
+	.uleb128 .LBE342-.LBB342
+	.byte	0x4
+	.uleb128 .LBB348-.LBB342
+	.uleb128 .LBE348-.LBB342
+	.byte	0
+.LLRL148:
+	.byte	0x5
+	.4byte	.LBB343
+	.byte	0x4
+	.uleb128 .LBB343-.LBB343
+	.uleb128 .LBE343-.LBB343
+	.byte	0x4
+	.uleb128 .LBB346-.LBB343
+	.uleb128 .LBE346-.LBB343
+	.byte	0
+.LLRL153:
 	.byte	0x7
 	.4byte	.LFB0
 	.uleb128 .LFE0-.LFB0
@@ -10192,6 +11893,12 @@ hexdigits.0:
 	.byte	0x7
 	.4byte	.LFB15
 	.uleb128 .LFE15-.LFB15
+	.byte	0x7
+	.4byte	.LFB18
+	.uleb128 .LFE18-.LFB18
+	.byte	0x7
+	.4byte	.LFB19
+	.uleb128 .LFE19-.LFB19
 	.byte	0
 .Ldebug_ranges3:
 	.section	.debug_macro,"",%progbits
@@ -13567,19 +15274,15 @@ hexdigits.0:
 	.section	.debug_line,"",%progbits
 .Ldebug_line0:
 	.section	.debug_str,"MS",%progbits,1
-.LASF184:
-	.ascii	"__LDBL_MIN_10_EXP__ (-307)\000"
 .LASF932:
 	.ascii	"_REENT_WCRTOMB_STATE(ptr) ((ptr)->_misc->_wcrtomb_s"
 	.ascii	"tate)\000"
-.LASF609:
-	.ascii	"WINT_MIN (__WINT_MIN__)\000"
 .LASF843:
 	.ascii	"__builtin_is_aligned(x,align) (((__uintptr_t)x & (("
 	.ascii	"align) - 1)) == 0)\000"
 .LASF488:
 	.ascii	"__SVID_VISIBLE 1\000"
-.LASF1003:
+.LASF1014:
 	.ascii	"carry\000"
 .LASF92:
 	.ascii	"__INTMAX_C(c) c ## LL\000"
@@ -13597,7 +15300,7 @@ hexdigits.0:
 	.ascii	"_NEWLIB_VERSION \"4.4.0\"\000"
 .LASF228:
 	.ascii	"__FLT64_HAS_INFINITY__ 1\000"
-.LASF1021:
+.LASF1030:
 	.ascii	"start\000"
 .LASF834:
 	.ascii	"__requires_exclusive(...) __lock_annotate(exclusive"
@@ -13724,8 +15427,6 @@ hexdigits.0:
 	.ascii	"__unbounded \000"
 .LASF522:
 	.ascii	"__INT8 \"hh\"\000"
-.LASF48:
-	.ascii	"__UINT8_TYPE__ unsigned char\000"
 .LASF367:
 	.ascii	"__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1\000"
 .LASF572:
@@ -13737,6 +15438,8 @@ hexdigits.0:
 	.ascii	"INT_FAST16_MAX (__INT_FAST16_MAX__)\000"
 .LASF282:
 	.ascii	"__ULLFRACT_FBIT__ 64\000"
+.LASF498:
+	.ascii	"___int_least8_t_defined 1\000"
 .LASF43:
 	.ascii	"__SIG_ATOMIC_TYPE__ int\000"
 .LASF63:
@@ -13760,7 +15463,7 @@ hexdigits.0:
 	.ascii	"_REENT_CHECK_TM(var) _REENT_CHECK(var, _localtime_b"
 	.ascii	"uf, struct __tm *, sizeof *((var)->_localtime_buf),"
 	.ascii	" )\000"
-.LASF1023:
+.LASF1033:
 	.ascii	"bigint_is_zero\000"
 .LASF255:
 	.ascii	"__USFRACT_MAX__ 0XFFP-8UHR\000"
@@ -13801,7 +15504,7 @@ hexdigits.0:
 	.ascii	"__INT_FAST64_WIDTH__ 64\000"
 .LASF958:
 	.ascii	"_STRINGS_H_ \000"
-.LASF1011:
+.LASF1020:
 	.ascii	"borrow\000"
 .LASF612:
 	.ascii	"INT16_C(x) __INT16_C(x)\000"
@@ -13872,13 +15575,13 @@ hexdigits.0:
 	.ascii	"__INTPTR_MAX__ 0x7fffffff\000"
 .LASF703:
 	.ascii	"__RAND_MAX 0x7fffffff\000"
-.LASF1030:
+.LASF1040:
 	.ascii	"bigint_alloc\000"
 .LASF136:
 	.ascii	"__UINT_FAST16_MAX__ 0xffffffffU\000"
 .LASF583:
 	.ascii	"INT_LEAST64_MIN (-__INT_LEAST64_MAX__ - 1)\000"
-.LASF1013:
+.LASF1022:
 	.ascii	"diff\000"
 .LASF742:
 	.ascii	"__GNUCLIKE_BUILTIN_CONSTANT_P 1\000"
@@ -13896,7 +15599,7 @@ hexdigits.0:
 	.ascii	"INOR__ >= ((maj) << 16) + (min))\000"
 .LASF264:
 	.ascii	"__UFRACT_MIN__ 0.0UR\000"
-.LASF1017:
+.LASF1026:
 	.ascii	"started\000"
 .LASF549:
 	.ascii	"_INTPTR_T_DECLARED \000"
@@ -13965,7 +15668,7 @@ hexdigits.0:
 	.ascii	"UINTPTR_MAX (__UINTPTR_MAX__)\000"
 .LASF202:
 	.ascii	"__FLT32_MAX_EXP__ 128\000"
-.LASF1022:
+.LASF1032:
 	.ascii	"bigint_cmp\000"
 .LASF957:
 	.ascii	"_SYS__LOCALE_H \000"
@@ -13999,12 +15702,12 @@ hexdigits.0:
 	.ascii	"__SIZEOF_LONG__ 4\000"
 .LASF758:
 	.ascii	"__P(protos) protos\000"
-.LASF1020:
+.LASF1029:
 	.ascii	"limb_idx\000"
 .LASF802:
 	.ascii	"__strfmonlike(fmtarg,firstvararg) __attribute__((__"
 	.ascii	"format__ (__strfmon__, fmtarg, firstvararg)))\000"
-.LASF1028:
+.LASF1038:
 	.ascii	"bigint_to_hex\000"
 .LASF707:
 	.ascii	"_READ_WRITE_BUFSIZE_TYPE int\000"
@@ -14014,6 +15717,8 @@ hexdigits.0:
 	.ascii	"__INT_LEAST32_WIDTH__ 32\000"
 .LASF858:
 	.ascii	"_TIME_T_ __int_least64_t\000"
+.LASF1006:
+	.ascii	"bigint_mod_mul\000"
 .LASF527:
 	.ascii	"__FAST16 \000"
 .LASF916:
@@ -14076,8 +15781,6 @@ hexdigits.0:
 	.ascii	"_STDINT_H \000"
 .LASF791:
 	.ascii	"__predict_true(exp) __builtin_expect((exp), 1)\000"
-.LASF290:
-	.ascii	"__SACCUM_MAX__ 0X7FFFP-7HK\000"
 .LASF876:
 	.ascii	"__lock_release_recursive(lock) __retarget_lock_rele"
 	.ascii	"ase_recursive(lock)\000"
@@ -14085,8 +15788,8 @@ hexdigits.0:
 	.ascii	"__FLT64_MAX_10_EXP__ 308\000"
 .LASF728:
 	.ascii	"__attribute_format_strfmon__(a,b) \000"
-.LASF646:
-	.ascii	"_BSD_SIZE_T_DEFINED_ \000"
+.LASF1008:
+	.ascii	"tmp_mod\000"
 .LASF66:
 	.ascii	"__UINT_FAST32_TYPE__ unsigned int\000"
 .LASF649:
@@ -14125,12 +15828,10 @@ hexdigits.0:
 .LASF775:
 	.ascii	"__alloc_size2(n,x) __attribute__((__alloc_size__(n,"
 	.ascii	" x)))\000"
-.LASF1006:
+.LASF1012:
 	.ascii	"bigint_mod\000"
 .LASF335:
 	.ascii	"__TQ_FBIT__ 127\000"
-.LASF72:
-	.ascii	"__SHRT_MAX__ 0x7fff\000"
 .LASF684:
 	.ascii	"_HAVE_LONG_DOUBLE 1\000"
 .LASF558:
@@ -14139,8 +15840,8 @@ hexdigits.0:
 	.ascii	"_REENT_EMERGENCY_SIZE 25\000"
 .LASF894:
 	.ascii	"_REENT_INIT_RESERVED_8 \000"
-.LASF422:
-	.ascii	"__thumb2__ 1\000"
+.LASF20:
+	.ascii	"__SIZEOF_SHORT__ 2\000"
 .LASF322:
 	.ascii	"__ULLACCUM_FBIT__ 32\000"
 .LASF890:
@@ -14203,7 +15904,7 @@ hexdigits.0:
 	.ascii	"SIG_ATOMIC_MAX (__STDINT_EXP(INT_MAX))\000"
 .LASF995:
 	.ascii	"capacity\000"
-.LASF1012:
+.LASF1021:
 	.ascii	"needed\000"
 .LASF620:
 	.ascii	"_GCC_WRAP_STDINT_H \000"
@@ -14230,7 +15931,9 @@ hexdigits.0:
 	.ascii	"_REENT _impure_ptr\000"
 .LASF185:
 	.ascii	"__LDBL_MAX_EXP__ 1024\000"
-.LASF1033:
+.LASF993:
+	.ascii	"long double\000"
+.LASF1043:
 	.ascii	"__builtin_memcpy\000"
 .LASF460:
 	.ascii	"USE_HAL_DRIVER 1\000"
@@ -14251,7 +15954,7 @@ hexdigits.0:
 	.ascii	"INTMAX_MAX (__INTMAX_MAX__)\000"
 .LASF575:
 	.ascii	"INT32_MAX (__INT32_MAX__)\000"
-.LASF1009:
+.LASF1018:
 	.ascii	"prod\000"
 .LASF943:
 	.ascii	"_REENT_INC(_ptr) ((_ptr)->_inc)\000"
@@ -14280,7 +15983,7 @@ hexdigits.0:
 	.ascii	"UINT_LEAST16_MAX (__UINT_LEAST16_MAX__)\000"
 .LASF124:
 	.ascii	"__UINT32_C(c) c ## UL\000"
-.LASF1007:
+.LASF1016:
 	.ascii	"bigint_shl1\000"
 .LASF304:
 	.ascii	"__UACCUM_MIN__ 0.0UK\000"
@@ -14291,8 +15994,6 @@ hexdigits.0:
 	.ascii	"_Null_unspecified \000"
 .LASF158:
 	.ascii	"__FLT_EPSILON__ 1.1920928955078125e-7F\000"
-.LASF945:
-	.ascii	"_REENT_SIG_FUNC(_ptr) ((_ptr)->_sig_func)\000"
 .LASF762:
 	.ascii	"__XSTRING(x) __STRING(x)\000"
 .LASF727:
@@ -14359,14 +16060,18 @@ hexdigits.0:
 	.ascii	"SIG_ATOMIC_MIN (-__STDINT_EXP(INT_MAX) - 1)\000"
 .LASF234:
 	.ascii	"__FLT32X_MIN_10_EXP__ (-307)\000"
-.LASF1038:
+.LASF1031:
 	.ascii	"hexval\000"
 .LASF538:
 	.ascii	"_INT16_T_DECLARED \000"
 .LASF951:
 	.ascii	"__ATTRIBUTE_IMPURE_DATA__ \000"
+.LASF160:
+	.ascii	"__FLT_HAS_DENORM__ 1\000"
 .LASF878:
 	.ascii	"_ATEXIT_INIT {_NULL, 0, {_NULL}, _NULL}\000"
+.LASF609:
+	.ascii	"WINT_MIN (__WINT_MIN__)\000"
 .LASF112:
 	.ascii	"__INT_LEAST16_WIDTH__ 16\000"
 .LASF554:
@@ -14378,9 +16083,8 @@ hexdigits.0:
 	.ascii	"put[pos++] = (ch); } } while (0)\000"
 .LASF435:
 	.ascii	"__ARM_FEATURE_FP16_FML\000"
-.LASF930:
-	.ascii	"_REENT_MBRTOWC_STATE(ptr) ((ptr)->_misc->_mbrtowc_s"
-	.ascii	"tate)\000"
+.LASF1010:
+	.ascii	"bigint_msb\000"
 .LASF789:
 	.ascii	"__restrict restrict\000"
 .LASF256:
@@ -14390,8 +16094,8 @@ hexdigits.0:
 .LASF866:
 	.ascii	"__LOCK_INIT_RECURSIVE(class,lock) __LOCK_INIT(class"
 	.ascii	",lock)\000"
-.LASF1008:
-	.ascii	"bigint_mul\000"
+.LASF945:
+	.ascii	"_REENT_SIG_FUNC(_ptr) ((_ptr)->_sig_func)\000"
 .LASF252:
 	.ascii	"__USFRACT_FBIT__ 8\000"
 .LASF320:
@@ -14443,7 +16147,7 @@ hexdigits.0:
 	.ascii	"__ARM_SIZEOF_WCHAR_T 4\000"
 .LASF235:
 	.ascii	"__FLT32X_MAX_EXP__ 1024\000"
-.LASF1004:
+.LASF1009:
 	.ascii	"limb\000"
 .LASF123:
 	.ascii	"__UINT_LEAST32_MAX__ 0xffffffffUL\000"
@@ -14545,9 +16249,8 @@ hexdigits.0:
 	.ascii	"__FLT32_DENORM_MIN__ 1.4012984643248171e-45F32\000"
 .LASF773:
 	.ascii	"__section(x) __attribute__((__section__(x)))\000"
-.LASF676:
-	.ascii	"offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEM"
-	.ascii	"BER)\000"
+.LASF1017:
+	.ascii	"bigint_mul\000"
 .LASF126:
 	.ascii	"__UINT64_C(c) c ## ULL\000"
 .LASF59:
@@ -14556,6 +16259,8 @@ hexdigits.0:
 	.ascii	"__ARM_FEATURE_AES\000"
 .LASF192:
 	.ascii	"__LDBL_EPSILON__ 2.2204460492503131e-16L\000"
+.LASF596:
+	.ascii	"INT_FAST64_MAX (__INT_FAST64_MAX__)\000"
 .LASF768:
 	.ascii	"__pure2 __attribute__((__const__))\000"
 .LASF372:
@@ -14568,7 +16273,7 @@ hexdigits.0:
 	.ascii	"__FAST64 \"ll\"\000"
 .LASF12:
 	.ascii	"__ATOMIC_RELEASE 3\000"
-.LASF1037:
+.LASF1047:
 	.ascii	"hexdigits\000"
 .LASF243:
 	.ascii	"__FLT32X_HAS_DENORM__ 1\000"
@@ -14590,7 +16295,7 @@ hexdigits.0:
 	.ascii	"_INT32_T_DECLARED \000"
 .LASF223:
 	.ascii	"__FLT64_NORM_MAX__ 1.7976931348623157e+308F64\000"
-.LASF1014:
+.LASF1023:
 	.ascii	"bigint_add\000"
 .LASF738:
 	.ascii	"__GNUCLIKE_MATH_BUILTIN_CONSTANTS \000"
@@ -14612,7 +16317,7 @@ hexdigits.0:
 	.ascii	"__int16_t_defined 1\000"
 .LASF283:
 	.ascii	"__ULLFRACT_IBIT__ 0\000"
-.LASF1026:
+.LASF1036:
 	.ascii	"bigint_copy\000"
 .LASF844:
 	.ascii	"__builtin_align_up(x,align) ((__typeof__(x))(((__ui"
@@ -14645,7 +16350,7 @@ hexdigits.0:
 	.ascii	"__WCHAR_MIN__ 0U\000"
 .LASF523:
 	.ascii	"__INT16 \"h\"\000"
-.LASF1036:
+.LASF1046:
 	.ascii	"/Users/adityachalasani/Desktop/groth14/groth14/Debu"
 	.ascii	"g\000"
 .LASF466:
@@ -14701,11 +16406,11 @@ hexdigits.0:
 	.ascii	"E__, __LINE__, __ASSERT_FUNC, #__e))\000"
 .LASF923:
 	.ascii	"_REENT_ASCTIME_BUF(ptr) ((ptr)->_asctime_buf)\000"
-.LASF944:
-	.ascii	"_REENT_LOCALE(_ptr) ((_ptr)->_locale)\000"
+.LASF999:
+	.ascii	"memcpy\000"
 .LASF240:
 	.ascii	"__FLT32X_MIN__ 2.2250738585072014e-308F32x\000"
-.LASF1002:
+.LASF1013:
 	.ascii	"bigint_shr1\000"
 .LASF219:
 	.ascii	"__FLT64_MAX_EXP__ 1024\000"
@@ -14833,7 +16538,7 @@ hexdigits.0:
 	.ascii	"unsigned int\000"
 .LASF644:
 	.ascii	"_SIZE_T_DEFINED_ \000"
-.LASF1029:
+.LASF1039:
 	.ascii	"bigint_free\000"
 .LASF469:
 	.ascii	"__NEWLIB_MINOR__ 4\000"
@@ -14891,6 +16596,8 @@ hexdigits.0:
 .LASF836:
 	.ascii	"__requires_unlocked(...) __lock_annotate(locks_excl"
 	.ascii	"uded(__VA_ARGS__))\000"
+.LASF514:
+	.ascii	"char +0\000"
 .LASF967:
 	.ascii	"alloca\000"
 .LASF270:
@@ -14899,14 +16606,14 @@ hexdigits.0:
 	.ascii	"__SIZEOF_PTRDIFF_T__ 4\000"
 .LASF655:
 	.ascii	"__WCHAR_T__ \000"
-.LASF498:
-	.ascii	"___int_least8_t_defined 1\000"
+.LASF184:
+	.ascii	"__LDBL_MIN_10_EXP__ (-307)\000"
 .LASF446:
 	.ascii	"__ARM_FEATURE_IDIV 1\000"
 .LASF31:
 	.ascii	"__FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__\000"
-.LASF667:
-	.ascii	"_GCC_WCHAR_T \000"
+.LASF48:
+	.ascii	"__UINT8_TYPE__ unsigned char\000"
 .LASF555:
 	.ascii	"__int_fast8_t_defined 1\000"
 .LASF704:
@@ -14932,8 +16639,8 @@ hexdigits.0:
 	.ascii	"_PTRDIFF_T_DECLARED \000"
 .LASF357:
 	.ascii	"__USA_FBIT__ 16\000"
-.LASF765:
-	.ascii	"__volatile volatile\000"
+.LASF1005:
+	.ascii	"bigint_mod_pow\000"
 .LASF848:
 	.ascii	"__is_aligned(x,y) __builtin_is_aligned(x, y)\000"
 .LASF62:
@@ -14963,6 +16670,9 @@ hexdigits.0:
 	.ascii	"__FLT32X_NORM_MAX__ 1.7976931348623157e+308F32x\000"
 .LASF416:
 	.ascii	"__arm__ 1\000"
+.LASF930:
+	.ascii	"_REENT_MBRTOWC_STATE(ptr) ((ptr)->_misc->_mbrtowc_s"
+	.ascii	"tate)\000"
 .LASF201:
 	.ascii	"__FLT32_MIN_10_EXP__ (-37)\000"
 .LASF25:
@@ -15007,8 +16717,12 @@ hexdigits.0:
 	.ascii	"__ARM_ARCH_ISA_THUMB 2\000"
 .LASF75:
 	.ascii	"__LONG_LONG_MAX__ 0x7fffffffffffffffLL\000"
-.LASF993:
-	.ascii	"long double\000"
+.LASF1002:
+	.ascii	"tmp1\000"
+.LASF1003:
+	.ascii	"tmp2\000"
+.LASF1004:
+	.ascii	"tmp3\000"
 .LASF511:
 	.ascii	"long\000"
 .LASF761:
@@ -15018,7 +16732,7 @@ hexdigits.0:
 .LASF949:
 	.ascii	"_REENT_INIT_PTR(var) { memset((var), 0, sizeof(*(va"
 	.ascii	"r))); _REENT_INIT_PTR_ZEROED(var); }\000"
-.LASF1010:
+.LASF1019:
 	.ascii	"bigint_sub\000"
 .LASF743:
 	.ascii	"__GNUCLIKE_BUILTIN_VARARGS 1\000"
@@ -15038,6 +16752,9 @@ hexdigits.0:
 	.ascii	"__SIZE_T \000"
 .LASF804:
 	.ascii	"__printf0like(fmtarg,firstvararg) \000"
+.LASF676:
+	.ascii	"offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEM"
+	.ascii	"BER)\000"
 .LASF895:
 	.ascii	"_REENT_INIT(var) { 0, &__sf[0], &__sf[1], &__sf[2],"
 	.ascii	" 0, _NULL, _REENT_INIT_RESERVED_0 _REENT_INIT_RESER"
@@ -15066,6 +16783,8 @@ hexdigits.0:
 	.ascii	"__BEGIN_DECLS \000"
 .LASF299:
 	.ascii	"__ACCUM_MIN__ (-0X1P15K-0X1P15K)\000"
+.LASF1011:
+	.ascii	"bigint_get_bit\000"
 .LASF392:
 	.ascii	"__ARM_FEATURE_CRYPTO\000"
 .LASF54:
@@ -15098,8 +16817,8 @@ hexdigits.0:
 	.ascii	"__FLT_MIN_10_EXP__ (-37)\000"
 .LASF313:
 	.ascii	"__ULACCUM_IBIT__ 32\000"
-.LASF197:
-	.ascii	"__LDBL_IS_IEC_60559__ 1\000"
+.LASF72:
+	.ascii	"__SHRT_MAX__ 0x7fff\000"
 .LASF588:
 	.ascii	"UINT_FAST8_MAX (__UINT_FAST8_MAX__)\000"
 .LASF326:
@@ -15124,7 +16843,7 @@ hexdigits.0:
 	.ascii	"_UINTMAX_T_DECLARED \000"
 .LASF289:
 	.ascii	"__SACCUM_MIN__ (-0X1P7HK-0X1P7HK)\000"
-.LASF1034:
+.LASF1044:
 	.ascii	"GNU C11 13.3.1 20240614 -mcpu=cortex-m4 -mfpu=fpv4-"
 	.ascii	"sp-d16 -mfloat-abi=hard -mthumb -march=armv7e-m+fp "
 	.ascii	"-g3 -O2 -std=gnu11 -ffunction-sections -fdata-secti"
@@ -15156,8 +16875,6 @@ hexdigits.0:
 	.ascii	"__INT_FAST16_MAX__ 0x7fffffff\000"
 .LASF492:
 	.ascii	"__have_longlong64 1\000"
-.LASF20:
-	.ascii	"__SIZEOF_SHORT__ 2\000"
 .LASF873:
 	.ascii	"__lock_try_acquire(lock) __retarget_lock_try_acquir"
 	.ascii	"e(lock)\000"
@@ -15232,6 +16949,8 @@ hexdigits.0:
 	.ascii	"__INT_WCHAR_T_H \000"
 .LASF238:
 	.ascii	"__FLT32X_MAX__ 1.7976931348623157e+308F32x\000"
+.LASF944:
+	.ascii	"_REENT_LOCALE(_ptr) ((_ptr)->_locale)\000"
 .LASF443:
 	.ascii	"__ARM_EABI__ 1\000"
 .LASF683:
@@ -15242,9 +16961,11 @@ hexdigits.0:
 	.ascii	"INT32_MIN (-__INT32_MAX__ - 1)\000"
 .LASF423:
 	.ascii	"__THUMBEL__ 1\000"
+.LASF667:
+	.ascii	"_GCC_WCHAR_T \000"
 .LASF389:
 	.ascii	"__ARM_FEATURE_DSP 1\000"
-.LASF1035:
+.LASF1045:
 	.ascii	"../Core/Src/bigint.c\000"
 .LASF328:
 	.ascii	"__QQ_IBIT__ 0\000"
@@ -15256,9 +16977,9 @@ hexdigits.0:
 	.ascii	"UINT64_C(x) __UINT64_C(x)\000"
 .LASF317:
 	.ascii	"__LLACCUM_FBIT__ 31\000"
-.LASF1032:
+.LASF1042:
 	.ascii	"__builtin_memset\000"
-.LASF1025:
+.LASF1035:
 	.ascii	"bigint_trim\000"
 .LASF567:
 	.ascii	"UINT_LEAST8_MAX (__UINT_LEAST8_MAX__)\000"
@@ -15266,7 +16987,7 @@ hexdigits.0:
 	.ascii	"__USQ_IBIT__ 0\000"
 .LASF6:
 	.ascii	"__GNUC_MINOR__ 3\000"
-.LASF1027:
+.LASF1037:
 	.ascii	"bigint_set_zero\000"
 .LASF58:
 	.ascii	"__UINT_LEAST32_TYPE__ long unsigned int\000"
@@ -15306,8 +17027,8 @@ hexdigits.0:
 	.ascii	"UINT_LEAST32_MAX (__UINT_LEAST32_MAX__)\000"
 .LASF814:
 	.ascii	"__COPYRIGHT(s) struct __hack\000"
-.LASF514:
-	.ascii	"char +0\000"
+.LASF290:
+	.ascii	"__SACCUM_MAX__ 0X7FFFP-7HK\000"
 .LASF68:
 	.ascii	"__INTPTR_TYPE__ int\000"
 .LASF69:
@@ -15324,7 +17045,7 @@ hexdigits.0:
 	.ascii	"_UINT16_T_DECLARED \000"
 .LASF811:
 	.ascii	"__RCSID(s) struct __hack\000"
-.LASF1015:
+.LASF1024:
 	.ascii	"hex_output\000"
 .LASF934:
 	.ascii	"_REENT_L64A_BUF(ptr) ((ptr)->_misc->_l64a_buf)\000"
@@ -15339,12 +17060,14 @@ hexdigits.0:
 	.ascii	"__int_least32_t_defined 1\000"
 .LASF117:
 	.ascii	"__INT64_C(c) c ## LL\000"
-.LASF1018:
+.LASF1027:
 	.ascii	"bigint_from_hex\000"
 .LASF893:
 	.ascii	"_REENT_INIT_RESERVED_6_7 \000"
 .LASF736:
 	.ascii	"__END_DECLS \000"
+.LASF1007:
+	.ascii	"tmp_mul\000"
 .LASF74:
 	.ascii	"__LONG_MAX__ 0x7fffffffL\000"
 .LASF450:
@@ -15485,7 +17208,7 @@ hexdigits.0:
 	.ascii	"__GXX_TYPEINFO_EQUALITY_INLINE 0\000"
 .LASF188:
 	.ascii	"__LDBL_DECIMAL_DIG__ 17\000"
-.LASF1016:
+.LASF1025:
 	.ascii	"output_size\000"
 .LASF737:
 	.ascii	"__GNUCLIKE_ASM 3\000"
@@ -15508,8 +17231,8 @@ hexdigits.0:
 	.ascii	"__INT_FAST32_WIDTH__ 32\000"
 .LASF665:
 	.ascii	"___int_wchar_t_h \000"
-.LASF999:
-	.ascii	"memcpy\000"
+.LASF197:
+	.ascii	"__LDBL_IS_IEC_60559__ 1\000"
 .LASF939:
 	.ascii	"_REENT_CVTBUF(_ptr) ((_ptr)->_cvtbuf)\000"
 .LASF745:
@@ -15530,6 +17253,8 @@ hexdigits.0:
 	.ascii	"__ARM_FEATURE_DOTPROD\000"
 .LASF862:
 	.ascii	"__Long long\000"
+.LASF422:
+	.ascii	"__thumb2__ 1\000"
 .LASF473:
 	.ascii	"_DEFAULT_SOURCE\000"
 .LASF442:
@@ -15572,8 +17297,6 @@ hexdigits.0:
 	.ascii	"__GCC_ASM_FLAG_OUTPUTS__ 1\000"
 .LASF947:
 	.ascii	"_REENT_STDOUT(_ptr) ((_ptr)->_stdout)\000"
-.LASF596:
-	.ascii	"INT_FAST64_MAX (__INT_FAST64_MAX__)\000"
 .LASF429:
 	.ascii	"__ARM_FP 4\000"
 .LASF476:
@@ -15600,7 +17323,7 @@ hexdigits.0:
 	.ascii	"__FLT64_DIG__ 15\000"
 .LASF521:
 	.ascii	"_INT32_EQ_LONG \000"
-.LASF1024:
+.LASF1034:
 	.ascii	"free\000"
 .LASF78:
 	.ascii	"__WINT_MAX__ 0xffffffffU\000"
@@ -15614,8 +17337,8 @@ hexdigits.0:
 	.ascii	"__long_double_t long double\000"
 .LASF53:
 	.ascii	"__INT_LEAST16_TYPE__ short int\000"
-.LASF160:
-	.ascii	"__FLT_HAS_DENORM__ 1\000"
+.LASF646:
+	.ascii	"_BSD_SIZE_T_DEFINED_ \000"
 .LASF513:
 	.ascii	"unsigned +0\000"
 .LASF172:
@@ -15626,7 +17349,7 @@ hexdigits.0:
 	.ascii	"__LLFRACT_FBIT__ 63\000"
 .LASF211:
 	.ascii	"__FLT32_HAS_INFINITY__ 1\000"
-.LASF1031:
+.LASF1041:
 	.ascii	"capacity_limbs\000"
 .LASF421:
 	.ascii	"__thumb__ 1\000"
@@ -15662,6 +17385,8 @@ hexdigits.0:
 	.ascii	"UINT8_MAX (__UINT8_MAX__)\000"
 .LASF633:
 	.ascii	"__DEFINED_ptrdiff_t \000"
+.LASF765:
+	.ascii	"__volatile volatile\000"
 .LASF719:
 	.ascii	"_SYS_CDEFS_H_ \000"
 .LASF551:
@@ -15674,7 +17399,7 @@ hexdigits.0:
 	.ascii	"__nonnull(x) __attribute__((__nonnull__ x))\000"
 .LASF886:
 	.ascii	"_RAND48_ADD (0x000b)\000"
-.LASF1019:
+.LASF1028:
 	.ascii	"hex_str\000"
 .LASF970:
 	.ascii	"EXIT_FAILURE 1\000"
@@ -15721,7 +17446,7 @@ hexdigits.0:
 	.ascii	"__packed __attribute__((__packed__))\000"
 .LASF168:
 	.ascii	"__DBL_MIN_10_EXP__ (-307)\000"
-.LASF1005:
+.LASF1015:
 	.ascii	"new_carry\000"
 .LASF833:
 	.ascii	"__asserts_shared(...) __lock_annotate(assert_shared"

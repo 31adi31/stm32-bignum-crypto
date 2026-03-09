@@ -28,37 +28,42 @@ int     bigint_copy(bigint *dst, const bigint *src);
 void    bigint_trim(bigint *x);
 
 /* ========= conversion ========= */
-/* Parse hex into an existing bigint buffer (no allocation). */
 int     bigint_from_hex(bigint *out, const char *hex_str);
-
-/* Write bigint to hex string buffer (null-terminated, truncated if needed). */
 void    bigint_to_hex(const bigint *x, char *hex_output, size_t output_size);
 
 /* ========= helpers ========= */
 int     bigint_is_zero(const bigint *x);
-int     bigint_cmp(const bigint *a, const bigint *b);   // -1/0/+1
+int     bigint_cmp(const bigint *a, const bigint *b);
 
-/* ========= arithmetic (NO ALLOCATION) ========= */
-/* res may alias a or b (in-place OK) */
+/* ========= arithmetic ========= */
 int     bigint_add(bigint *res, const bigint *a, const bigint *b);
-
-/* unsigned subtraction: res = a - b; returns -1 if a < b. res may alias a. */
 int     bigint_sub(bigint *res, const bigint *a, const bigint *b);
-
-/* multiplication: res = a * b; res MUST NOT alias a or b (unless you add scratch) */
 int     bigint_mul(bigint *res, const bigint *a, const bigint *b);
 
-/* ========= bit ops (IN-PLACE) ========= */
-int     bigint_shl1(bigint *x);   // x <<= 1
-int     bigint_shr1(bigint *x);   // x >>= 1
+/* ========= bit ops ========= */
+int     bigint_shl1(bigint *x);
+int     bigint_shr1(bigint *x);
 
-/* ========= modulo (NO ALLOCATION) ========= */
-/*
- * res = a mod b  (b != 0)
- * tmp is scratch (used to hold shifted divisor); must have capacity >= res->capacity
- * res may alias a, but must NOT alias tmp.
- */
+/* ========= modulo ========= */
 int     bigint_mod(bigint *res, const bigint *a, const bigint *b, bigint *tmp);
+
+
+/* r = (a * b) mod p */
+int bigint_mod_mul(bigint *r,
+            const bigint *a,
+            const bigint *b,
+            const bigint *p,
+            bigint *tmp_mul,
+            bigint *tmp_mod);
+
+/* r = a^b mod p (square-multiply) */
+int bigint_mod_pow(bigint *r,
+            const bigint *a,
+            const bigint *b,
+            const bigint *p,
+            bigint *tmp1,
+            bigint *tmp2,
+            bigint *tmp3);
 
 #ifdef __cplusplus
 }
