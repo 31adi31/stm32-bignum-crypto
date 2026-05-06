@@ -9,22 +9,16 @@ extern "C" {
 #endif
 
 typedef struct {
-    size_t   n_limbs;    // number of USED limbs (logical length), >= 1
-    size_t   capacity;   // number of ALLOCATED limbs available in limbs[]
-    uint32_t limbs[];    // little-endian: limbs[0] is least significant
+    size_t   n_limbs;
+    size_t   capacity;
+    uint32_t limbs[];
 } bigint;
 
 /* ========= memory ========= */
 bigint *bigint_alloc(size_t capacity_limbs);
 void    bigint_free(bigint *x);
-
-/* Set x = 0 (keeps capacity, sets n_limbs=1) */
 void    bigint_set_zero(bigint *x);
-
-/* Copy src -> dst (dst must have enough capacity) */
 int     bigint_copy(bigint *dst, const bigint *src);
-
-/* Shrinks logical size by trimming leading zeros (never reallocs). */
 void    bigint_trim(bigint *x);
 
 /* ========= conversion ========= */
@@ -40,13 +34,15 @@ int     bigint_add(bigint *res, const bigint *a, const bigint *b);
 int     bigint_sub(bigint *res, const bigint *a, const bigint *b);
 int     bigint_mul(bigint *res, const bigint *a, const bigint *b);
 
+/* Karatsuba multiply — drop-in for bigint_mul, faster for large inputs */
+int     bigint_karatsuba_mul(bigint *res, const bigint *a, const bigint *b);
+
 /* ========= bit ops ========= */
 int     bigint_shl1(bigint *x);
 int     bigint_shr1(bigint *x);
 
 /* ========= modulo ========= */
 int     bigint_mod(bigint *res, const bigint *a, const bigint *b, bigint *tmp);
-
 
 /* r = (a * b) mod p */
 int bigint_mod_mul(bigint *r,
@@ -65,9 +61,34 @@ int bigint_mod_pow(bigint *r,
             bigint *tmp2,
             bigint *tmp3);
 
+/* ========= Montgomery ========= */
+
+int bigint_mont_reduction(bigint *r, bigint *x,
+                          const bigint *p, uint32_t p_dash, size_t N);
+
+/* Montgomery mod_pow — binary method */
+int bigint_mont_mod_pow(bigint *r,
+                        const bigint *a, const bigint *b,
+                        const bigint *p, const bigint *R_sq,
+                        uint32_t p_dash, size_t N,
+                        bigint *tmp1, bigint *tmp2, bigint *tmp3);
+
+/* Montgomery mod_pow — sliding window (k=4) */
+int bigint_mont_mod_pow_window(bigint *r,
+                               const bigint *a, const bigint *b,
+                               const bigint *p, const bigint *R_sq,
+                               uint32_t p_dash, size_t N,
+                               bigint *tmp1, bigint *tmp2, bigint *tmp3);
+
+/* Montgomery mod_pow — binary method with Karatsuba multiplication */
+int bigint_mont_mod_pow_karatsuba(bigint *r,
+                                  const bigint *a, const bigint *b,
+                                  const bigint *p, const bigint *R_sq,
+                                  uint32_t p_dash, size_t N,
+                                  bigint *tmp1, bigint *tmp2, bigint *tmp3);
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif
-
