@@ -16,7 +16,7 @@ Arbitrary-precision integer arithmetic in C for an ARM Cortex-M4 microcontroller
 - 2048-bit Diffie-Hellman key exchange built on the library
 
 ## Results
-
+<img width="1032" height="689" alt="image" src="https://github.com/user-attachments/assets/cff0ec7f-47ca-41f4-bcdb-d83b81b93f0a" />
 All numbers are CPU cycles measured on-device with the Cortex-M4 **DWT cycle counter** (lower is better). Modulus is 2048-bit.
 
 ### Modular exponentiation
